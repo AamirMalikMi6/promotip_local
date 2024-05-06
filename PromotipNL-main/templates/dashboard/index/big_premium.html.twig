@@ -1,0 +1,155 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block dashboard %}
+    <div class="row">
+        <div class="col-12">
+            <blockquote>
+                <strong>Creëer een aantrekkelijke Big premium advertentie om uw boodschap in het oog te laten springen.</strong>
+                <p>U kunt kiezen uit de volgende publicatie mogelijkheden voor uw Big premium advertentie:<br>
+                    <lu><li>1 week - 5,25€</li>
+                        <li>2 weken - 10,50€</li>
+                        <li>1 maand - 21,00€ </li>
+                    </lu>
+                </p>
+            </blockquote>
+        </div>
+        <div class="col-6">
+            <a class="btn btn-purple" href="{{ url('create_big_premium') }}">Nieuwe premium advertentie</a>
+        </div>
+        <div class="col-6 float-right">
+            <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                <a class="btn btn-purple" href="{{ url('dashboard_index_big_premium') }}">Alle premium advertenties</a>
+            </div>
+        </div>
+        <div class="col-12">
+            {% if ac == 'del-advert' %}
+                <div class="alert alert-success mt-2">
+                    Advertentie is verwijderd
+                </div>
+            {% endif %}
+            {% if events is defined and events is not empty %}
+                <div class="row mt-4">
+                    {% for event in events %}
+                        {% if event.getRedirectionType() == 1 %}
+                            {% set p_advert = get_advert_by_id(event.getRedirectionLink()) %}
+                            {% set eventChannel = '' %}
+                            {% set eventChannelTitle = '' %}
+                            {% for channel in channels %}
+                                {% if (channel.id == p_advert.channel) %}
+                                    {% set eventChannel = channel.getRoute|replace({'_category' : '_advert'}) %}
+                                    {% set eventChannelTitle = channel.getName %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% set eventCategory = '' %}
+                            {% for category in categories %}
+                                {% if (category.id == p_advert.category) %}
+                                    {% set eventCategory = category.getTitleSlug %}
+                                {% endif %}
+                            {% endfor %}
+                            <div class="col-6 col-sm-6 col-lg-4 mb-4">
+                                <div class="card h-100 rounded-0">
+                                    {% if event.photos|first.imageName is defined %}
+                                        <a href="{{ url(eventChannel, {category : eventCategory, slug : p_advert.titleSlug }) }}" class="a-block-fixed-height">
+                                            <img
+                                                    class="img-fluid text-center img-contain-vertical-align"
+                                                    src="{{ asset('/media/events_premium/' ~ event.photos|first.imageName) }}"
+                                                    alt="{{ event.photos|first.imageAlt }}" /> </a>
+                                    {% else %}
+                                        <a href="{{ url(eventChannel, {category : eventCategory, slug : p_advert.titleSlug }) }}">
+                                            <img class="card-img-top" style="height: 100%; width: 100%; object-fit: contain" src="assets/images/no-image.png" alt=""/></a>
+                                    {% endif %}
+
+                                    <div class="card-body"
+                                         style="padding-top: 10px;padding-left: 10px;padding-right: 10px;padding-bottom: 10px;">
+                                        <h5 class="card-title text-uppercase text-truncate text-gray fw-300 m-0 p-0">
+                                            <a href="{{ url(eventChannel, {category : eventCategory, slug : p_advert.titleSlug }) }}"
+                                               class="text-gray">{{ event.title }}</a>
+                                        </h5>
+
+                                        {% if event.paid %}
+                                            <div class="row mt-3">
+                                                <div class="col">
+                                                    <strong>Bezoekers: <span style="color:#8C4968">{{ get_view_in_bigpremium(p_advert.id) }}</span></strong>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col">
+                                                    <strong>Online tot <span style="color:#8C4968">{{ get_premium_ending_date(event) }}</span></strong>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="row mt-3 ml-1">
+                                            <div class="col-md-6 col-sm-12 p-0">
+                                                <a href="{{ url('create_big_premium', {'id' : event.id}) }}" style="color:#8C4968"><i
+                                                            class="fa fa-edit"></i>Wijzigen</a></div>
+                                            <div class="col-md-6 col-sm-12 p-0 text-"><a href="{{ url('dashboard_eventadvert_premium_delete', {'id' : event.id}) }}" style="color:#8C4968;" onclick="return confirm('Bent u zeker dat u deze advertentie wenst te verwijderen?');"><i
+                                                            class="fa fa-trash"></i>Verwijder</a></div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="col-6 col-sm-6 col-lg-4 mb-4">
+                                <div class="card h-100 rounded-0">
+                                    {% if event.photos|first.imageName is defined %}
+                                        <a href="{{ event.getRedirectionLink() }}" class="a-block-fixed-height">
+                                            <img
+                                                    class="img-fluid text-center img-contain-vertical-align"
+                                                    src="{{ asset('/media/events_premium/' ~ event.photos|first.imageName) }}"
+                                                    alt="{{ event.photos|first.imageAlt }}" /> </a>
+                                    {% else %}
+                                        <a href="{{ event.getRedirectionLink() }}">
+                                            <img class="card-img-top" style="height: 100%; width: 100%; object-fit: contain" src="assets/images/no-image.png" alt=""/></a>
+                                    {% endif %}
+
+                                    <div class="card-body"
+                                         style="padding-top: 10px;padding-left: 10px;padding-right: 10px;padding-bottom: 10px;">
+
+                                        <h5 class="card-title text-uppercase text-truncate text-gray fw-300 m-0 p-0">
+                                            <a href="{{ event.getRedirectionLink() }}"
+                                               class="text-gray">{{ event.title }}</a>
+                                        </h5>
+
+                                        {% if event.paid %}
+                                            <div class="row mt-3">
+                                                <div class="col">
+                                                    <strong>Bezoekers: <span style="color:#8C4968">Onbekend. Premium wordt doorgelinkt naar externe website</span></strong>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col">
+                                                    <strong>Online tot <span style="color:#8C4968">{{ get_premium_ending_date(event) }}</span></strong>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="row mt-3 ml-1">
+                                            <div class="col-md-6 col-sm-12 p-0">
+                                                <a href="{{ url('create_big_premium', {'id' : event.id}) }}" style="color:#8C4968"><i
+                                                            class="fa fa-edit"></i>Wijzigen</a></div>
+                                            <div class="col-md-6 col-sm-12 p-0 text-"><a href="{{ url('dashboard_eventadvert_premium_delete', {'id' : event.id}) }}" style="color:#8C4968;" onclick="return confirm('Bent u zeker dat u deze advertentie wenst te verwijderen?');"><i
+                                                            class="fa fa-trash"></i>Verwijder</a></div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endif %}
+
+
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-warning mt-4">
+                    U heeft nog geen premium advertentie gepubliceerd. <br>Maak nu eenvoudig uw premium aan.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

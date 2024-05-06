@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Promotip: Dashboard{% endtrans %}{% endblock %}
+
+{% block body %}
+    {% set unreadMessagesCount = helper.getUnreadMessages %}
+    {% if action is defined and action == 'register' %}
+        <div class="container p-0 ">
+            <div class="alert alert-success">
+                Hallo {{ helper.getFirstname }}, welkom op Promotip!
+                <br>Vul eerst het bedrijfsprofiel in voor uw onderneming hierna kan u meteen uw gratis advertentie plaatsen!
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container dashboard">
+        <div class="row">
+            <div class="col-3 d-none d-lg-block">
+                <div class="row dashboard-profile">
+                    <div class="profile-picture">
+                        {% if(helper.getCompanyImage) %}
+                            <img class="image"
+                                 src="{{ asset('/media/companies/' ~ helper.getCompanyImage) | imagine_filter('company_thumb') }}">
+                        {% else %}
+                            <img class="image" src="{{ asset('/assets/images/user_icon.jpg') }}">
+                        {% endif %}
+                    </div>
+                    <div class="profile-information">
+                        <div class="profile-name">
+                            {{ helper.getCurrentActiveAccount }}
+                        </div>
+                        <div class="profile-role">
+                            {% if is_granted('ROLE_ROOT') %}
+                                Admin
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 dashboard-navigation">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col col-3 text-center">
+                                <a class="purple" href="{{ url('dashboard_index') }}"><i
+                                            class="fas fa-bullhorn"></i></a>
+                            </div>
+                            <div class="col col-3 text-center">
+                                <a class="purple" href="{{ url('dashboard_index_big_premium') }}"><i
+                                            class="fas fa-gem"></i></a>
+                            </div>
+                            <div class="col col-3 text-center">
+                                <a class="purple" href="{{ url('dashboard_credit') }}"><i
+                                            class="fas fa-money-bill"></i></a>
+                            </div>
+                            <div class="col col-3 text-center">
+                                <a class="purple" href="{{ url('dashboard_chat') }} ">
+                                    <span><i class="fas fa-envelope"></i></span>
+                                    {% if unreadMessagesCount >0 %} <span class="badge rounded-pill bg-warning">{{ unreadMessagesCount }}</span>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col col-3 text-center">
+                                <a href="{{ url('dashboard_notification') }}"><i class="fas fa-bell"></i></a>
+                            </div>
+                            <div class="col col-3 text-center">
+                                <a href="{{ url('dashboard_company') }}"><i class="fas fa-cog"></i></a>
+                            </div>
+                            <div class="col col-3 text-center">
+                                <a href="{{ url('dashboard_profile') }}"><i class="fas fa-user"></i></a>
+                            </div>
+                            <div class="col col-3 text-center">
+                                <a href="{{ url('dashboard_facturen') }}"><i class="fas fa-file-pdf"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 dashboard-menu-col nopadding d-none d-lg-block">
+                {% include 'menu.html.twig' %}
+            </div>
+            <div class="col dashboard-content">
+                {% block dashboard %}{% endblock %}
+                {% if showFooter is defined and showFooter == -1 %}
+                {% else %}
+                <div class="row activities" style="margin-bottom: 50px;">
+                    <div class="col col-12 col-lg-4">
+                        <h5>{% trans %}Recent Activities{% endtrans %}</h5>
+                        <hr/>
+                        <ul>
+                            {% for eventAdvert in helper.getRecentAdverts %}
+                                <li>
+                                    <h6>{{ eventAdvert.title }}</h6>
+                                    <p><strong>{{ eventAdvert.startDate }}</strong></p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="col col-12 col-lg-4">
+                        <h5>{% trans %}Most Viewed{% endtrans %}</h5>
+                        <hr/>
+                        <ul>
+                            {% for eventAdvert in helper.getMostViewedAdverts %}
+                                <li>
+                                    <h6>{{ eventAdvert.title }}</h6>
+                                    <p><i class="fas fa-eye"></i> {{ eventAdvert.views }} views</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {#  <div class="col col-12 col-lg-4">
+                        <h5 class="text-left">{{ "now"|date("m-Y") }}</h5>
+                        <hr/>
+                        <ul>
+                            {% for eventAdvert in helper.getMostActiveAdverts %}
+                                <li>
+                                    <h6>{{ eventAdvert.title }}</h6>
+                                    <p>{{ eventAdvert.company }}</p>
+                                    <p><i class="fas fa-eye"></i>  {{ eventAdvert.views }} views</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div> #}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+
+{% block body %}
+
+    <section class="container-fluid banner-bp">
+    </section>
+
+    <div class= "container" style="margin-bottom: 100px; margin-top: 50px">
+        <div class="row"></div>
+        <h4>Uw account is geactiveerd!</h4>
+        <p><br>Uw account is nu klaar voor gebruik. Maak eerst een bedrijfsprofiel aan voor uw onderneming via onderstaande knop.
+            <br>Hierna kunt u meteen beginnen met het promoten van uw bedrijf of event!</p>
+
+        <p><a href="{{ url ('dashboard_company') }}"
+           class="btn btn-lg px-5 btn-pink">Maak uw bedrijfsfiche aan</a></p>
+
+        <p>Heeft u nog vragen of heeft u hulp nodig? Aarzel niet om ons te contacteren. <br>We helpen u met plezier verder!</p>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,263 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard') }}
+    {{ encore_entry_link_tags('dropzone') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dropzone') }}
+    {{ encore_entry_script_tags('dashboard_company') }}
+{% endblock %}
+
+{% block title %}Promotip: Mijn bedrijf{% endblock %}
+
+{% block dashboard %}
+
+    {% if coming_from %}
+        <div class="alert alert-danger">
+            Vervolledig a.u.b. eerst het onderstaande formulier met de vereiste bedrijfsgegevens. Hierna kunt u kosteloos uw advertentie aanmaken via het tabblad "Mijn advertenties"        </div>
+    {% endif %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-sm-12">
+                <div class="row p-3 mb-2">
+                    <div class="col-sm-6 col-md-5 col-lg-8">
+                        {{ form_start(form, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+
+                        <div class="form-label-group row">
+                            <div class="col">
+                                {{ form_widget(form.companyname, { 'attr': {'placeholder': 'Company name'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.companyname, 'Company Name'|trans) }}
+                                {{ form_errors(form.companyname) }}
+                            </div>
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="col-6">
+                                {{ form_widget(form.address, { 'attr': {'placeholder': 'Address'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.address, 'Address'|trans) }}
+                                {{ form_errors(form.address) }}
+                            </div>
+                            <div class="col-3">
+                                {{ form_widget(form.housenumber, { 'attr': {'placeholder': 'Housenumber'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.housenumber, 'Number'|trans) }}
+                                {{ form_errors(form.housenumber) }}
+                            </div>
+                            <div class="col-3">
+                                {{ form_widget(form.box, { 'attr': {'placeholder': 'Box'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.box, 'Box'|trans) }}
+                                {{ form_errors(form.box) }}
+                            </div>
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="col">
+                                <select name="location" class="select2-location form-control"></select>
+                                {{ form_errors(form.geoPlacesId) }}
+
+                                {{ form_widget(form.geoPlacesId, { 'attr': {'placeholder': 'Zipcode & City'|trans, 'class': 'form-control form-control-lg'} }) }}
+                            </div>
+
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="col">
+                                {{ form_widget(form.latitude, { 'attr': {'placeholder': 'Latitude'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.latitude, 'Latitude'|trans) }}
+                                {{ form_errors(form.latitude) }}
+                            </div>
+                            <div class="col">
+                                {{ form_widget(form.longitude, { 'attr': {'placeholder': 'Longitude'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.longitude, 'Longitude'|trans) }}
+                                {{ form_errors(form.longitude) }}
+                            </div>
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="col">
+                                {{ form_widget(form.phonenumber, { 'attr': {'placeholder': 'Phone'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.phonenumber, 'Phone'|trans) }}
+                                {{ form_errors(form.phonenumber) }}
+                                <small class="form-text text-muted">Optioneel</small>
+                            </div>
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="col">
+                                {{ form_widget(form.website, { 'attr': {'placeholder': 'Website'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.website, 'Website'|trans) }}
+                                {{ form_errors(form.website) }}
+                            </div>
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="col">
+                                {{ form_widget(form.emailaddress, { 'attr': {'placeholder': 'E-mail'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.emailaddress, 'E-mail'|trans) }}
+                                {{ form_errors(form.emailaddress) }}
+                                <small class="form-text text-muted">{% trans %}This e-mail address will be visible on the website{% endtrans %}</small>
+                            </div>
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="col">
+                                {{ form_widget(form.vatnumber, { 'attr': {'placeholder': 'VAT'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.vatnumber, 'VAT number'|trans) }}
+                                {{ form_errors(form.vatnumber) }}
+                                <small class="form-text text-muted">Optioneel</small>
+                            </div>
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="col">
+                                {{ form_label(form.description, 'Introduction'|trans, {'label_attr': {'style' : 'position: relative; left: 0;'}}) }}
+                                {{ form_widget(form.description, { 'attr': {'placeholder': 'Introduction'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_errors(form.description) }}
+                            </div>
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="col">
+                                <small class="form-text text-muted">Voeg enkele beschrijvende tags over uw bedrijf toe</small>
+                                <select name="tags[]" class="select2-tags form-control" multiple="multiple">
+                                    {% for tag in tags %}
+                                        <option value="{{ tag.tag.name }}" selected="selected">{{ tag.tag.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="checkbox mb-4">
+                                <label style="color: #000;">
+                                    Alleen afspraak
+                                    <input type="checkbox" name="only_appointment" {% if(company.getOnlyAppointment) %} checked="checked" {% endif %} >
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="checkbox mb-4">
+                                <label style="color: #000;">
+                                    Alleen webshop
+                                    <input type="checkbox" name="webshop_only" {% if(company.getWebshopOnly) %} checked="checked" {% endif %}> 
+                                </label>
+                            </div>
+                        </div>
+
+                        <h3 class="fw-300">{% trans %}Opening hours{% endtrans %}</h3>
+                        <div class="form-group">
+                            <table class="table">
+                                <tbody>
+                                {% for day in range(1, 7) %}
+                                    <tr>
+                                        <td class="align-middle xs-td">
+                                            <strong>
+                                                {% if day == 1 %}
+                                                    {% trans %}Monday{% endtrans %}
+                                                {% elseif day == 2 %}
+                                                    {% trans %}Tuesday{% endtrans %}
+                                                {% elseif day == 3 %}
+                                                    {% trans %}Wednesday{% endtrans %}
+                                                {% elseif day == 4 %}
+                                                    {% trans %}Thursday{% endtrans %}
+                                                {% elseif day == 5 %}
+                                                    {% trans %}Friday{% endtrans %}
+                                                {% elseif day == 6 %}
+                                                    {% trans %}Saturday{% endtrans %}
+                                                {% elseif day == 7 %}
+                                                    {% trans %}Sunday{% endtrans %}
+                                                {% endif %}
+                                            </strong>
+                                        </td>
+                                        <td class="xs-td">
+                                            <select name="openingHour[{{ day }}][from][0]" class="form-control xs-form-field">
+                                                <option value="">{% trans %}Closed{% endtrans %}</option>
+                                                {% for i in range(0, 23) %}
+                                                    <option value="{{ "%02d"|format(i) ~ ':00' }}"{% if (opening_hours[day].from[0] is defined and opening_hours[day].from[0] == "%02d"|format(i) ~ ':00') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':00' }}</option>
+                                                    <option value="{{ "%02d"|format(i) ~ ':30' }}"{% if (opening_hours[day].from[0] is defined and opening_hours[day].from[0] == "%02d"|format(i) ~ ':30') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':30' }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td class="align-middle text-gray open-1 xs-td">
+                                            {% trans %}till{% endtrans %}
+                                        </td>
+                                        <td class="open-1 xs-td">
+                                            <select name="openingHour[{{ day }}][till][0]" class="form-control xs-form-field">
+                                                <option value="">{% trans %}Closed{% endtrans %}</option>
+                                                {% for i in range(0, 23) %}
+                                                    <option value="{{ "%02d"|format(i) ~ ':00' }}"{% if (opening_hours[day].till[0] is defined and  opening_hours[day].till[0] == "%02d"|format(i) ~ ':00') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':00' }}</option>
+                                                    <option value="{{ "%02d"|format(i) ~ ':30' }}"{% if (opening_hours[day].till[0] is defined and opening_hours[day].till[0] == "%02d"|format(i) ~ ':30') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':30' }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td class="align-middle xs-td">
+                                            <a href="#" class="add-hours btn btn-sm btn-dark{% if (opening_hours[day].from[1] is defined) %} d-none{% endif %}"
+                                               data-day="{{ day }}"><i class="fa fa-plus"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="{% if (opening_hours[day].from[1] is not defined) %}d-none{% endif %} day-{{ day }}">
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td>
+                                            <select name="openingHour[{{ day }}][from][1]" class="form-control">
+                                                <option value="">{% trans %}Closed{% endtrans %}</option>
+                                                {% for i in range(0, 23) %}
+                                                    <option value="{{ "%02d"|format(i) ~ ':00' }}"{% if (opening_hours[day].from[1] is defined and opening_hours[day].from[1] == "%02d"|format(i) ~ ':00') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':00' }}</option>
+                                                    <option value="{{ "%02d"|format(i) ~ ':30' }}"{% if (opening_hours[day].from[1] is defined and opening_hours[day].from[1] == "%02d"|format(i) ~ ':30') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':30' }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td class="align-middle text-gray open-1">
+                                            {% trans %}till{% endtrans %}
+                                        </td>
+                                        <td>
+                                            <select name="openingHour[{{ day }}][till][1]" class="form-control">
+                                                <option value="">{% trans %}Closed{% endtrans %}</option>
+                                                {% for i in range(0, 23) %}
+                                                    <option value="{{ "%02d"|format(i) ~ ':00' }}"{% if (opening_hours[day].till[1] is defined and opening_hours[day].till[1] == "%02d"|format(i) ~ ':00') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':00' }}</option>
+                                                    <option value="{{ "%02d"|format(i) ~ ':30' }}"{% if (opening_hours[day].till[1] is defined and opening_hours[day].till[1] == "%02d"|format(i) ~ ':30') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':30' }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td class="align-middle">
+                                            <a href="#" class="remove-hours btn btn-sm btn-dark" data-day="{{ day }}"><i class="fa fa-minus"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <button type="submit" class="btn btn-lg p-2 btn-pink btn-block mb-5">{% trans %}Save{% endtrans %}</button>
+                        {{ form_end(form) }}
+                    </div>
+
+                    <div class="col-sm-6 col-md-5 col-lg-4">
+                        <form action="{{ oneup_uploader_endpoint('companies') }}" class="bg-light border" id="dropzone"
+                              data-ph="{{ url('dashboard_company_photo_template') }}">
+                            <div class="dz-message m-2 text-center" data-dz-message>
+                                <i class="fa fa-camera fa-3x mx-auto"></i><br>
+                                <span class="mt-2">{% trans %}Drag & drop your photos here{% endtrans %}</span><br>
+                                <small>{% trans %}or{% endtrans %}</small><br>
+                                <span class="btn btn-outline-dark">{% trans %}Browse files{% endtrans %}</span>
+                                <input type="hidden" name="type" value="company">
+                            </div>
+                        </form>
+
+                        {% if companyPhotos is defined %}
+                            {% for photo in companyPhotos %}
+                                {% include 'dashboard/company/photo.html.twig' %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

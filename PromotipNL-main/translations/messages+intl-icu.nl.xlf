@@ -1,0 +1,1028 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="nl" target-language="nl" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="1pajW90" resname="Profile">
+        <source>Profile</source>
+        <target>Profiel</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Inloggen</target>
+      </trans-unit>
+      <trans-unit id="u3I07BJ" resname="Register">
+        <source>Register</source>
+        <target>Registreer</target>
+      </trans-unit>
+      <trans-unit id="kxwR3vH" resname="Terms &amp;amp; conditions">
+        <source>Terms &amp;amp; conditions</source>
+        <target>Gebruiksvoorwaarden</target>
+      </trans-unit>
+      <trans-unit id="FBOV6zV" resname="Cookies">
+        <source>Cookies</source>
+        <target>Cookies</target>
+      </trans-unit>
+      <trans-unit id="tLWAqa2" resname="About us">
+        <source>About us</source>
+        <target>Over ons</target>
+      </trans-unit>
+      <trans-unit id="K1w9JnI" resname="Contact">
+        <source>Contact</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="r9Jf3xf" resname="Forgot your password?">
+        <source>Forgot your password?</source>
+        <target>Uw wachtwoord vergeten?</target>
+      </trans-unit>
+      <trans-unit id="tzsBGCU" resname="An e-mail has been sent to {email}. Please check your e-mail to set a new password.">
+        <source>An e-mail has been sent to {email}. Please check your e-mail to set a new password.</source>
+        <target>Verzonden naar {email}. Controleer uw e-mail postvak om uw wachtwoord opnieuw in te stellen.</target>
+      </trans-unit>
+      <trans-unit id="8EaZGX_" resname="New password set, login now">
+        <source>New password set, login now</source>
+        <target>Nieuw wachtwoord aangemaakt, nu inloggen</target>
+      </trans-unit>
+      <trans-unit id="YedpNFu" resname="Error password reset, max 4 hours">
+        <source>Error password reset, max 4 hours</source>
+        <target>Fout voor wachtwoord herstellen, maximum 4 uur</target>
+      </trans-unit>
+      <trans-unit id="55A.vVY" resname="Password forgotten">
+        <source>Password forgotten</source>
+        <target>Wachtwoord vergeten</target>
+      </trans-unit>
+      <trans-unit id="M.6yA5U" resname="Send Link">
+        <source>Send Link</source>
+        <target>Zend link</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Uitloggen</target>
+      </trans-unit>
+      <trans-unit id="uhGL9.y" resname="English">
+        <source>English</source>
+        <target>English</target>
+      </trans-unit>
+      <trans-unit id="jV7hnth" resname="Nederlands">
+        <source>Nederlands</source>
+        <target>Nederlands</target>
+      </trans-unit>
+      <trans-unit id="5JXVO5Z" resname="Français">
+        <source>Français</source>
+        <target>Français</target>
+      </trans-unit>
+      <trans-unit id="lU59gzp" resname="Promotip: Promoot uw bedrijf en actie">
+        <source>Promotip: Promoot uw bedrijf en actie</source>
+        <target>Promotip: Promoot uw bedrijf en actie</target>
+      </trans-unit>
+      <trans-unit id="JVDZYuU" resname="E-mail">
+        <source>E-mail</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="TkEWhxv" resname="Set password">
+        <source>Set password</source>
+        <target>Wachtwoord ingeven</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Wachtwoord</target>
+      </trans-unit>
+      <trans-unit id="4O3_s6c" resname="Reset password">
+        <source>Reset password</source>
+        <target>Wachtwoord opnieuw instellen</target>
+      </trans-unit>
+      <trans-unit id="53.qk20" resname="Already have an account?">
+        <source>Already have an account?</source>
+        <target>Heeft u al een account?</target>
+      </trans-unit>
+      <trans-unit id="lvAn7_i" resname="What is Promotip?">
+        <source>What is Promotip?</source>
+        <target>Wat is Promotip</target>
+      </trans-unit>
+      <trans-unit id="7cVd.vD" resname="Publish your advert">
+        <source>Publish your advert</source>
+        <target>Plaats uw advertentie</target>
+      </trans-unit>
+      <trans-unit id="OnhpU4i" resname="Home">
+        <source>Home</source>
+        <target>Home</target>
+      </trans-unit>
+      <trans-unit id="7c0_qLE" resname="Something">
+        <source>Something</source>
+        <target>Iets</target>
+      </trans-unit>
+      <trans-unit id="nHfXLsz" resname="Else">
+        <source>Else</source>
+        <target>Anders</target>
+      </trans-unit>
+      <trans-unit id="7eVImWS" resname="Terms">
+        <source>Terms</source>
+        <target>Gebruiksvoorwaarden</target>
+      </trans-unit>
+      <trans-unit id="GlXh1Tl" resname="&lt;strong&gt;Promotip&lt;/strong&gt; is the advertising platform for small businesses and local traders.&lt;br&gt;&#10;                Bring your company, sales action or event to the attention of new potential customers! &lt;/p&gt;&#10;&#10;            &lt;p&gt;&#10;                A small business, local trader or event organizer stumbling often with the fact that one can only reach new customers via social media. &lt;br&gt;The disadvantage of publishing your company on social media is that you will only reach a small target audience.&#10;            &lt;/p&gt;&#10;            &lt;p&gt;&#10;                Promotip offers you the opportunity to solve the limitations that social media entails for you, in order to reach a larger target audience!&#10;                &lt;/p&gt;&#10;            &lt;p&gt; You can register without obligation below. After registration you can publish your company and event for free.&#10;            &lt;/p&gt;">
+        <source>&lt;strong&gt;Promotip&lt;/strong&gt; is the advertising platform for small businesses and local traders.&lt;br&gt;
+                Bring your company, sales action or event to the attention of new potential customers! &lt;/p&gt;
+
+            &lt;p&gt;
+                A small business, local trader or event organizer stumbling often with the fact that one can only reach new customers via social media. &lt;br&gt;The disadvantage of publishing your company on social media is that you will only reach a small target audience.
+            &lt;/p&gt;
+            &lt;p&gt;
+                Promotip offers you the opportunity to solve the limitations that social media entails for you, in order to reach a larger target audience!
+                &lt;/p&gt;
+            &lt;p&gt; You can register without obligation below. After registration you can publish your company and event for free.
+            &lt;/p&gt;</source>
+        <target><![CDATA[<strong>Promotip</strong> is het advertentieplatform voor kleine ondernemingen en lokale handelaars.<br>
+                Breng hier uw bedrijf, actie of event onder de aandacht van nieuwe potentiële klanten! </p>
+            <p>
+                Een kleine onderneming, lokale handelaar of evenement organisator heeft vaak als struikelblok dat men enkel via sociale media nieuwe klanten kan bereiken. <br>Het publiceren van uw bedrijf op sociale media heeft echter als nadeel dat u steeds een klein doelpubliek bereikt.
+            </p>
+            <p>
+                Promotip biedt u de mogelijkheid om de beperkingen, dat sociale media met zich meebrengt, voor u op te lossen om zo een groter doelpubliek te bereiken!
+                </p>
+            <p> U kunt zich vrijblijvend hieronder registreren. Na registratie kunt u gratis uw bedrijfsfiche en event publiceren.
+            </p>]]></target>
+      </trans-unit>
+      <trans-unit id="x5Pg2aH" resname="Registration">
+        <source>Registration</source>
+        <target>Registreren</target>
+      </trans-unit>
+      <trans-unit id="xFnNfe4" resname="Welkom">
+        <source>Welkom</source>
+        <target>Welkom</target>
+      </trans-unit>
+      <trans-unit id="VdEiIjJ" resname="Create your company profile">
+        <source>Create your company profile</source>
+        <target>Maak uw bedrijfsprofiel</target>
+      </trans-unit>
+      <trans-unit id="Pte4aYX" resname="Promotip: Promote your company and action">
+        <source>Promotip: Promote your company and action</source>
+        <target>Promotip: Promoot uw bedrijf of event</target>
+      </trans-unit>
+      <trans-unit id="uHE1QVz" resname="Searching for happenings?">
+        <source>Searching for happenings?</source>
+        <target>Op zoek naar een promo of event?</target>
+      </trans-unit>
+      <trans-unit id="cyYqqIR" resname="What are you looking for...">
+        <source>What are you looking for...</source>
+        <target>Wat zoekt u?</target>
+      </trans-unit>
+      <trans-unit id="ScJmuqq" resname="Search">
+        <source>Search</source>
+        <target>Zoek</target>
+      </trans-unit>
+      <trans-unit id="dA2PIZI" resname="Topper">
+        <source>Topper</source>
+        <target>Topper</target>
+      </trans-unit>
+      <trans-unit id="MKZCFur" resname="View all">
+        <source>View all</source>
+        <target>Zie meer</target>
+      </trans-unit>
+      <trans-unit id="xTPK_ra" resname="Featured">
+        <source>Featured</source>
+        <target>Aanbevolen</target>
+      </trans-unit>
+      <trans-unit id="YKg.VwH" resname="Check event">
+        <source>Check event</source>
+        <target>Bekijk event</target>
+      </trans-unit>
+      <trans-unit id="9PQkb1q" resname="Need help promoting your&lt;span class=&quot;text-pink&quot;&gt; upcoming event?&lt;/span&gt;">
+        <source>Need help promoting your&lt;span class="text-pink"&gt; upcoming event?&lt;/span&gt;</source>
+        <target><![CDATA[Hulp nodig bij de promotie van uw<span class="text-pink"> komend event?</span>]]></target>
+      </trans-unit>
+      <trans-unit id="BEtrq.m" resname="Publish an advert">
+        <source>Publish an advert</source>
+        <target>Plaats een advertentie</target>
+      </trans-unit>
+      <trans-unit id="uLHYlMa" resname="Categories">
+        <source>Categories</source>
+        <target>Categoriën</target>
+      </trans-unit>
+      <trans-unit id="zkaD5wE" resname="Channel">
+        <source>Channel</source>
+        <target>Kies rubriek</target>
+      </trans-unit>
+      <trans-unit id="X3lT98m" resname="Parent">
+        <source>Parent</source>
+        <target>Subrubriek</target>
+      </trans-unit>
+      <trans-unit id="fozSBW2" resname="Title">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="nn5aT7v" resname="&lt;strong&gt;Promotip&lt;/strong&gt; is the advertising platform for small businesses and local traders.&lt;br&gt;Bring your company, sales action or event to the attention of new potential customers!&lt;br&gt;&#10;                &lt;br&gt;Would you like to put your company, event or special promotion in the spotlight?&lt;br&gt;&#10;&#10;                &lt;p&gt;&lt;strong&gt;Sign up for free and start promoting right away!&lt;/strong&gt;&lt;/p&gt;">
+        <source>&lt;strong&gt;Promotip&lt;/strong&gt; is the advertising platform for small businesses and local traders.&lt;br&gt;Bring your company, sales action or event to the attention of new potential customers!&lt;br&gt;
+                &lt;br&gt;Would you like to put your company, event or special promotion in the spotlight?&lt;br&gt;
+
+                &lt;p&gt;&lt;strong&gt;Sign up for free and start promoting right away!&lt;/strong&gt;&lt;/p&gt;</source>
+        <target><![CDATA[<strong>Promotip</strong> is het advertentieplatform voor kleine ondernemingen en lokale handelaars.<br>Breng hier uw bedrijf, actie of event onder de aandacht van nieuwe potentiële klanten!<br>
+                <br>Wilt u uw bedrijf, evenement of speciale actie in de kijker zetten?<br>
+
+                <p><strong>Meld u gratis aan en begin meteen met promoten!</strong></p>]]></target>
+      </trans-unit>
+      <trans-unit id="87BwlOO" resname="&lt;strong&gt;Promotip&lt;/strong&gt; is the advertising platform for small businesses and local traders.&lt;br&gt;&#10;                As a starting company or trader you naturally want to keep your costs as low as possible. However, marketing for your company can cost you a lot of your budget. &lt;/p&gt;&#10;&#10;            &lt;p&gt;&#10;                Als a starting business, small business, local trader or event organizer stumbling often with the fact that one can only reach new customers via social media. &lt;br&gt;The disadvantage of publishing your company on social media is that you will only reach a small target audience.&#10;            &lt;/p&gt;&#10;            &lt;p&gt;&#10;                &lt;strong&gt;Promotip offers you the opportunity to solve these limitations for you, in order to reach a larger target audience!&lt;/strong&gt;&#10;                &lt;/p&gt;&#10;            &lt;/p&gt;You can add your company to our website free of charge. You can also place an advert for free to make your promotions, discounts or special promotions known to our visitors. &lt;br&gt; Have you organized a one-off event and don't have a company? No problem, you can also create an event for free!&#10;&#10;            &lt;p&gt;&lt;br&gt; You can register without obligation below. After registration you can publish your company and event for free.&lt;br&gt;&#10;            &lt;/p&gt;">
+        <source>&lt;strong&gt;Promotip&lt;/strong&gt; is the advertising platform for small businesses and local traders.&lt;br&gt;
+                As a starting company or trader you naturally want to keep your costs as low as possible. However, marketing for your company can cost you a lot of your budget. &lt;/p&gt;
+
+            &lt;p&gt;
+                Als a starting business, small business, local trader or event organizer stumbling often with the fact that one can only reach new customers via social media. &lt;br&gt;The disadvantage of publishing your company on social media is that you will only reach a small target audience.
+            &lt;/p&gt;
+            &lt;p&gt;
+                &lt;strong&gt;Promotip offers you the opportunity to solve these limitations for you, in order to reach a larger target audience!&lt;/strong&gt;
+                &lt;/p&gt;
+            &lt;/p&gt;You can add your company to our website free of charge. You can also place an advert for free to make your promotions, discounts or special promotions known to our visitors. &lt;br&gt; Have you organized a one-off event and don't have a company? No problem, you can also create an event for free!
+
+            &lt;p&gt;&lt;br&gt; You can register without obligation below. After registration you can publish your company and event for free.&lt;br&gt;
+            &lt;/p&gt;</source>
+        <target><![CDATA[<strong>Promotip</strong> is een advertentieplatform voor kleine ondernemingen en lokale handelaars.<br>
+                Als startende onderneming of handelaar wenst u uw kosten uiteraard zo laag mogelijk te houden, toch kan marketing voeren voor uw bedrijf een hele hap uit uw budget nemen. </p>
+
+            <p>
+                Ook heeft een kleine onderneming, lokale handelaar of evenement organisator vaak als struikelblok dat men enkel via sociale media nieuwe klanten/bekendheid kan bereiken.<br>Het publiceren van uw bedrijf op sociale media heeft echter als nadeel dat u enkel een klein doelpubliek bereikt.
+            </p>
+            <p>
+                <strong>Promotip biedt u de mogelijkheid om deze beperkingen voor u op te lossen om zo uw doelpubliek groter te maken!</strong>
+                </p>
+            </p>U kan geheel kosteloos uw bedrijf toevoegen aan onze website. Hiernaast kunt u ook gratis een advertentie plaatsen om uw promoties, kortingen of speciale acties bekend te maken aan onze bezoekers.
+ <br> Heeft u een eenmalig evenement georganiseerd en heeft u geen bedrijf? Geen probleem, ook hiervoor kunt u kosteloos een event aanmaken!
+
+            <p><br><strong> U kunt zich vrijblijvend hieronder registreren. Na registratie kunt u gratis uw bedrijfsfiche en event publiceren.</strong><br>
+            </p>]]></target>
+      </trans-unit>
+      <trans-unit id="YdMNmX0" resname="Create profile">
+        <source>Create profile</source>
+        <target>Profiel aanmaken</target>
+      </trans-unit>
+      <trans-unit id="MOniE3Q" resname="My events">
+        <source>My events</source>
+        <target>Mijn advertenties</target>
+      </trans-unit>
+      <trans-unit id="boVKfBn" resname="My company">
+        <source>My company</source>
+        <target>Mijn bedrijf</target>
+      </trans-unit>
+      <trans-unit id="UkTxK6R" resname="TOP events">
+        <source>TOP events</source>
+        <target>TOP events</target>
+      </trans-unit>
+      <trans-unit id="yVg0aCC" resname="Company guide">
+        <source>Company guide</source>
+        <target>Bedrijvengids</target>
+      </trans-unit>
+      <trans-unit id="yjqiGlt" resname="Antwerp">
+        <source>Antwerp</source>
+        <target>Antwerpen</target>
+      </trans-unit>
+      <trans-unit id="lBahoDH" resname="Brussels">
+        <source>Brussels</source>
+        <target>Brussel</target>
+      </trans-unit>
+      <trans-unit id="b9ovm5L" resname="East-Flanders">
+        <source>East-Flanders</source>
+        <target>Oost-Vlaanderen</target>
+      </trans-unit>
+      <trans-unit id="mkMDiBV" resname="Few">
+        <source>Few</source>
+        <target>__Few</target>
+      </trans-unit>
+      <trans-unit id="bfraE9L" resname="Company name">
+        <source>Company name</source>
+        <target>Bedrijfsnaam</target>
+      </trans-unit>
+      <trans-unit id="tINiJGI" resname="Company Name">
+        <source>Company Name</source>
+        <target>Bedrijfsnaam</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Adres</target>
+      </trans-unit>
+      <trans-unit id="P7LyL9V" resname="Housenumber">
+        <source>Housenumber</source>
+        <target>Huisnummer</target>
+      </trans-unit>
+      <trans-unit id="vYLPFmm" resname="Number">
+        <source>Number</source>
+        <target>Nr</target>
+      </trans-unit>
+      <trans-unit id="US.TxgQ" resname="Box">
+        <source>Box</source>
+        <target>Bus</target>
+      </trans-unit>
+      <trans-unit id="9IElO.u" resname="Zipcode &amp; City">
+        <source>Zipcode &amp; City</source>
+        <target><![CDATA[Postcode & Stad]]></target>
+      </trans-unit>
+      <trans-unit id="Y9zriAC" resname="Phone">
+        <source>Phone</source>
+        <target>Telefoonnummer</target>
+      </trans-unit>
+      <trans-unit id="taIprIv" resname="Website">
+        <source>Website</source>
+        <target>Website</target>
+      </trans-unit>
+      <trans-unit id="j5WqPqK" resname="This e-mail address will be visible on the website">
+        <source>This e-mail address will be visible on the website</source>
+        <target>Dit e-mailadres zal zichtbaar zijn op de website</target>
+      </trans-unit>
+      <trans-unit id="SIWhc4P" resname="VAT">
+        <source>VAT</source>
+        <target>BTW</target>
+      </trans-unit>
+      <trans-unit id="BZuGtTQ" resname="VAT number">
+        <source>VAT number</source>
+        <target>BTW-nummer</target>
+      </trans-unit>
+      <trans-unit id="tgU1C8A" resname="Introduction">
+        <source>Introduction</source>
+        <target>Beschrijving</target>
+      </trans-unit>
+      <trans-unit id="fAF5V4L" resname="Opening hours">
+        <source>Opening hours</source>
+        <target>Openingsuren</target>
+      </trans-unit>
+      <trans-unit id="agDfwdy" resname="Monday">
+        <source>Monday</source>
+        <target>Maandag</target>
+      </trans-unit>
+      <trans-unit id="fYrx3hJ" resname="Tuesday">
+        <source>Tuesday</source>
+        <target>Dinsdag</target>
+      </trans-unit>
+      <trans-unit id="wKbMgpz" resname="Wednesday">
+        <source>Wednesday</source>
+        <target>Woensdag</target>
+      </trans-unit>
+      <trans-unit id=".CZiBi." resname="Thursday">
+        <source>Thursday</source>
+        <target>Donderdag</target>
+      </trans-unit>
+      <trans-unit id="4h8.Nyp" resname="Friday">
+        <source>Friday</source>
+        <target>Vrijdag</target>
+      </trans-unit>
+      <trans-unit id="2_Ncc2P" resname="Saturday">
+        <source>Saturday</source>
+        <target>Zaterdag</target>
+      </trans-unit>
+      <trans-unit id="hz.vdg5" resname="Sunday">
+        <source>Sunday</source>
+        <target>Zondag</target>
+      </trans-unit>
+      <trans-unit id="wh6tBhT" resname="Closed">
+        <source>Closed</source>
+        <target>Gesloten</target>
+      </trans-unit>
+      <trans-unit id="pk6Y.xi" resname="till">
+        <source>till</source>
+        <target>tot</target>
+      </trans-unit>
+      <trans-unit id="FQn1YfJ" resname="Save">
+        <source>Save</source>
+        <target>Bewaren</target>
+      </trans-unit>
+      <trans-unit id="VWxP4Wx" resname="Drag &amp; drop your photos here">
+        <source>Drag &amp; drop your photos here</source>
+        <target>Sleep uw bestanden hier</target>
+      </trans-unit>
+      <trans-unit id="cXVRejc" resname="or">
+        <source>or</source>
+        <target>of</target>
+      </trans-unit>
+      <trans-unit id="yLsQXwE" resname="Browse files">
+        <source>Browse files</source>
+        <target>Zoek bestanden</target>
+      </trans-unit>
+      <trans-unit id="xhrMhcX" resname="Promotip: Dashboard">
+        <source>Promotip: Dashboard</source>
+        <target>Promotip: Dashboard</target>
+      </trans-unit>
+      <trans-unit id="WClnU00" resname="in">
+        <source>in</source>
+        <target>in</target>
+      </trans-unit>
+      <trans-unit id="w_77WNf" resname="closed">
+        <source>closed</source>
+        <target>Gesloten</target>
+      </trans-unit>
+      <trans-unit id="lI.BVQl" resname="No companies found in">
+        <source>No companies found in</source>
+        <target>Geen bedrijven gevonden in</target>
+      </trans-unit>
+      <trans-unit id="lGy_Lbv" resname="Create event">
+        <source>Create event</source>
+        <target>Nieuw event</target>
+      </trans-unit>
+      <trans-unit id="EzEnW8U" resname="Tags">
+        <source>Tags</source>
+        <target>Tags</target>
+      </trans-unit>
+      <trans-unit id="FQORaiq" resname="Tag">
+        <source>Tag</source>
+        <target>Tag</target>
+      </trans-unit>
+      <trans-unit id="Hxz_g5C" resname="My event">
+        <source>My event</source>
+        <target>Mijn evenementen</target>
+      </trans-unit>
+      <trans-unit id="KSwG8AR" resname="Category">
+        <source>Category</source>
+        <target>Categorie</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Beschrijving</target>
+      </trans-unit>
+      <trans-unit id="gWlpMQG" resname="Start date">
+        <source>Start date</source>
+        <target>Startdatum</target>
+      </trans-unit>
+      <trans-unit id="5JW01j." resname="Start hour">
+        <source>Start hour</source>
+        <target>Start uur</target>
+      </trans-unit>
+      <trans-unit id="FDA6oMS" resname="End date">
+        <source>End date</source>
+        <target>Einddatum</target>
+      </trans-unit>
+      <trans-unit id="hBL70AQ" resname="End hour">
+        <source>End hour</source>
+        <target>Eind uur</target>
+      </trans-unit>
+      <trans-unit id="zH2JP.C" resname="Other address than">
+        <source>Other address than</source>
+        <target>Ander adres dan</target>
+      </trans-unit>
+      <trans-unit id="wZmg574" resname="Other location than">
+        <source>Other location than</source>
+        <target>Andere locatie dan</target>
+      </trans-unit>
+      <trans-unit id="VdWkQfz" resname="No events found">
+        <source>No events found</source>
+        <target>Geen evenementen gevonden</target>
+      </trans-unit>
+      <trans-unit id="hxu.cB1" resname="View company">
+        <source>View company</source>
+        <target>Bezoek bedrijf</target>
+      </trans-unit>
+      <trans-unit id="OXfTUpb" resname="Categorie">
+        <source>Categorie</source>
+        <target>Categorie</target>
+      </trans-unit>
+      <trans-unit id="SSNBO0D" resname="Companies">
+        <source>Companies</source>
+        <target>Bedrijven</target>
+      </trans-unit>
+      <trans-unit id="cxbMUQ_" resname="No account yet?">
+        <source>No account yet?</source>
+        <target>Nog geen account?</target>
+      </trans-unit>
+      <trans-unit id="Th9Jqci" resname="Event">
+        <source>Event</source>
+        <target>Evenement</target>
+      </trans-unit>
+      <trans-unit id="fNwuJ2B" resname="New event">
+        <source>New event</source>
+        <target>Nieuw evenement</target>
+      </trans-unit>
+      <trans-unit id="SM0RYcR" resname="&lt;li&gt;Promotions&lt;/li&gt;">
+        <source>&lt;li&gt;Promotions&lt;/li&gt;</source>
+        <target><![CDATA[<li>Promoties</li>]]></target>
+      </trans-unit>
+      <trans-unit id="0SOlBFb" resname="Happy hour">
+        <source>Happy hour</source>
+        <target>Happy hour</target>
+      </trans-unit>
+      <trans-unit id="u4u0Vzw" resname="Week Sale">
+        <source>Week Sale</source>
+        <target>Weekactie</target>
+      </trans-unit>
+      <trans-unit id="yBCvRmB" resname="Discounts up to 40%">
+        <source>Discounts up to 40%</source>
+        <target>Kortingen tot 40%</target>
+      </trans-unit>
+      <trans-unit id="WK_.VlU" resname="Discounts from 50%">
+        <source>Discounts from 50%</source>
+        <target>Kortingen vanaf 50%</target>
+      </trans-unit>
+      <trans-unit id="6zF_KoQ" resname="Stock sale">
+        <source>Stock sale</source>
+        <target>Stockverkoop</target>
+      </trans-unit>
+      <trans-unit id="ju6xQID" resname="Kick-off sales">
+        <source>Kick-off sales</source>
+        <target>Kick-off verkoop</target>
+      </trans-unit>
+      <trans-unit id="wL.RbOn" resname="&lt;li&gt;Events&lt;/li&gt;">
+        <source>&lt;li&gt;Events&lt;/li&gt;</source>
+        <target><![CDATA[<li>Evenementen</li>]]></target>
+      </trans-unit>
+      <trans-unit id="zN5EtyS" resname="New opening">
+        <source>New opening</source>
+        <target>Nieuwe opening</target>
+      </trans-unit>
+      <trans-unit id="VcASWoc" resname="Open day">
+        <source>Open day</source>
+        <target>Opendeurdag</target>
+      </trans-unit>
+      <trans-unit id="U7ykwlY" resname="Annual fair">
+        <source>Annual fair</source>
+        <target>Jaarmarkt</target>
+      </trans-unit>
+      <trans-unit id="pB8SqIS" resname="Carnivals">
+        <source>Carnivals</source>
+        <target>Kermis</target>
+      </trans-unit>
+      <trans-unit id="VGRTf0y" resname="Village festivals">
+        <source>Village festivals</source>
+        <target>Dorpsfeesten</target>
+      </trans-unit>
+      <trans-unit id="S5xZj59" resname="Festivals">
+        <source>Festivals</source>
+        <target>Festivals</target>
+      </trans-unit>
+      <trans-unit id="kPPCvzW" resname="Special events">
+        <source>Special events</source>
+        <target>Speciale evenementen</target>
+      </trans-unit>
+      <trans-unit id="hrYW_1U" resname="&lt;li&gt;Traders&lt;/li&gt;">
+        <source>&lt;li&gt;Traders&lt;/li&gt;</source>
+        <target><![CDATA[<li>Handelaars</li>]]></target>
+      </trans-unit>
+      <trans-unit id="Z0kkD.r" resname="Horeca">
+        <source>Horeca</source>
+        <target>Horeca</target>
+      </trans-unit>
+      <trans-unit id="EhLqniC" resname="Restaurant">
+        <source>Restaurant</source>
+        <target>Restaurant</target>
+      </trans-unit>
+      <trans-unit id="Bo8vxvT" resname="Culinary">
+        <source>Culinary</source>
+        <target>Culinair</target>
+      </trans-unit>
+      <trans-unit id="qSos6.4" resname="Itinerant trade">
+        <source>Itinerant trade</source>
+        <target>Ambulante handel</target>
+      </trans-unit>
+      <trans-unit id="8LGweqj" resname="Agriculture">
+        <source>Agriculture</source>
+        <target>Landbouw</target>
+      </trans-unit>
+      <trans-unit id="tbaPnUX" resname="Shopping">
+        <source>Shopping</source>
+        <target>Winkelen</target>
+      </trans-unit>
+      <trans-unit id="87uW1fj" resname="Party occasions">
+        <source>Party occasions</source>
+        <target>Feestgelegenheden</target>
+      </trans-unit>
+      <trans-unit id="A14RgPM" resname="Entertainment &amp; animation">
+        <source>Entertainment &amp; animation</source>
+        <target><![CDATA[Entertainment & animatie]]></target>
+      </trans-unit>
+      <trans-unit id="pgbJ7B_" resname="Locatie:">
+        <source>Locatie:</source>
+        <target>Locatie:</target>
+      </trans-unit>
+      <trans-unit id="5dJSSQK" resname="When?">
+        <source>When?</source>
+        <target>Wanneer?</target>
+      </trans-unit>
+      <trans-unit id="0F82TlI" resname="Informatie">
+        <source>Informatie</source>
+        <target>Informatie</target>
+      </trans-unit>
+      <trans-unit id="PnQydYJ" resname="Promotions">
+        <source>Promotions</source>
+        <target>Promoties</target>
+      </trans-unit>
+      <trans-unit id="1RxGB5M" resname="Day sale">
+        <source>Day sale</source>
+        <target>Dagactie</target>
+      </trans-unit>
+      <trans-unit id="jRT25y3" resname="Events">
+        <source>Events</source>
+        <target>Evenementen</target>
+      </trans-unit>
+      <trans-unit id="QJhCO.j" resname="Traders">
+        <source>Traders</source>
+        <target>Handelaars</target>
+      </trans-unit>
+      <trans-unit id="Wto8q6I" resname="Information about the organization">
+        <source>Information about the organization</source>
+        <target>Informatie over de organisatie</target>
+      </trans-unit>
+      <trans-unit id="rBnFfDs" resname="Tips to promote your &lt;span class=&quot;text-pink&quot;&gt; upcoming event...&lt;/span&gt;">
+        <source>Tips to promote your &lt;span class="text-pink"&gt; upcoming event...&lt;/span&gt;</source>
+        <target><![CDATA[Tips voor de promotie van uw <span class="text-pink"> komend event...</span>]]></target>
+      </trans-unit>
+      <trans-unit id="v9QCsvb" resname="Sign in">
+        <source>Sign in</source>
+        <target>Aanmelden</target>
+      </trans-unit>
+      <trans-unit id="DEx7RcN" resname="Need help promoting your&lt;span&#10;                            class=&quot;text-pink&quot;&gt; upcoming event?&lt;/span&gt;">
+        <source>Need help promoting your&lt;span
+                            class="text-pink"&gt; upcoming event?&lt;/span&gt;</source>
+        <target><![CDATA[Hulp nodig bij de promotie van uw<span
+                            class="text-pink"> komend event?</span>]]></target>
+      </trans-unit>
+      <trans-unit id="KhNfd8f" resname="&lt;strong&gt;Promotip&lt;/strong&gt; is the advertising platform for small businesses and local traders.&#10;                    &lt;br&gt;Bring your company, sales action or event to the attention of new potential customers!&lt;br&gt;&#10;                    &lt;br&gt;Would you like to put your company, event or special promotion in the spotlight?&lt;br&gt;&#10;&#10;                    &lt;p&gt;&lt;strong&gt;Sign up for free and start promoting right away!&lt;/strong&gt;&lt;/p&gt;">
+        <source>&lt;strong&gt;Promotip&lt;/strong&gt; is the advertising platform for small businesses and local traders.
+                    &lt;br&gt;Bring your company, sales action or event to the attention of new potential customers!&lt;br&gt;
+                    &lt;br&gt;Would you like to put your company, event or special promotion in the spotlight?&lt;br&gt;
+
+                    &lt;p&gt;&lt;strong&gt;Sign up for free and start promoting right away!&lt;/strong&gt;&lt;/p&gt;</source>
+        <target><![CDATA[<strong>Promotip</strong> is een advertentieplatform voor kleine ondernemingen en lokale handelaars.
+                    <br>Breng uw bedrijf, kortingsactie, promo of evenement gratis onder de aandacht van nieuwe potentiële klanten!<br>
+                    <br>Wilt u uw bedrijf, evenement of speciale actie in de spotlights zetten?<br>
+
+                    <p><strong>Meld u gratis aan en begin direct met promoten!</strong></p>]]></target>
+      </trans-unit>
+      <trans-unit id=".c00hOv" resname="no notification found">
+        <source>no notification found</source>
+        <target>Geen meldingen gevonden</target>
+      </trans-unit>
+      <trans-unit id="uOH4C9c" resname="event">
+        <source>event</source>
+        <target>event</target>
+      </trans-unit>
+      <trans-unit id="bhHev2s" resname="event_message">
+        <source>event_message</source>
+        <target>{notifications, plural, =0 {Je %s %s is verlopen} one {Je %s %s verloopt binnen 1 dag} other {Je %s %s verloopt binnen # dagen}}</target>
+      </trans-unit>
+      <trans-unit id="6.CyoTc" resname="contact_company">
+        <source>contact_company</source>
+        <target>Stuur een bericht naar dit bedrijf</target>
+      </trans-unit>
+      <trans-unit id="giREF.l" resname="email">
+        <source>email</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="qUkfTBv" resname="subject">
+        <source>subject</source>
+        <target>Onderwerp</target>
+      </trans-unit>
+      <trans-unit id="H1CH25G" resname="question">
+        <source>question</source>
+        <target>Bericht</target>
+      </trans-unit>
+      <trans-unit id="J84dG.Q" resname="send">
+        <source>send</source>
+        <target>Verstuur</target>
+      </trans-unit>
+      <trans-unit id="VemLMEe" resname="message_send">
+        <source>message_send</source>
+        <target>Uw bericht naar { message_to } is verstuurd.</target>
+      </trans-unit>
+      <trans-unit id="MYxa1R6" resname="received">
+        <source>received</source>
+        <target>Datum</target>
+      </trans-unit>
+      <trans-unit id="dYV6RYm" resname="from">
+        <source>from</source>
+        <target>Afzender</target>
+      </trans-unit>
+      <trans-unit id="RhJqIWW" resname="mailSubject">
+        <source>mailSubject</source>
+        <target>Onderwerp</target>
+      </trans-unit>
+      <trans-unit id="8xROMsu" resname="newEvent">
+        <source>newEvent</source>
+        <target>Nieuw evenement</target>
+      </trans-unit>
+      <trans-unit id="B6oSuyI" resname="allEvents">
+        <source>allEvents</source>
+        <target>Alle events</target>
+      </trans-unit>
+      <trans-unit id="WmRV1ib" resname="activeEvents">
+        <source>activeEvents</source>
+        <target>Actieve events</target>
+      </trans-unit>
+      <trans-unit id="ok2ibsV" resname="Promotip: Evenementen, kortingen, actie's en promo's!">
+        <source>Promotip: Evenementen, kortingen, actie's en promo's!</source>
+        <target>Promotip: Evenementen, kortingen, actie's en promo's!</target>
+      </trans-unit>
+      <trans-unit id="AIb8d6u" resname="no message found">
+        <source>no message found</source>
+        <target>Geen berichten gevonden</target>
+      </trans-unit>
+      <trans-unit id="cC75Ie0" resname="First name">
+        <source>First name</source>
+        <target>Voornaam</target>
+      </trans-unit>
+      <trans-unit id="92LaBfT" resname="Surname">
+        <source>Surname</source>
+        <target>Achternaam</target>
+      </trans-unit>
+      <trans-unit id="xhOKv6a" resname="Birthday">
+        <source>Birthday</source>
+        <target>Geboortedatum</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="2lDbQDE" resname="Mijn dashboard">
+        <source>Mijn dashboard</source>
+        <target>Mijn dashboard</target>
+      </trans-unit>
+      <trans-unit id="PZ720DM" resname="Page Preview">
+        <source>Page Preview</source>
+        <target>Voorbeeld pagina</target>
+      </trans-unit>
+      <trans-unit id="1dCjC1F" resname="Calendar">
+        <source>Calendar</source>
+        <target>Kalender</target>
+      </trans-unit>
+      <trans-unit id="vhdrABX" resname="Map">
+        <source>Map</source>
+        <target>Map</target>
+      </trans-unit>
+      <trans-unit id="Rgs6faA" resname="Chat">
+        <source>Chat</source>
+        <target>Chat</target>
+      </trans-unit>
+      <trans-unit id="eIARgzp" resname="Notifications">
+        <source>Notifications</source>
+        <target>Meldingen</target>
+      </trans-unit>
+      <trans-unit id="fhsNVkH" resname="Account">
+        <source>Account</source>
+        <target>Account</target>
+      </trans-unit>
+      <trans-unit id="zI.Z63_" resname="Welcome!">
+        <source>Welcome!</source>
+        <target>Welkom!</target>
+      </trans-unit>
+      <trans-unit id="4664vyL" resname="LOGIN TO YOUR ACCOUNT">
+        <source>LOGIN TO YOUR ACCOUNT</source>
+        <target>LOGIN OP UW ACCOUNT</target>
+      </trans-unit>
+      <trans-unit id="_TJnqhH" resname="Remember me">
+        <source>Remember me</source>
+        <target>Onthou mij</target>
+      </trans-unit>
+      <trans-unit id="FRLBsV5" resname="CREATE YOUR PROMOTIP ACCOUNT">
+        <source>CREATE YOUR PROMOTIP ACCOUNT</source>
+        <target>MAAK UW PROMOTIP ACCOUNT</target>
+      </trans-unit>
+      <trans-unit id="sJOUXn8" resname="By continuing, you agree to our Terms of Service">
+        <source>By continuing, you agree to our Terms of Service</source>
+        <target>Door verder te gaan, ga je akkoord met onze gebruiksvoorwaarden</target>
+      </trans-unit>
+      <trans-unit id="R94jWG5" resname="Sign Up">
+        <source>Sign Up</source>
+        <target>Inschrijven</target>
+      </trans-unit>
+      <trans-unit id="545.xhT" resname="Login?">
+        <source>Login?</source>
+        <target>Inloggen?</target>
+      </trans-unit>
+      <trans-unit id="67dGoUG" resname="Recent Activities">
+        <source>Recent Activities</source>
+        <target>Recente Activiteiten</target>
+      </trans-unit>
+      <trans-unit id="8SgOyQF" resname="Most Viewed">
+        <source>Most Viewed</source>
+        <target>Meest gezien</target>
+      </trans-unit>
+      <trans-unit id="nnHZPC6" resname="June 2020">
+        <source>June 2020</source>
+        <target>June 2020</target>
+      </trans-unit>
+      <trans-unit id="opX2X47" resname="Berichten">
+        <source>Berichten</source>
+        <target>Berichten</target>
+      </trans-unit>
+      <trans-unit id="HcW2K8i" resname="Back on top of page">
+        <source>Back on top of page</source>
+        <target>Terug naar boven</target>
+      </trans-unit>
+      <trans-unit id="N62S7t9" resname="Promotip: Find the best bargains here!">
+        <source>Promotip: Find the best bargains here!</source>
+        <target>Promotip: De beste koopjes vindt u hier!</target>
+      </trans-unit>
+      <trans-unit id="HKuZqRd" resname="Back to top of page">
+        <source>Back to top of page</source>
+        <target>Terug naar boven</target>
+      </trans-unit>
+      <trans-unit id="KkEr1n4" resname="My dashboard | Promotip">
+        <source>My dashboard | Promotip</source>
+        <target>Mijn dashboard | Promotip</target>
+      </trans-unit>
+      <trans-unit id="bc2C.l7" resname="Create your event!">
+        <source>Create your event!</source>
+        <target>Nieuwe advertentie</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Verstuur</target>
+      </trans-unit>
+      <trans-unit id="28RooUt" resname="FAQ">
+        <source>FAQ</source>
+        <target>Veelgestelde vragen</target>
+      </trans-unit>
+      <trans-unit id="I4gi0Xc" resname="Other location">
+        <source>Other location</source>
+        <target>Andere locatie</target>
+      </trans-unit>
+      <trans-unit id="pctvrFu" resname="&lt;strong&gt;On this page you will find a handy list of all companies and shops in your area.&#10;                        &lt;br&gt;&#10;                        &lt;br&gt;&#10;                        &lt;p&gt;Are you a trader yourself and would you also like to publish your company here for free?&lt;/strong&gt;&#10;                        &lt;br&gt;Please contact us by email for this. &lt;br&gt;&#10;                    &lt;br&gt;&lt;strong&gt;Your request will always be processed within 24 hours! &lt;/strong&gt;&lt;/p&gt;">
+        <source>&lt;strong&gt;On this page you will find a handy list of all companies and shops in your area.
+                        &lt;br&gt;
+                        &lt;br&gt;
+                        &lt;p&gt;Are you a trader yourself and would you also like to publish your company here for free?&lt;/strong&gt;
+                        &lt;br&gt;Please contact us by email for this. &lt;br&gt;
+                    &lt;br&gt;&lt;strong&gt;Your request will always be processed within 24 hours! &lt;/strong&gt;&lt;/p&gt;</source>
+        <target><![CDATA[<strong>Op deze pagina vindt u een handige oplijsting van alle handelaars in uw buurt.
+                        <br>
+                        <br>
+                        <p>Bent u zelf handelaar en wenst u ook uw bedrijf hier gratis te publiceren?</strong>
+                        <br>Neem hiervoor contact met ons op via e-mail. <br>
+                    <br><strong>Uw aanvraag wordt steeds binnen de 24u verwerkt! </strong></p>]]></target>
+      </trans-unit>
+      <trans-unit id="N06Gqgp" resname="Publish my company">
+        <source>Publish my company</source>
+        <target>Publiceer mijn bedrijf</target>
+      </trans-unit>
+      <trans-unit id="nD7zmuN" resname="Only appointment">
+        <source>Only appointment</source>
+        <target>Alleen op afspraak</target>
+      </trans-unit>
+      <trans-unit id="p05YBDz" resname="Webshop only">
+        <source>Webshop only</source>
+        <target>Alleen webshop</target>
+      </trans-unit>
+      <trans-unit id="qIk5Rsp" resname="One day">
+        <source>One day</source>
+        <target>Eén dag</target>
+      </trans-unit>
+      <trans-unit id="sk5kG6V" resname="Four days">
+        <source>Four days</source>
+        <target>Vier dagen</target>
+      </trans-unit>
+      <trans-unit id="jF0rhm7" resname="Seven day">
+        <source>Seven day</source>
+        <target>Zeven dagen</target>
+      </trans-unit>
+      <trans-unit id="tfROXgi" resname="Kies de gewenste afstand om advertenties te zoeken">
+        <source>Kies de gewenste afstand om advertenties te zoeken</source>
+        <target>Kies de gewenste afstand om advertenties te zoeken</target>
+      </trans-unit>
+      <trans-unit id="4yDVufJ" resname="Geen advertenties gevonden binnen geselecteerde afstand">
+        <source>Geen advertenties gevonden binnen geselecteerde afstand</source>
+        <target>Geen advertenties gevonden binnen geselecteerde afstand</target>
+      </trans-unit>
+      <trans-unit id="FQlHZPV" resname="U heeft geen locatie geselecteerd voor bedrijf">
+        <source>U heeft geen locatie geselecteerd voor bedrijf</source>
+        <target>U heeft geen locatie geselecteerd voor bedrijf</target>
+      </trans-unit>
+      <trans-unit id="ktyPUwb" resname="Populaire zoektermen">
+        <source>Populaire zoektermen</source>
+        <target>Populaire zoektermen</target>
+      </trans-unit>
+      <trans-unit id="GBmeBH8" resname="Promotip België">
+        <source>Promotip België</source>
+        <target>Promotip België</target>
+      </trans-unit>
+      <trans-unit id="F_Q7Wq0" resname="Promotip: Promo's, evenementen, kortingen, koopjes en deals">
+        <source>Promotip: Promo's, evenementen, kortingen, koopjes en deals</source>
+        <target>Promotip: Promo's, evenementen, kortingen, koopjes en deals</target>
+      </trans-unit>
+      <trans-unit id="hMt4cbd" resname="Reviews">
+        <source>Reviews</source>
+        <target>Reviews</target>
+      </trans-unit>
+      <trans-unit id="r.B2alK" resname="Review">
+        <source>Review</source>
+        <target>Review</target>
+      </trans-unit>
+      <trans-unit id="TkTa7tV" resname="Stars">
+        <source>Stars</source>
+        <target>Sterren</target>
+      </trans-unit>
+      <trans-unit id="z59YljI" resname="Visitor">
+        <source>Visitor</source>
+        <target>Bezoeker</target>
+      </trans-unit>
+      <trans-unit id="ZM.xMZ0" resname="Action">
+        <source>Action</source>
+        <target>Actie</target>
+      </trans-unit>
+      <trans-unit id="QMeszOB" resname="Search user">
+        <source>Search user</source>
+        <target>Zoek gebruiker</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Naam</target>
+      </trans-unit>
+      <trans-unit id="cJ.YSk3" resname="Sur name">
+        <source>Sur name</source>
+        <target>Voornaam</target>
+      </trans-unit>
+      <trans-unit id="_xh10KX" resname="Credit">
+        <source>Credit</source>
+        <target>Credit</target>
+      </trans-unit>
+      <trans-unit id="yJCBxMM" resname="Promotip Nederland">
+        <source>Promotip Nederland</source>
+        <target>Promotip Nederland</target>
+      </trans-unit>
+      <trans-unit id="k8kchR5" resname="Price">
+        <source>Price</source>
+        <target>Prijs</target>
+      </trans-unit>
+      <trans-unit id="I4pnbaR" resname="Latitude">
+        <source>Latitude</source>
+        <target>Latitude</target>
+      </trans-unit>
+      <trans-unit id="bYBFj9F" resname="Longitude">
+        <source>Longitude</source>
+        <target>Longitude</target>
+      </trans-unit>
+      <trans-unit id="6RRz_g5" resname="Maak uw Big Premium advertentie">
+        <source>Maak uw Big Premium advertentie</source>
+        <target>Maak uw Big Premium advertentie</target>
+      </trans-unit>
+      <trans-unit id="qwMAa63" resname="Redirection type">
+        <source>Redirection type</source>
+        <target>Manier van doorverwijzen</target>
+      </trans-unit>
+      <trans-unit id="955xXpR" resname="Redirection link">
+        <source>Redirection link</source>
+        <target>Doorverwijzen naar...</target>
+      </trans-unit>
+      <trans-unit id="FAikXXt" resname="Begin uw website met &quot;https://">
+        <source>Begin uw website met "https://</source>
+        <target>Begin uw website met "https://</target>
+      </trans-unit>
+      <trans-unit id="plYQfpn" resname="Statistics">
+        <source>Statistics</source>
+        <target>Statistieken</target>
+      </trans-unit>
+      <trans-unit id="4tR9cBx" resname="Referral links description">
+        <source>Referral links description</source>
+        <target>Beschrijving referral</target>
+      </trans-unit>
+      <trans-unit id="4h_TXxH" resname="Copy">
+        <source>Copy</source>
+        <target>Kopieer</target>
+      </trans-unit>
+      <trans-unit id="7CIb9Eu" resname="Update token">
+        <source>Update token</source>
+        <target>Nieuwe token</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target>Aangemaakt op</target>
+      </trans-unit>
+      <trans-unit id="qsvPMch" resname="Referred Users">
+        <source>Referred Users</source>
+        <target>Aangebrachte leden</target>
+      </trans-unit>
+      <trans-unit id="iQyoKN1" resname="Rewards Earned">
+        <source>Rewards Earned</source>
+        <target>Beloningen verdiend</target>
+      </trans-unit>
+      <trans-unit id="WEoiU.l" resname="Map | Promotip">
+        <source>Map | Promotip</source>
+        <target>Map | Promotip</target>
+      </trans-unit>
+      <trans-unit id="G.GkB0_" resname="Bekijk hier de advertenties van ondernemers in uw buurt. Selecteer afstand">
+        <source>Bekijk hier de advertenties van ondernemers in uw buurt. Selecteer afstand</source>
+        <target>Bekijk hier de advertenties van ondernemers in uw buurt. Selecteer afstand</target>
+      </trans-unit>
+      <trans-unit id="8gh6Xll" resname="KM">
+        <source>KM</source>
+        <target>KM</target>
+      </trans-unit>
+      <trans-unit id="IksRYi4" resname="Enter New Password">
+        <source>Enter New Password</source>
+        <target>Geef uw nieuwe paswoord in</target>
+      </trans-unit>
+      <trans-unit id="PwE0R5I" resname="Wijzig paswoord">
+        <source>Wijzig paswoord</source>
+        <target>Wijzig paswoord</target>
+      </trans-unit>
+      <trans-unit id="9yZ0d0k" resname="Tips and Tricks voor Succesvol Adverteren | Promotip">
+        <source>Tips and Tricks voor Succesvol Adverteren | Promotip</source>
+        <target>Tips and Tricks voor succesvol adverteren | Promotip</target>
+      </trans-unit>
+      <trans-unit id="989xF8N" resname="Help | Promotip">
+        <source>Help | Promotip</source>
+        <target>Help | Promotip</target>
+      </trans-unit>
+      <trans-unit id="2VUuUEj" resname="Registreer mijn bedrijf">
+        <source>Registreer mijn bedrijf</source>
+        <target>Registreer mijn bedrijf</target>
+      </trans-unit>
+      <trans-unit id="1hnRM1R" resname="Registreer">
+        <source>Registreer</source>
+        <target>Registreer</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

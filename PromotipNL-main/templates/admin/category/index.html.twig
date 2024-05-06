@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('admin') }}
+{% endblock %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>{% trans %}Categories{% endtrans %}</h1>
+        {{ form(form) }}
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th style="width: 130px;">{% trans %}Channel{% endtrans %}</th>
+                    <th style="width: 160px;">{% trans %}Parent{% endtrans %}</th>
+                    <th>{% trans %}Title{% endtrans %}</th>
+                    <th>{% trans %}Featured{% endtrans %}</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for c in categories %}
+                    <tr>
+                        <td>
+                            {% for channel in channels %}
+                                {% if channel.id == c.channel %}
+                                {{ channel.name }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for p in categories %}
+                                {% if p.id == c.parent %}
+                                    {{ p.title }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ c.getTitle }}</td>
+                        <td>{{ (c.getFeatured == 1) ? '<span class="badge badge-success">YES</span>' : '<span class="badge badge-secondary">NO</span>' }}</td>
+                        <td class="align-right">
+                            <a href="?ac=edit&amp;id={{ c.getId }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
+                            <a href="?ac=del&amp;id={{ c.getId }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}

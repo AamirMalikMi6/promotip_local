@@ -1,0 +1,34 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}{% trans %} My dashboard | Promotip {% endtrans %}{% endblock %}
+
+{% block dashboard %}
+
+<strong>Uw laatste transactie werd in de wacht gezet</strong>
+<div class="bg-light mt-4">
+    <p>Hier zijn de details van uw transactie:</p>  
+    <p>
+        <strong>Naam van het evenement:</strong> {{ eventAdvert.title }}<br/>
+        <strong>Duur van de uitzending:</strong> {{ plan.duration|trans }}<br/>
+        <strong>Bedrag:</strong> {{ plan.fee }}<br/>
+        <strong>Status:</strong> In afwachting van
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <a class="btn btn-purple" href="{{ url('dashboard_event') }}">{% trans %}newEvent{% endtrans %}</a>
+    </div>
+    <div class="col-6 float-right">
+        <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+            <label class="btn active btn-purple">
+                <input type="radio" name="options" id="option3" autocomplete="off"> {% trans %}allEvents{% endtrans %}
+            </label>
+            <label class="btn btn-purple">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> {% trans %}activeEvents{% endtrans %}
+            </label>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

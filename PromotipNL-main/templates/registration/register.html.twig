@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+
+
+    {{ form_start(form, {'attr': {'class': 'form-card', 'novalidate' : 'novalidate'}}) }}
+    <div class="text-center mb-4">
+        <h1 class="h3 mb-3 fw-300">{% trans %}Register{% endtrans %}</h1>
+    </div>
+
+    <div class="form-label-group row">
+        <div class="col">
+            {{ form_widget(form.email, { 'attr': {'placeholder': 'E-mail'|trans, 'class': 'form-control form-control-lg', 'autofocus': 'autofocus'} }) }}
+            {{ form_label(form.email) }}
+            {{ form_errors(form.email) }}
+        </div>
+    </div>
+
+    <div class="form-label-group row">
+        <div class="col">
+            {{ form_widget(form.plainPassword, { 'attr': {'placeholder': 'Password'|trans, 'class': 'form-control form-control-lg'} }) }}
+            <label for="registration_form_plainPassword" class="required">{% trans %}Password{% endtrans %}</label>
+        </div>
+    </div>
+
+    {{ form_row(form.agreeTerms) }}
+
+    <button type="submit" class="btn btn-lg p-2 btn-pink btn-block">{% trans %}Register{% endtrans %}</button>
+    <div class="small pt-4">
+        <a href="{{ url('login') }}">Heeft u al een account?</a>
+    </div>
+    <hr>
+
+    <a href="{{ path('connect_facebook_start') }}" class="btn btn-lg btn-facebook btn-block"><i class="fab fa-facebook-square marginright10"></i> Sign up with Facebook</a>
+    <a href="{{ path('connect_google_start') }}" class="btn btn-lg btn-google btn-block"><img src="{{ asset('assets/images/google.png') }}" width="20" class="marginright10"> Sign up with Google</a>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+

@@ -1,0 +1,48 @@
+@media (min-width: 576px) {
+    .hp-header {
+        height: 420px;
+    }
+
+    .banner-bp {
+        height: 75px;
+    }
+
+    .bg-category {
+        height: 250px;
+    }
+
+    .bg-event {
+        height: 75px;
+        margin-bottom: 50px;
+    }
+
+    .bg-event2 {
+        height: 370px;
+    }
+
+    .bg-openingshours, .bg-openingshours-preview {
+        background: url("../images/bg-openingshours.jpg");
+        background-size: 100% 78%;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 843px;
+    }
+
+    .bg-web2 {
+        background-color: #d9b29c;
+    }
+
+    .hours {
+        background: url("../images/hours.png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+    .sm-mb-5 {
+        margin-bottom: 5rem;
+    }
+
+    .sm-minwidth-80 {
+        min-width: 80%;
+    }
+}

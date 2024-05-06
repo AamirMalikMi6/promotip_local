@@ -1,0 +1,9 @@
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+        envelope:
+            sender: 'info@promotip.be'
+
+parameters:
+    mail.info.email: 'info@promotip.be'
+    mail.info.name: 'Promotip'

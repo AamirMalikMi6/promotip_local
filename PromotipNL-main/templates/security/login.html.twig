@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Login{% endtrans %}{% endblock %}
+
+{% block body %}
+    <form method="post" class="form-card">
+        <div class="container">
+            <h1 class="h3 mb-3 fw-300">Login to your account</h1>
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {# read and display several types of flash messages #}
+            {% for label, messages in app.flashes(['success', 'warning']) %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        <div class="form-label-group row">
+            <div class="col">
+                <input type="email" name="email" id="inputEmail" class="form-control form-control-lg"
+                       placeholder="Email address" required autofocus>
+                <label for="inputEmail" class="text-left">E-mail adres</label>
+            </div>
+        </div>
+
+        <div class="form-label-group row">
+            <div class="col">
+                <input type="password" name="password" id="inputPassword" class="form-control form-control-lg"
+                       placeholder="Password" required>
+                <label for="inputPassword" class="text-left">Paswoord</label>
+            </div>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+
+        <div class="checkbox mb-3 text-left">
+            <label>
+                <input type="checkbox" value="_remember-me"> Remember me
+            </label>
+        </div>
+
+        <button class="btn btn-lg p-2 btn-pink btn-block" type="submit">{% trans %}Sign in {% endtrans %}</button>
+
+        <div class="row small">
+            <div class="col-6">
+                <a href="{{ url('password_forgotten') }}">{% trans %}Forgot your password?{% endtrans %}</a>
+            </div>
+            <div class="col-6 text-right"><a href="{{ url('register') }}">{% trans %}No account yet?{% endtrans %}</a>
+            </div>
+        </div>
+
+        <hr>
+        <a href="{{ path('connect_facebook_start') }}" class="btn btn-lg btn-facebook btn-block"><i
+                    class="fab fa-facebook-square marginright10"></i> Inloggen via Facebook</a>
+        <a href="{{ path('connect_google_start') }}" class="btn btn-lg btn-google btn-block"><img
+                    src="{{ asset('assets/images/google.png') }}" width="20" class="marginright10"> Inloggen via Google</a>
+    </form>
+    </section>
+
+{% endblock %}

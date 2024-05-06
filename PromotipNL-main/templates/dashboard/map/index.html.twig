@@ -1,0 +1,110 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}{% trans %} Map | Promotip {% endtrans %}{% endblock %}
+
+{% block dashboard %}
+
+    <div class="row">
+        <div class="col-12">
+            <form action="{{path('dashboard_map')}}" method="get" class="form-inline">
+                <div class="form-group mb-2">
+                    <label>{{'Bekijk hier de advertenties van ondernemers in uw buurt. Selecteer afstand'|trans}}</label>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <select name="radius" class="form-control">
+                        {% for radius in radius_options_in_KM %}
+                        <option value="{{ radius }}" {% if radius_sel == radius %} selected {% endif %}>{{radius}} {{ 'KM'|trans }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" name="filter" class="btn btn-pink mb-2">{{ 'Search'|trans }}</button>
+            </form>
+        </div>
+        <div class="col-12">
+            {% if events is defined and events is not empty %}
+                <div class="row mt-4">
+                    {% for event in events %}
+                        
+                        {% set distance = event.distance %}
+                        {% set event = event[0] %}
+
+                        {% set eventChannel = '' %}
+                        {% set eventChannelTitle = '' %}
+                        {% for channel in channels %}
+                            {% if (channel.id == event.channel) %}
+                                {% set eventChannel = channel.getRoute|replace({'_category' : '_advert'}) %}
+                                {% set eventChannelTitle = channel.getName %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% set eventCategory = '' %}
+                        {% for category in categories %}
+                            {% if (category.id == event.category) %}
+                                {% set eventCategory = category.getTitleSlug %}
+                            {% endif %}
+                        {% endfor %}
+                        <div class="col-6 col-sm-6 col-lg-4 mb-4">
+                            <div class="card h-100 rounded-0" style="width:340px>
+                                <span class="badge badge-active">{{ eventChannelTitle }}</span>
+                                {% if event.photos|first.imageName is defined %}
+                                    <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}" style="height: 205px;">
+                                        <img
+                                                class="card-img-top"
+                                                style="height: 100%; width: 100%; object-fit: contain"
+                                                src="{{ asset('/media/events/' ~ event.photos|first.imageName) | imagine_filter('event_fixed') }}"
+                                                alt="" /> </a>
+                                {% else %}
+                                    <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}">
+                                        <img class="card-img-top" style="height: 100%; width: 100%; object-fit: contain" src="assets/images/no-image.png" alt=""/></a>
+                                {% endif %}
+
+                                <div class="card-body">
+                                    <small class="fw-300 text-blue">{{ event.company.companyname }}</small>
+                                    <h5 class="card-title text-uppercase text-truncate text-gray fw-300 m-0 p-0">
+                                        <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}"
+                                           class="text-gray">{{ event.title }}</a>
+                                    </h5>
+                                    {% for geo in geoPlaces %}
+                                        {% if event.geoPlacesId > 0 and geo.id == event.geoPlacesId %}
+                                            <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                        {% elseif event.geoPlacesId == null and event.company.geoPlacesId > 0 and geo.id == event.company.geoPlacesId %}
+                                            <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    <div class="row mt-3">
+                                        <div class="col-12 col-sm-6">
+                                            <div class="row">
+                                                <div class="col-1 p-0"><i class="fa fa-calendar-alt text-pink"></i></div>
+                                                <div class="col">{{ event.eventStartDate|displayDate }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-1 p-0"><i class="fa fa-road text-pink"></i></div>
+                                                <div class="col">{{ distance|number_format(0) }} {{ 'KM'|trans }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="row">
+                                                <div class="col-1 p-0"><i class="fa fa-clock text-pink"></i></div>
+                                                <div class="col">{{ event.startHour|date('H:i') }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-1 p-0"></div>
+                                                <div class="col">{{ event.endHour|date('H:i') }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="bg-light mt-4">
+                    {{ no_item_found_msg }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        @media (max-width: 576px) {
+            .list-of-keywords {
+                padding-bottom: 110px;
+                margin-bottom: 80px; /* Voeg margin-bottom toe voor mobiel */
+            }
+
+            .list-of-keywords li {
+                width: 50%; /* Slechts 2 kolommen op mobiel */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .list-of-keywords {
+                padding-bottom: 110px;
+                margin-bottom: 80px; /* Voeg margin-bottom toe voor tablet */
+            }
+
+            .list-of-keywords li {
+                width: 33.33%; /* Terug naar 3 kolommen op tablet */
+            }
+        }
+
+        .list-of-keywords {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .list-of-keywords li {
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            padding-right: 15px; /* Voeg wat ruimte tussen de kolommen toe */
+            border: 1px solid #e0e0e0; /* Voeg een fijne border toe */
+            padding: 10px;
+            background-color: #fff; /* Achtergrondkleur voor de lijstitems */
+            border-radius: 5px; /* Afgeronde hoeken voor de lijstitems */
+        }
+
+        .list-of-keywords a {
+            text-decoration: none;
+            color: #333; /* Tekstkleur voor de links */
+            font-size: 18px; /* Lettergrootte voor de links */
+            font-weight: bold;
+            transition: color 0.3s; /* Soepele kleurovergang bij hover */
+        }
+
+        .list-of-keywords a:hover {
+            color: #ff6b6b; /* Kleur voor de links bij hover */
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Populaire Zoektermen | Promotip{% endblock %}
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="text-uppercase">{% trans %}Populaire zoektermen{% endtrans %}</h4>
+                <br>
+                <ul class="list-of-keywords">
+                    {% set sortedKeywords = keywords|sort %}
+                    {% for keyword in sortedKeywords %}
+                        <li>
+                            <a href="{{ path('search', {'q': keyword.name}) }}">{{ keyword.name|capitalize }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

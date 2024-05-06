@@ -1,0 +1,73 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/assets/runtime.5b7a9943.js",
+        "/assets/0.01fae393.js",
+        "/assets/1.e52d8b7b.js",
+        "/assets/app.deb475ca.js"
+      ],
+      "css": [
+        "/assets/app.c3183a44.css"
+      ]
+    },
+    "dashboard": {
+      "js": [
+        "/assets/runtime.5b7a9943.js",
+        "/assets/0.01fae393.js",
+        "/assets/1.e52d8b7b.js",
+        "/assets/dashboard.433c00ab.js"
+      ],
+      "css": [
+        "/assets/dashboard.b3391a47.css"
+      ]
+    },
+    "dropzone": {
+      "js": [
+        "/assets/runtime.5b7a9943.js",
+        "/assets/0.01fae393.js",
+        "/assets/5.e7e82e49.js",
+        "/assets/dropzone.f47f5072.js"
+      ],
+      "css": [
+        "/assets/5.fcb8c534.css"
+      ]
+    },
+    "photoswipe": {
+      "js": [
+        "/assets/runtime.5b7a9943.js",
+        "/assets/4.efd2af76.js",
+        "/assets/photoswipe.62a7ed1f.js"
+      ],
+      "css": [
+        "/assets/4.41dc72fb.css"
+      ]
+    },
+    "admin": {
+      "js": [
+        "/assets/runtime.5b7a9943.js",
+        "/assets/0.01fae393.js",
+        "/assets/1.e52d8b7b.js",
+        "/assets/admin.8e0849b3.js"
+      ]
+    },
+    "fullcalendar": {
+      "js": [
+        "/assets/runtime.5b7a9943.js",
+        "/assets/0.01fae393.js",
+        "/assets/3.dd48b23a.js",
+        "/assets/fullcalendar.fb892c56.js"
+      ],
+      "css": [
+        "/assets/3.92e70310.css"
+      ]
+    },
+    "notification": {
+      "js": [
+        "/assets/runtime.5b7a9943.js",
+        "/assets/0.01fae393.js",
+        "/assets/notification.0110337d.js"
+      ]
+    }
+  }
+}

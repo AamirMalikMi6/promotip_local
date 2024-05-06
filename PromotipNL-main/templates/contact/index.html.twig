@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3" id="form_container">
+            <h2>Contact Us</h2>
+            <p>
+                Do you have a question or a suggestion? Don't hesitate for contacting us! <br>We will answer your e-mail as soon as possible.<br>
+            </p>
+            <form role="form" method="post" id="reused_form">
+
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label for="message">
+                            Message:</label>
+                        <textarea class="form-control" type="textarea" name="message" id="message" maxlength="6000" rows="7"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label for="name">
+                            Your Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="email">
+                            Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <button type="submit" class="btn btn-lg btn-success pull-right" >Send →</button>
+                    </div>
+                </div>
+
+            </form>
+            <div id="success_message" style="width:100%; height:100%; display:none; ">
+                <h3>Posted your message successfully!</h3>
+            </div>
+            <div id="error_message"
+                 style="width:100%; height:100%; display:none; ">
+                <h3>Error</h3>
+                Sorry there was an error sending your form.
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

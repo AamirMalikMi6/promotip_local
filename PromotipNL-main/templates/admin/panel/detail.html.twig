@@ -1,0 +1,707 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard') }}
+    {{ encore_entry_link_tags('dropzone') }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dropzone') }}
+    {{ encore_entry_script_tags('dashboard_events') }}
+    {{ encore_entry_script_tags('admin') }}
+{% endblock %}
+
+{% block title %}Users{% endblock %}
+
+{% block body %}
+    <div class="container xs-mb10">
+        <div class="row">
+            <div class="col-lg-2 bg-l-grey">
+                <nav class="nav flex-column">
+                    <a href="{{ url('admin_category') }}" class="nav-link">Categories</a>
+                    <a href="{{ url('admin_tag') }}" class="nav-link">Tags</a>
+                    <a href="{{ url('admin_panel_users') }}" class="nav-link active">Admin Panel</a>                   
+                </nav>
+            </div>
+            <div class="col-lg-10">
+                <div class="container bg-l-grey p-10-20">
+                    <h1>Search user</h1>
+
+                    <div class="mt-4">
+                        <form action="{{ url('search-user') }}" method="post">
+                            <input type="hidden" name="token" value="{{ csrf_token('search_user') }}"/>
+                            <div class="filters-field row">
+                                <div class="col-12 col-lg-3 mb-3">
+                                    <input type="text" class="form-control" name="userID" placeholder="User ID" value="">
+                                </div>
+                                <div class="col-12 col-lg-3 mb-3">
+                                    <input type="text" class="form-control" name="mail" placeholder="Mail address" value="">
+                                </div>   
+                                <div class="col-12 col-lg-3 mb-3">
+                                    <input type="text" class="form-control" name="phone" placeholder="Phone number" value="">
+                                </div>     
+                                <div class="col-12 col-lg-3 mb-3">
+                                    <button type="submit" class="btn btn-purple rounded-right px-4">Search</button>
+                                </div>                         
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="container bg-l-grey p-10-20 mt-3">
+                    <h1>{{ user.getFirstname }} {{ user.getSurname }}</h1>
+                    <div class="mt-3">
+                        <span class="badge badge-panel bg-green">{% if user.getEnabled %} Active {% else %} Created {% endif %}</span>
+                        <span class="badge badge-panel bg-grey">{{ user.getCredits }} credit{% if user.getCredits > 1 %}s{% endif %}</span>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <a href="{{ path('admin_panel_users') }}">Go to admin panel</a>
+                    </div>
+                    <ul class="nav nav-pills mt-4 mb-1" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {% if tabAdvertActive is same as(false) and tabAdvertPremiumActive is same as(false) and tabProfileActive is same as(false) %}active{% endif %}" id="pills-user-tab" data-toggle="pill" data-target="#pills-user" type="button" role="tab" aria-controls="pills-user" aria-selected="false">User</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {% if tabAdvertActive is not same as(false) %}active{% endif %}" id="pills-articles-tab" data-toggle="pill" data-target="#pills-articles" type="button" role="tab" aria-controls="pills-articles" aria-selected="false">Adverts</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {% if tabProfileActive is not same as(false) %}active{% endif %}" id="pills-profile-tab" data-toggle="pill" data-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-transactions-tab" data-toggle="pill" data-target="#pills-transactions" type="button" role="tab" aria-controls="pills-transactions" aria-selected="false">Transactions</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {% if tabAdvertPremiumActive is not same as(false) %}active{% endif %}" id="pills-premium-tab" data-toggle="pill" data-target="#pills-premium" type="button" role="tab" aria-controls="pills-premium" aria-selected="false">Premium</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-invoices-tab" data-toggle="pill" data-target="#pills-invoices" type="button" role="tab" aria-controls="pills-invoices" aria-selected="false">Invoices</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content tab-user-details" id="pills-tabContent">
+                        <div class="tab-pane fade {% if tabAdvertActive is same as(false) and tabAdvertPremiumActive is same as(false) and tabProfileActive is same as(false) %}show active{% endif %} mt-5" id="pills-user" role="tabpanel" aria-labelledby="pills-user-tab">
+                            <div class="admin-panel-buttons mt-2 mb-5">
+                                <a href="?u=b&amp;ap=b" class="btn btn-c-admin btn-red" onclick="return confirm('Are you sure?');">
+                                    block user
+                                    <br/>
+                                    <small>(block articles & profiles)</small>
+                                </a>
+                                <a href="?u=ub&amp;ap=ub" class="btn btn-c-admin btn-green" onclick="return confirm('Are you sure?');">
+                                    unblock
+                                    <br/>
+                                    <small>(unblock articles & profiles)</small>
+                                </a>
+                                <a href="?u=ub&amp;ap=b" class="btn btn-c-admin btn-yellow" onclick="return confirm('Are you sure?');">
+                                    unblock
+                                    <br/>
+                                    <small>(keep articles & profiles blocked)</small>
+                                </a>
+                            </div>
+                            {{ form_start(formUser, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 190px;">User ID:</th>
+                                            <td>{{ user.getId }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 190px;">Status:</th>
+                                            <td>
+                                                {% if user.getEnabled == 0 %}
+                                                    <span class="badge badge-panel" style="background-color: #676767;"> Created </span>
+                                                {% endif %}
+
+                                                {% if user.getEnabled == 1  %}
+                                                    {% if user.getBlocked == 0 %}
+                                                        <span class="badge badge-panel" style="background-color: #72c012;"> Activated </span>
+                                                    {% else %}
+                                                        <span class="badge badge-panel" style="background-color: #fa444c;"> Blocked </span>
+                                                    {% endif %}                                  
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 190px;">E-mail:</th>
+                                            <td>
+                                                {{ form_widget(formUser.email, { 'attr': {'placeholder': 'E-mail'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                {{ form_errors(formUser.email) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 190px;">Firstname:</th>
+                                            <td>
+                                                {{ form_widget(formUser.firstname, { 'attr': {'placeholder': 'First name'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                {{ form_errors(formUser.firstname) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 190px;">Surname:</th>
+                                            <td>
+                                                {{ form_widget(formUser.surname, { 'attr': {'placeholder': 'Sur name'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                {{ form_errors(formUser.surname) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 190px;">Last login date:</th>
+                                            <td>{{ user.getLastLogin|date }}</td>
+                                        </tr>
+                                        {% if user.getDeletedAt is not null and user.deleted %}
+                                            <tr>
+                                                <th style="width: 190px;">Account deleted date:</th>
+                                                <td>{{ user.getDeletedAt|date }}</td>
+                                            </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <th style="width: 190px;">Remarks:</th>
+                                            <td>
+                                                {{ form_widget(formUser.remarks, { 'attr': {'placeholder': '', 'class': 'form-control form-control-md'} }) }}
+                                                {{ form_errors(formUser.remarks) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 190px;">Credits:</th>
+                                            <td>
+                                                {{ form_widget(formUser.credits, { 'attr': {'placeholder': 'Credit'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                {{ form_errors(formUser.credits) }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="btn btn-lg p-2 btn-pink btn-block mb-5">{% trans %}Save{% endtrans %}</button>
+                            {{ form_end(formUser) }}
+                        </div>
+                        <div class="tab-pane {% if tabAdvertActive is not same as(false) %}show active{% endif %} fade" id="pills-articles" role="tabpanel" aria-labelledby="pills-articles-tab">
+                            {% if hasCompany is same as (false) %}
+                                <h2 style="color: #282828;">You need to add a company</h2>
+                                <a href="?t=pf" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add a company</a>
+                            {% else %}
+                                {% if editAdvert is not same as(false) %}
+                                    <div class="col-12">
+                                        <a href="{{ path('admin_panel_users_edit', { 'id': user.getId }) }}/?t=ad">Go to user adverts</a>
+                                    </div>
+
+                                    <div class="row p-3 mb-2">
+                                        <div class="col-sm-6 col-md-5 col-lg-6">
+                                            <div class="row photo-container" style="margin-top: 20px;">
+                                                {% if eventadvertPhotos is defined %}
+                                                    {% for photo in eventadvertPhotos %}
+                                                        {% include 'dashboard/eventadvert/photo.html.twig' %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                            <form action="{{ oneup_uploader_endpoint('events') }}" class="dropzone bg-light border" id="dropzone"
+                                                data-ph="{{ url('dashboard_eventadvert_photo_template') }}">
+                                                <div class="dz-message" data-dz-message>
+                                                    <i class="fa fa-camera fa-3x"></i><br>
+                                                    <span class="mt-2">{% trans %}Drag & drop your photos here{% endtrans %}</span><br>
+                                                    <small>{% trans %}or{% endtrans %}</small><br>
+                                                    <span class="btn btn-outline-dark">{% trans %}Browse files{% endtrans %}</span>
+                                                    <input type="hidden" name="type" value="eventadvert">
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-5 col-lg-6" style="margin-bottom: 75px;">
+                                            <div class="col-12">
+                                                {{ form_start(formAdvert, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+
+
+                                                <div class="form-label-group row">
+                                                    <div class="col" style="margin-top: 20px;">
+                                                        {{ form_widget(formAdvert.channel, { 'attr': {'placeholder': 'Channel'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                                        {{ form_errors(formAdvert.channel) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        {{ form_widget(formAdvert.category, { 'attr': {'placeholder': 'Category'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                                        {{ form_errors(formAdvert.category) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        {{ form_widget(formAdvert.title, { 'attr': {'placeholder': 'Title'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                                        {{ form_label(formAdvert.title, 'Title'|trans) }}
+                                                        {{ form_errors(formAdvert.title) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        {{ form_label(formAdvert.description, 'Description'|trans, {'label_attr': {'style' : 'position: relative; left: 0;'}}) }}
+                                                        {{ form_widget(formAdvert.description, { 'attr': {'placeholder': '', 'class': 'form-control form-control-lg'} }) }}
+                                                        {{ form_errors(formAdvert.description) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        <small class="form-text text-muted">Voeg enkele beschrijvende tags over uw advertentie toe</small>
+                                                        <select name="tags[]" class="select2-tags form-control" multiple="multiple" style="margin-right: 85px;">
+                                                            {% for tag in advertTags %}
+                                                                <option value="{{ tag.tag.name }}" selected="selected">{{ tag.tag.name }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div id="date_hour_bloc">
+                                                    <div class="form-label-group row">
+                                                        <div class="col-6">
+                                                            {{ form_label(formAdvert.eventStartDate, 'Start date'|trans) }}
+                                                            {{ form_widget(formAdvert.eventStartDate, { 'attr': {'placeholder': 'Start date'|trans, 'class': 'form-control-xlg p-0'} }) }}
+                                                            {{ form_errors(formAdvert.eventStartDate) }}
+                                                        </div>
+                                                        <div class="col-6">
+                                                            {{ form_label(formAdvert.eventEndDate, 'End date'|trans) }}
+                                                            {{ form_widget(formAdvert.eventEndDate, { 'attr': {'placeholder': 'End date'|trans, 'class': 'form-control-xlg p-0'} }) }}
+                                                            {{ form_errors(formAdvert.eventEndDate) }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-label-group row">
+                                                        <div class="col-6">
+                                                            {{ form_label(formAdvert.startHour, 'Start hour'|trans) }}
+                                                            {{ form_widget(formAdvert.startHour, { 'attr': {'placeholder': 'Start hour'|trans, 'class': 'form-control-xlg p-0'} }) }}
+                                                            {{ form_errors(formAdvert.startHour) }}
+                                                        </div>
+                                                        <div class="col-6">
+                                                            {{ form_label(formAdvert.endHour, 'End hour'|trans) }}
+                                                            {{ form_widget(formAdvert.endHour, { 'attr': {'placeholder': 'End hour'|trans, 'class': 'form-control-xlg p-0'} }) }}
+                                                            {{ form_errors(formAdvert.endHour) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="bg-light p-3 mb-2">
+                                                    <small class="form-text text-muted mb-3">Vind uw event plaats op een andere locatie dan uw bedrijf? <br>Voeg hieronder het adres van het evenement toe</small>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input other_address" type="checkbox" name="other_address"
+                                                            id="other_address">
+                                                        <label class="form-check-label" for="other_address">
+                                                            {% if companyAdvert.companyName is defined %}
+                                                                {% trans %}Other location than{% endtrans %} {{ companyAdvert.companyName }}
+                                                            {% else %}
+                                                                {% trans %}Other location{% endtrans %}
+                                                            {% endif %}
+                                                        </label>
+                                                    </div>
+                                                    <div class="d-none address mt-2">
+                                                        <div class="form-label-group row">
+                                                            <div class="col-12">
+                                                                {{ form_widget(formAdvert.address, { 'attr': {'placeholder': 'Address'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                                                {{ form_label(formAdvert.address, 'Address'|trans) }}
+                                                                {{ form_errors(formAdvert.address) }}
+                                                            </div>
+                                                            <div class="col-6">
+                                                                {{ form_widget(formAdvert.housenumber, { 'attr': {'placeholder': 'Housenumber'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                                                {{ form_label(formAdvert.housenumber, 'Number'|trans) }}
+                                                                {{ form_errors(formAdvert.housenumber) }}
+                                                            </div>
+                                                            <div class="col-6">
+                                                                {{ form_widget(formAdvert.box, { 'attr': {'placeholder': 'Box'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                                                {{ form_label(formAdvert.box, 'Box'|trans) }}
+                                                                {{ form_errors(formAdvert.box) }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-label-group row">
+                                                            <div class="col">
+                                                                <select name="location" class="select2-location form-control"></select>
+                                                                {{ form_errors(formAdvert.geoPlacesId) }}
+                                                                {{ form_widget(formAdvert.geoPlacesId, { 'attr': {'placeholder': 'Zipcode & City'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit"
+                                                        class="btn btn-lg p-2 btn-pink btn-block mb-5">{% trans %}Save{% endtrans %}</button>
+
+                                                {{ form_end(formAdvert) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 400px;">Title</th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for advert in adverts %}
+                                                <tr>
+                                                    <td>{{ advert.getTitle }}</td>
+                                                    <td class="align-right">
+                                                        {% if advert.getPaused %}
+                                                            <span style="color: #ff2a2a; margin-right: 10px;">Paused</span>
+                                                            <a href="?ac=ups&amp;a_id={{ advert.getId }}&amp;t=ad" class="btn btn-sm btn-info"><i class="fa fa-play"></i> Activate</a>
+                                                        {% elseif advert.getBlocked %}
+                                                            <span style="color: #ff2a2a; margin-right: 10px;">Blocked</span>
+                                                            <a href="?ac=ub&amp;a_id={{ advert.getId }}&amp;t=ad" class="btn btn-sm btn-info"><i class="fa fa-play"></i> Unblock</a>
+                                                        {% elseif advert.getDeleted %}
+                                                            <span style="color: #ff2a2a; margin-right: 10px;">Deleted</span>
+                                                            <a href="?ac=restore&amp;a_id={{ advert.getId }}&amp;t=ad" class="btn btn-sm btn-info"><i class="fa fa-play"></i> Restore</a>
+                                                        {% else %}
+                                                            <a href="?ac=edit&amp;a_id={{ advert.getId }}&amp;t=ad" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i> Edit</a>
+                                                            <a href="?ac=ps&amp;a_id={{ advert.getId }}&amp;t=ad" class="btn btn-sm btn-secondary"><i class="fa fa-pause"></i> Pause</a>
+                                                            <a href="?ac=bl&amp;a_id={{ advert.getId }}&amp;t=ad" class="btn btn-sm btn-warning"><i class="fa fa-ban"></i> Block</a>
+                                                            <a href="?ac=del&amp;a_id={{ advert.getId }}&amp;t=ad" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="tab-pane {% if tabProfileActive is not same as(false) %}show active{% endif %} fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col col-sm-12">
+                                        <div class="row p-3 mb-2">
+                                            <div class="col-sm-6 col-md-5 col-lg-8">
+                                                {{ form_start(formCompanyProfile, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        {{ form_widget(formCompanyProfile.companyname, { 'attr': {'placeholder': 'Company name'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                        {{ form_label(formCompanyProfile.companyname, 'Company Name'|trans) }}
+                                                        {{ form_errors(formCompanyProfile.companyname) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col-6">
+                                                        {{ form_widget(formCompanyProfile.address, { 'attr': {'placeholder': 'Address'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                        {{ form_label(formCompanyProfile.address, 'Address'|trans) }}
+                                                        {{ form_errors(formCompanyProfile.address) }}
+                                                    </div>
+                                                    <div class="col-3">
+                                                        {{ form_widget(formCompanyProfile.housenumber, { 'attr': {'placeholder': 'Housenumber'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                        {{ form_label(formCompanyProfile.housenumber, 'Number'|trans) }}
+                                                        {{ form_errors(formCompanyProfile.housenumber) }}
+                                                    </div>
+                                                    <div class="col-3">
+                                                        {{ form_widget(formCompanyProfile.box, { 'attr': {'placeholder': 'Box'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                        {{ form_label(formCompanyProfile.box, 'Box'|trans) }}
+                                                        {{ form_errors(formCompanyProfile.box) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        <select name="location" class="select2-location-company form-control"></select>
+                                                        {{ form_errors(formCompanyProfile.geoPlacesId) }}
+
+                                                        {{ form_widget(formCompanyProfile.geoPlacesId, { 'attr': {'placeholder': 'Zipcode & City'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        {{ form_widget(formCompanyProfile.phonenumber, { 'attr': {'placeholder': 'Phone'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                        {{ form_label(formCompanyProfile.phonenumber, 'Phone'|trans) }}
+                                                        {{ form_errors(formCompanyProfile.phonenumber) }}
+                                                        <small class="form-text text-muted">Optioneel</small>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        {{ form_widget(formCompanyProfile.website, { 'attr': {'placeholder': 'Website'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                        {{ form_label(formCompanyProfile.website, 'Website'|trans) }}
+                                                        {{ form_errors(formCompanyProfile.website) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        {{ form_widget(formCompanyProfile.emailaddress, { 'attr': {'placeholder': 'E-mail'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                        {{ form_label(formCompanyProfile.emailaddress, 'E-mail'|trans) }}
+                                                        {{ form_errors(formCompanyProfile.emailaddress) }}
+                                                        <small class="form-text text-muted">{% trans %}This e-mail address will be visible on the website{% endtrans %}</small>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        {{ form_widget(formCompanyProfile.vatnumber, { 'attr': {'placeholder': 'VAT'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                        {{ form_label(formCompanyProfile.vatnumber, 'VAT number'|trans) }}
+                                                        {{ form_errors(formCompanyProfile.vatnumber) }}
+                                                        <small class="form-text text-muted">Optioneel</small>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        {{ form_label(formCompanyProfile.description, 'Introduction'|trans, {'label_attr': {'style' : 'position: relative; left: 0;'}}) }}
+                                                        {{ form_widget(formCompanyProfile.description, { 'attr': {'placeholder': 'Introduction'|trans, 'class': 'form-control form-control-md'} }) }}
+                                                        {{ form_errors(formCompanyProfile.description) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="col">
+                                                        <small class="form-text text-muted">Voeg enkele beschrijvende tags over uw bedrijf toe</small>
+                                                        <select name="tags[]" class="select2-tags form-control" multiple="multiple">
+                                                            {% for tag in tags %}
+                                                                <option value="{{ tag.tag.name }}" selected="selected">{{ tag.tag.name }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="checkbox mb-4">
+                                                        <label style="color: #000;">
+                                                            Alleen afspraak
+                                                            <input type="checkbox" name="only_appointment" {% if(company.getOnlyAppointment) %} checked="checked" {% endif %} >
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-label-group row">
+                                                    <div class="checkbox mb-4">
+                                                        <label style="color: #000;">
+                                                            Alleen webshop
+                                                            <input type="checkbox" name="webshop_only" {% if(company.getWebshopOnly) %} checked="checked" {% endif %}> 
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <h3 class="fw-300">{% trans %}Opening hours{% endtrans %}</h3>
+                                                <div class="form-group">
+                                                    <table class="table">
+                                                        <tbody>
+                                                        {% for day in range(1, 7) %}
+                                                            <tr>
+                                                                <td class="align-middle xs-td">
+                                                                    <strong>
+                                                                        {% if day == 1 %}
+                                                                            {% trans %}Monday{% endtrans %}
+                                                                        {% elseif day == 2 %}
+                                                                            {% trans %}Tuesday{% endtrans %}
+                                                                        {% elseif day == 3 %}
+                                                                            {% trans %}Wednesday{% endtrans %}
+                                                                        {% elseif day == 4 %}
+                                                                            {% trans %}Thursday{% endtrans %}
+                                                                        {% elseif day == 5 %}
+                                                                            {% trans %}Friday{% endtrans %}
+                                                                        {% elseif day == 6 %}
+                                                                            {% trans %}Saturday{% endtrans %}
+                                                                        {% elseif day == 7 %}
+                                                                            {% trans %}Sunday{% endtrans %}
+                                                                        {% endif %}
+                                                                    </strong>
+                                                                </td>
+                                                                <td class="xs-td">
+                                                                    <select name="openingHour[{{ day }}][from][0]" class="form-control xs-form-field">
+                                                                        <option value="">{% trans %}Closed{% endtrans %}</option>
+                                                                        {% for i in range(0, 23) %}
+                                                                            <option value="{{ "%02d"|format(i) ~ ':00' }}"{% if (opening_hours[day].from[0] is defined and opening_hours[day].from[0] == "%02d"|format(i) ~ ':00') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':00' }}</option>
+                                                                            <option value="{{ "%02d"|format(i) ~ ':30' }}"{% if (opening_hours[day].from[0] is defined and opening_hours[day].from[0] == "%02d"|format(i) ~ ':30') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':30' }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </td>
+                                                                <td class="align-middle text-gray open-1 xs-td">
+                                                                    {% trans %}till{% endtrans %}
+                                                                </td>
+                                                                <td class="open-1 xs-td">
+                                                                    <select name="openingHour[{{ day }}][till][0]" class="form-control xs-form-field">
+                                                                        <option value="">{% trans %}Closed{% endtrans %}</option>
+                                                                        {% for i in range(0, 23) %}
+                                                                            <option value="{{ "%02d"|format(i) ~ ':00' }}"{% if (opening_hours[day].till[0] is defined and  opening_hours[day].till[0] == "%02d"|format(i) ~ ':00') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':00' }}</option>
+                                                                            <option value="{{ "%02d"|format(i) ~ ':30' }}"{% if (opening_hours[day].till[0] is defined and opening_hours[day].till[0] == "%02d"|format(i) ~ ':30') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':30' }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </td>
+                                                                <td class="align-middle xs-td">
+                                                                    <a href="#" class="add-hours btn btn-sm btn-dark{% if (opening_hours[day].from[1] is defined) %} d-none{% endif %}"
+                                                                    data-day="{{ day }}"><i class="fa fa-plus"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="{% if (opening_hours[day].from[1] is not defined) %}d-none{% endif %} day-{{ day }}">
+                                                                <td>
+                                                                    &nbsp;
+                                                                </td>
+                                                                <td>
+                                                                    <select name="openingHour[{{ day }}][from][1]" class="form-control">
+                                                                        <option value="">{% trans %}Closed{% endtrans %}</option>
+                                                                        {% for i in range(0, 23) %}
+                                                                            <option value="{{ "%02d"|format(i) ~ ':00' }}"{% if (opening_hours[day].from[1] is defined and opening_hours[day].from[1] == "%02d"|format(i) ~ ':00') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':00' }}</option>
+                                                                            <option value="{{ "%02d"|format(i) ~ ':30' }}"{% if (opening_hours[day].from[1] is defined and opening_hours[day].from[1] == "%02d"|format(i) ~ ':30') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':30' }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </td>
+                                                                <td class="align-middle text-gray open-1">
+                                                                    {% trans %}till{% endtrans %}
+                                                                </td>
+                                                                <td>
+                                                                    <select name="openingHour[{{ day }}][till][1]" class="form-control">
+                                                                        <option value="">{% trans %}Closed{% endtrans %}</option>
+                                                                        {% for i in range(0, 23) %}
+                                                                            <option value="{{ "%02d"|format(i) ~ ':00' }}"{% if (opening_hours[day].till[1] is defined and opening_hours[day].till[1] == "%02d"|format(i) ~ ':00') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':00' }}</option>
+                                                                            <option value="{{ "%02d"|format(i) ~ ':30' }}"{% if (opening_hours[day].till[1] is defined and opening_hours[day].till[1] == "%02d"|format(i) ~ ':30') %} selected="selected"{% endif %}>{{ "%02d"|format(i) ~ ':30' }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </td>
+                                                                <td class="align-middle">
+                                                                    <a href="#" class="remove-hours btn btn-sm btn-dark" data-day="{{ day }}"><i class="fa fa-minus"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-lg p-2 btn-pink btn-block mb-5">{% trans %}Save{% endtrans %}</button>
+                                                {{ form_end(formCompanyProfile) }}
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <form action="{{ oneup_uploader_endpoint('companies') }}" class="bg-light border" id="dropzone"
+                                                    data-ph="{{ url('dashboard_company_photo_template') }}">
+                                                    <div class="dz-message m-2 text-center" data-dz-message>
+                                                        <i class="fa fa-camera fa-3x mx-auto"></i><br>
+                                                        <span class="mt-2">{% trans %}Drag & drop your photos here{% endtrans %}</span><br>
+                                                        <small>{% trans %}or{% endtrans %}</small><br>
+                                                        <span class="btn btn-outline-dark">{% trans %}Browse files{% endtrans %}</span>
+                                                        <input type="hidden" name="type" value="company">
+                                                    </div>
+                                                </form>
+
+                                                {% if companyPhotos is defined %}
+                                                    {% for photo in companyPhotos %}
+                                                        {% include 'dashboard/company/photo.html.twig' %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="tab-pane fade" id="pills-transactions" role="tabpanel" aria-labelledby="pills-transactions-tab">
+                            {% if transactions|length > 0 %}
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 250px;">Advert title</th>
+                                                <th style="width: 200px;">Payment Method</th>
+                                                <th style="width: 140px;">Amount</th>
+                                                <th style="width: 350px;">Date payment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for transaction in transactions %}
+                                            <tr>
+                                                <td>{% if transaction.getEventAdvert is not null %} {{ transaction.getEventAdvert.getTitle }} {% else %} <span style="color: red;">Credit payment</span>{% endif %}</td>
+                                                <td>{{ transaction.getPaymentMethod }}</td>
+                                                <td>{{ transaction.getAmount }}</td>
+                                                <td>{{ transaction.getDatePayment|date }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <span style="color: #f12525; padding-left: 15px;">No transaction payments for this user</span>
+                            {% endif %}
+                        </div>
+                        <div class="tab-pane {% if tabAdvertPremiumActive is not same as(false) %}show active{% endif %} fade" id="pills-premium" role="tabpanel" aria-labelledby="pills-premium-tab">
+                            {% if editPremiumAdvert is not same as(false) %}
+
+                                <div class="col-12">
+                                    <a href="{{ path('admin_panel_users_edit', { 'id': user.getId }) }}/?t=ad_p">Go to user premium adverts</a>
+                                </div>
+
+                                <div class="row p-3 mb-2">
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <div class="col-12">
+                                            {{ form_start(formPremiumAdvert, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+
+                                            <div id="date_hour_bloc">
+                                                <div class="form-label-group row">                                                    
+                                                    <div class="col-12">
+                                                        {{ form_label(formPremiumAdvert.eventEndDate, 'End date'|trans) }}
+                                                        {{ form_widget(formPremiumAdvert.eventEndDate, { 'attr': {'placeholder': 'End date'|trans, 'class': 'form-control-xlg p-0'} }) }}
+                                                        {{ form_errors(formPremiumAdvert.eventEndDate) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit"
+                                                    class="btn btn-lg p-2 btn-pink btn-block mb-5">{% trans %}Save{% endtrans %}</button>
+
+                                            {{ form_end(formPremiumAdvert) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                {% if premiumAdverts|length > 0 %}
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 400px;">Title</th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for premiumAdvert in premiumAdverts %}
+                                                <tr>
+                                                    <td>{{ premiumAdvert.getTitle }}</td>
+                                                    <td class="align-right">
+                                                        <a href="?ac=edit&amp;ap_id={{ premiumAdvert.getId }}&amp;t=ad_p" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i> Edit</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <span style="color: #f12525; padding-left: 15px;">No premium adverts for this user</span>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="tab-pane fade" id="pills-invoices" role="tabpanel" aria-labelledby="pills-invoices-tab">
+                            {% if invoices|length > 0 %}
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 250px;">Factuurnummer</th>
+                                                <th style="width: 200px;">Datum</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for invoice in invoices %}
+                                            <tr>
+                                                <td>{{ get_front_invoice_number(invoice) }}</td>
+                                                <td>{{ invoice.invoiceDate|date("d/m/Y") }}</td>
+                                                <td style="word-break: normal;"><a href="{{ path('dashboard_facturen_download', {'invoice' : invoice.id}) }}"><strong><span style="color:#8C4968">Factuur downloaden</span> <i class="fas fa-file-pdf"></i></a></strong></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <span style="color: #f12525; padding-left: 15px;">No invoice for this user</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>     
+    </div>
+
+{% endblock %}

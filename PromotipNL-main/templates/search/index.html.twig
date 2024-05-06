@@ -1,0 +1,191 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Zoeken | Promotip {% endblock %}
+{% block body %}
+
+    {# <div class="container-fluid banner-bp ctr-fluid">
+    </div> #}
+
+    <section class="container-fluid hp-header">
+        <div class="row">
+            <div class="col-12 flex-centered-h">
+                <form action="{{ url('search') }}" method="get" class="text-center xs-minwidth-100 sm-minwidth-80 lg-minwidth-50">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-block d-sm-none top_logo">
+                                <img src="{{ asset('assets/images/logo-colored.png') }}" alt="Promotip" class="img-fluid">
+                            </div>
+                            <h2 class="text-white text-uppercase fw-500 pt-4 pt-sm-5 pt-sm-10 h2-big xs-top-margin-tb">{% trans %}Searching for happenings?{% endtrans %}</h2>
+                            <div class="input-group xs-direction-column">
+                                <input type="text" name="q" class="col form-control-lg rounded-left border-0 p-4 xs-search xs-box-border-radius"
+                                       placeholder="{% trans %}What are you looking for...{% endtrans %}" value="{{ results.params.q }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-purple rounded-right px-4 xs-top-bottom xs-button-padding xs-box-border-radius" type="submit"><i
+                                                class="fa fa-search"></i> {% trans %}Search{% endtrans %}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                {# <form action="" method="get" class="">
+                    <div class="input-group">
+                        <input type="text" name="q" class="col form-control-lg rounded-left p-4"
+                               style="border-top-right-radius: 0; border-bottom-right-radius: 0;"
+                               placeholder="Wat zoekt u?" >
+                        <div class="input-group-append">
+                            <button class="btn btn-purple rounded-right px-4" type="submit">
+                                <i class="fa fa-search"></i> {% trans %}Search{% endtrans %}
+                            </button>
+                        </div>
+                </form> #}
+            </div>
+        </div>
+    </section>
+
+    <div style="position: relative; top: -100px; margin-bottom: -100px;" {% if hasSearchQuery %}class="d-block d-xs-none"{% endif %}>
+        <div class="container">
+            <div class="row mt-4">
+                <div class="col-sm-12 bg-white p-3 shadow xs-show-none">
+                    <div class="row">
+                        {% for channel in channels %}
+                            <div class="col-12 col-sm-4">
+                                <div class="row xs-category-box">
+                                    <div class="xs-full-width col-4 col-md-12 col-lg-4 border-right text-center text-md-left text-lg-center">
+                                        <a href="{{ url(channel.getRoute|replace({'_category' : ''})) }}"
+                                           class="xs-category-title text-purple"><strong>{{ channel.getName }}</strong></a>
+                                    </div>
+                                    <div class="xs-full-width col-8">
+                                        <ul class="list-unstyled xs-row xs-margin-top-35">
+                                            {% for category in categories %}
+                                                {% if (category.getChannel == channel.getId and category.getParent is null) %}
+                                                    {% set route = "sales_category" %}
+                                                    <li class="xs-half xs-category-item">
+                                                        <a href="{{ url(channel.getRoute, {category : category.getTitleSlug}) }}"
+                                                           class="text-dark">{{ category.getTitle }}</a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="d-sm-none xs-category-icon-link">
+                                    <a href="{{ url(channel.getRoute|replace({'_category' : ''})) }}">
+                                        <img src="{{ asset('assets/images/arrow-down.png') }}">
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row" style="margin-top: 15px">
+            <div class="col">
+                <p>
+                    {% if results.items|length > 1 %}
+                    {{ results.items|length }} resultaten gevonden
+                    {% elseif results.items|length == 1 %}
+                    {{ results.items|length }} resultaat gevonden
+                    {% else %}
+                <div class="col align-self-center">
+                    <img src="assets/images/no-results.jpg" class="img-fluid" alt="Responsive image"/> Sorry, geen resultaten voor "{{ results.params.q }}"</div>
+                {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 100px; margin-top: 20px;">
+            {% for event in results %}
+                {% if event.companyname is defined %}
+                    <div class="col-12 col-lg-4 col-sm-6 mb-4">
+                        <div class="card h-100 rounded-0">
+                            <span class="badge badge-active">Bedrijven</span>
+                            {% if event.photos|first.imageName is defined %}
+                                <div style="height: 285px;">
+                                    <img class="card-img-top img-contain-vertical-align" src="{{ asset('/media/companies/' ~ event.photos|first.imageName) | imagine_filter('company_fixed') }}" alt="Card image cap">
+                                </div>
+                            {% else %}
+                                <div style="height: 285px;"><img class="card-img-top img-contain-vertical-align" src="assets/images/no-image.png" alt="" width="350" height="280"/></div>
+                            {% endif %}
+
+                            <div class="card-body">
+                                <small class="fw-300 text-blue">Bedrijven</small>
+                                {{ render(controller('App\\Controller\\CompanyController::getCompanyUrlByGeoPlacesID', { 'geoID': event.geoPlacesId, 'company': event.companynameSlug })) }}
+                                {% for geo in geoPlaces %}
+                                    {% if event.geoPlacesId > 0 and geo.id == event.geoPlacesId %}
+                                        <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                    {% elseif event.geoPlacesId == null and event.geoPlacesId > 0 and geo.id == event.geoPlacesId %}
+                                        <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    {% set eventChannel = '' %}
+                    {% set eventChannelTitle = '' %}
+                    {% for channel in channels %}
+                        {% if (channel.id == event.channel) %}
+                            {% set eventChannel = channel.getRoute|replace({'_category' : '_advert'}) %}
+                            {% set eventChannelTitle = channel.getName %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% set eventCategory = '' %}
+                    {% for category in categories %}
+                        {% if (category.id == event.category) %}
+                            {% set eventCategory = category.getTitleSlug %}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="col-12 col-lg-4 col-sm-6 mb-4">
+                        <div class="card h-100 rounded-0">
+                            <span class="badge badge-active">{{ eventChannelTitle }}</span>
+                            {% if event.photos|first.imageName is defined %}
+                                <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}" style="height: 285px;">
+                                    <img
+                                            class="card-img-top img-contain-vertical-align"
+                                            src="{{ asset('/media/events/' ~ event.photos|first.imageName) | imagine_filter('event_fixed') }}"
+                                            alt="" /> </a>
+                            {% else %}
+                                <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}" style="height: 285px">
+                                    <img class="card-img-top img-contain-vertical-align" src="assets/images/no-image.png" alt="" width="350" height="280"/></a>
+                            {% endif %}
+
+                            <div class="card-body">
+                                <small class="fw-300 text-blue">{{ event.company.companyname }}</small>
+                                <h5 class="card-title text-uppercase text-gray fw-300 m-0 p-0">
+                                    <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}"
+                                       class="text-gray">{{ event.title }}</a>
+                                </h5>
+                                {% for geo in geoPlaces %}
+                                    {% if event.geoPlacesId > 0 and geo.id == event.geoPlacesId %}
+                                        <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                    {% elseif event.geoPlacesId == null and event.company.geoPlacesId > 0 and geo.id == event.company.geoPlacesId %}
+                                        <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <i class="fa fa-calendar-alt text-pink"></i> {{ event.eventStartDate|displayDate }}
+                                    </div>
+                                    <div class="col-6">
+                                        <i class="fa fa-clock text-pink"></i> {{ event.startHour|date('H:i') }}
+                                        - {{ event.endHour|date('H:i') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div>
+        {{ knp_pagination_render(results) }}
+    </div>
+{% endblock %}

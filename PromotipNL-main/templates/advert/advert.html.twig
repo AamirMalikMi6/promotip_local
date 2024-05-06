@@ -1,0 +1,263 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ event.title }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('lightgallery') }}
+    {{ encore_entry_link_tags('sliders') }}
+    <style>
+        @media (min-width: 767px){
+            .h-400{
+                height: 400px;
+            }
+            .t-50{
+                top: 50px;
+            }
+        }
+        @media (max-width: 766px){
+            .text-sm-black{
+                color: #727985;
+            }
+            .bg-openingshours{
+                margin-bottom: 250px;
+            }
+        }
+        @media (max-width: 576px) {
+            .hours {
+                height: unset;
+                background-size: auto;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('lightgallery') }}
+    {{ encore_entry_script_tags('sliders_advert') }}
+{% endblock %}
+
+{% block body %}
+    {% import '/include/breadcrumb.html.twig' as breadcrumb %}
+
+    {{ breadcrumb.render([
+        {'url': url('home'), 'text': 'Promotip'},
+        {'url': url(channel.getRoute|replace({'_category' : ''})), 'text': channel.getName},
+        {'url': url(channel.getRoute, {category : category.getTitleSlug}), 'text': category.title},
+        {'text': event.title},
+    ]) }}
+
+    {#  <div class="container-fluid bg-category">
+    </div>#}
+
+    <div class="container" style="margin-top:50px">
+        <div class="row mb-5 pb-5">
+            <div class="col-12 col-sm-5 d-block d-xs-none" id="gallery">
+                <div class="card border-0">
+                    {% if event.photos|first.imageName is defined %}
+                        <a href="{{ asset('/media/events/' ~ event.photos|first.imageName) | imagine_filter('event_full') }}"
+                           class="photo">
+                            <img class="img-fluid"
+                                 src="{{ asset('/media/events/' ~ event.photos|first.imageName) | imagine_filter('event_fluid') }}"
+                                 alt="{{ event.photos|first.imageAlt }}">
+                        </a>
+                    {% else %}
+                        <img class="img-fluid" src="/assets/images/no-image.png" alt=""/>
+                    {% endif %}
+                    {% if latitude is defined and latitude is not null and longitude is defined and longitude is not null %}
+                        <div class="container d-md-block d-sm-none" style="height:200px">
+                            <div id='map-md' class='map pad2' style="height:200px"></div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="thumbs mt-2">
+                    {% for photo in event.photos[1:] %}
+                        <a href="{{ asset('/media/events/' ~ photo.imageName) | imagine_filter('event_full') }}"
+                           class="photo">
+                            <img class="img-fluid"
+                                 src="{{ asset('/media/events/' ~ photo.imageName) | imagine_filter('event_small_thumb') }}"
+                                 alt="{{ photo.imageAlt }}">
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-12 col-sm-7 pt-0 mt-0 border-left">
+                <h4 class="xs-fw-400 text-auro">{{ event.title }}</h4>
+                <div class="col-12 col-sm-5 d-block d-sm-none" id="gallery_slider">
+                    <div class="card border-0">
+                        {% if event.photos|first.imageName is defined %}
+                            <a href="{{ asset('/media/events/' ~ event.photos|first.imageName) | imagine_filter('event_full') }}"
+                            class="photo">
+                                <img class="img-fluid xs-box-border-radius"
+                                    src="{{ asset('/media/events/' ~ event.photos|first.imageName) | imagine_filter('event_fluid') }}"
+                                    alt="{{ event.photos|first.imageAlt }}">
+                            </a>
+                        {% else %}
+                            <img class="img-fluid xs-box-border-radius" src="/assets/images/no-image.png" alt=""/>
+                        {% endif %}
+                    </div>
+                    <div class="thumbs mt-2">
+                        <div class="splide splide_active_advert my-5">
+                            <div class="splide__track">
+                                <ul class="splide__list">
+                                    {% for photo in event.photos[1:] %}
+                                        <li class="splide__slide">
+                                            <a href="{{ asset('/media/events/' ~ photo.imageName) | imagine_filter('event_full') }}"
+                                            class="photo">
+                                                <img class="img-fluid xs-box-border-radius"
+                                                    src="{{ asset('/media/events/' ~ photo.imageName) | imagine_filter('event_small_thumb') }}"
+                                                    alt="{{ photo.imageAlt }}">
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-left-0 border-right-0 border-bottom-0 pt-3 mt-3">{{ event.description|raw }} </div>
+                {% if event.price is not empty %}
+                    <div class="text-right font-weight-bold font-italic" style="color: #800080;">Prijs {{ event.price|replace({".": ","}) }}€</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <section class="container-fluid bg-openingshours xs-background-none" style="margin-top:150px">
+        <section class="container" style="margin-top: 35px;">
+            <div class="row">
+                <div class="col-12 col-lg-4 py-4 bg-add xs-box-border-radius xs-mb-1-half xs-gradient-box-shadow advert-cc">
+                    <div class="row">
+                        <div class="col-6 col-sm-12">
+                            <i class="fa fa-map-marker mr-1"></i> <b>Waar</b>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            {% if event.address != null %}
+                                {{ event.address }} {{ event.housenumber }} {{ event.box }}<br>
+                            {% else %}
+                                {{ event.company.address }} {{ event.company.housenumber }} {{ event.company.box }}<br>
+                            {% endif %}
+                            {{ geoPlace[0].postcode }} {{ geoPlace[0].locality }}
+                        </div>
+                    </div>
+                </div>
+
+                {% if (event.company.phonenumber is defined and event.company.phonenumber is not null) %}
+                    <div class="col-12 col-lg-4 py-4 bg-pho xs-box-border-radius xs-mb-1-half xs-gradient-box-shadow advert-cc">
+                        <div class="row">
+                            <div class="col-6 col-sm-12">
+                                <i class="fa fa-phone mr-1"></i> <b>Contact</b>
+                            </div>
+                            <div class="col-6 col-sm-12">
+                                <a href="tel:{{ event.company.phonenumber|phone_number_format('E164') }}" class="text-dark">
+                                    {{ event.company.phonenumber|phone_number_format('NATIONAL') }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="col-12 col-lg-4 py-4 bg-web2 xs-box-border-radius xs-mb-1-half xs-gradient-box-shadow advert-cc">
+                    <div class="row">
+                        <div class="col-6 col-sm-12">
+                            <i class="fa fa-calendar"></i> <b>Wanneer</b>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            {% if expired_advert(event) %}
+                                Afgelopen
+                            {% else %}
+                                {{ event.eventStartDate|date('d/m/Y') }} {% trans %} till {% endtrans %} {{ event.eventEndDate|date('d/m/Y') }}
+                                <br>
+                                {{ event.startHour|date('H:i') }} - {{ event.endHour|date('H:i') }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 py-4  xs-box-border-radius xs-mb-1-half">
+                    {% if latitude is defined and latitude is not null and longitude is defined and longitude is not null %}
+                        <div class="container d-md-none d-sm-block" style="height:200px; margin-top:10px">
+                            <div id='map-sm' class='map pad2' style="height:200px"></div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+        {# </section> #}
+
+
+        <div class="row">
+            <div class="col-md-4 offset-md-4 text-white text-center text-auro text-uppercase h-400 t-50">
+                <p class="info-organization"><small>{% trans %}Information about the organization{% endtrans %}</small></p>
+                <div class="hours">
+                    <h6 class="text-beige"
+                        style="font-size: 85%; font-weight: normal; padding: 20px 0 0 0; margin: 0">
+                        {% if province and city %}
+                        <a href="{{ url('company_company', {'province' : province.nameDirify, 'city' : city.localityDirify, 'company' : event.company.companynameSlug }) }}" target="_blank"
+                           rel="noopener nofollow" class="event-company-name text-auro" style="color:#ffdac5">{{ event.company.companyname }}</a><br>
+                        {% endif %}
+                        <br class="d-block d-sm-none"><br class="d-block d-sm-none">
+                        <a href="{{ event.company.website }}" target="_blank"
+                           rel="noopener nofollow" class="event-company-website" style="color:#ffdac5">Bezoek onze website</a><br>
+                    </h6>
+                </div>
+                <div class="col-md-4 offset-md-4 text-white text-center text-uppercase h-400 t-50">
+                    <p class="text-sm-black">Deel deze advertentie</p>
+                    <div class="sharethis-inline-share-buttons"></div>
+                </div>
+            </div>
+        </div>
+
+
+{#            </div>#}
+            {#  <div class="col-6">
+                    <div class="row" style="margin-top: 140px">
+                        <div class="col-4 align-items-center text-center text-white">
+                            <div class="hours">
+                                <h6 class="text-beige"
+                                    style="font-size: 85%; font-weight: normal; padding: 20px 0 0 0; margin: 0">
+                                   {{ event.company.companyname }}<br>
+                                    <a href="{{ event.company.website }}" style="color:#ffdac5">{{ event.company.website }}</a><br>
+                                </h6>
+                                <strong class="text-uppercase"></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div> #}
+{#        </div>#}
+    </section>
+    <script>
+        // Provide your access token
+        {% if latitude is defined and latitude is not null and longitude is defined and longitude is not null %}
+        L.mapbox.accessToken = "{{ app.request.server.get('MAPBOX_KEY') }}";
+        const geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            {{ event.longitude  }},
+                            {{ event.latitude  }}
+                        ]
+                    },
+                }
+            ]
+        };
+        if ({{ event.latitude  }} && {{ event.longitude  }}) {
+            const mapMd = L.mapbox
+                .map('map-md')
+                .setView([ {{ latitude }}, {{ longitude }}], 13)
+                .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/light-v11'))
+                .featureLayer.setGeoJSON(geojson);
+            const mapSm = L.mapbox
+                .map('map-sm')
+                .setView([ {{ latitude }}, {{ longitude }}], 13)
+                .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/light-v11'))
+                .featureLayer.setGeoJSON(geojson);
+        }
+        {% endif %}
+    </script>
+
+{% endblock %}

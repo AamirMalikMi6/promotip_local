@@ -1,0 +1,15 @@
+<p>
+    Hallo, <br/>
+    Hier zijn de details van uw laatste transactie:
+</p>
+<p>
+    <strong>Beschrijving:</strong> {{ payment.description }}<br/>
+    <strong>Bedrag:</strong> {{ payment.amount.value }}<br/>
+    <strong>Status:</strong> {{ payment.status }}<br/>
+    <strong>Datum:</strong> {{ payment.createdAt|date("F jS Y \\a\\t g:ia") }}
+</p>
+<p>
+Dank u wel.<br/>
+Het team,<br/>
+Promotip
+</p>

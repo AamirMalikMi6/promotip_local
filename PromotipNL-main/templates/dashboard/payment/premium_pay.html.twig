@@ -1,0 +1,62 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}{% trans %} My dashboard | Promotip {% endtrans %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard') }}
+    {{ encore_entry_link_tags('dropzone') }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dropzone') }}
+    {{ encore_entry_script_tags('dashboard_events') }}
+{% endblock %}
+
+{% block dashboard %}
+
+    {% set beforeMsgPay = 'Wilt u de advertentie "' %}
+    {% set endMsgPay = '" activeren als premium advertentie?' %}
+    <div><blockquote>
+            Grand Premium-advertenties zijn advertenties die boven aan de startpagina en subpagina's verschijnen, maar onder het navigatiemenu. <p>Op die manier heeft uw advertentie nog <strong>meer visibiliteit en bereik</strong>!
+
+        </blockquote>
+    </div>
+
+    <div class="bg-beige mt-4 pb-2 pt-2 pl-2">
+        {{ beforeMsgPay ~ premiumEventAdvert.title ~ endMsgPay }} <br>(Betalen via Bancontact, Ideal of Paypal)</div>
+
+
+    <form method="POST" id="paymentForm">
+        <input type="hidden" name="token" value="{{ csrf_token('premium-event-pay') }}"/>
+        <input type="hidden" id="entity" name="entity" value="{{ premiumEventAdvert.id }}">
+        <input type="hidden" id="entity_name" name="entity_name" value="{{ premiumEventAdvert.title }}">
+        <div class="form-label-group row">
+            <div class="checkbox">
+                <label style="color: #000;">
+                    <input type="radio" name="payment_duration" value="ONE_WEEK"> Een week in de kijker (5,25€)
+                </label>
+            </div>
+        </div>
+        <div class="form-label-group row">
+            <div class="checkbox">
+                <label style="color: #000;">
+                    <input type="radio" name="payment_duration" value="TWO_WEEKS"> Twee weken in de kijker (10,50€)
+                </label>
+            </div>
+        </div>
+        <div class="form-label-group row">
+            <div class="checkbox">
+                <label style="color: #000;">
+                    <input type="radio" name="payment_duration" value="ONE_MONTH"> Een maand in de kijker (21,00€)
+                </label>
+            </div>
+        </div>
+
+        
+        <button type="submit" class="btn btn-lg p-2 btn-pink btn-block mb-5">Doorgaan naar betalen</button>
+    </form>
+
+{% endblock %}

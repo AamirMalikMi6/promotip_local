@@ -1,0 +1,89 @@
+# See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+liip_imagine:
+  # valid drivers options include "gd" or "gmagick" or "imagick"
+  driver: "imagick"
+  resolvers:
+    default:
+      web_path: ~
+
+  webp:
+    generate: true
+
+  filter_sets:
+    promotip_filter:
+      filters:
+        strip: ~
+        cache: ~
+        auto_rotate: ~
+
+    company_thumb:
+      quality: 75
+      filters:
+        thumbnail: { size: [ 240, 180 ], mode: outbound, allow_upscale: true }
+        strip: ~
+        auto_rotate: ~
+
+    company_fixed:
+      quality: 75
+      filters:
+        fixed: { width: 240, height: 180 }
+        strip: ~
+        auto_rotate: ~
+
+    company_full:
+      quality: 75
+      filters:
+        thumbnail: { size: [ 1600, 1200 ], mode: inset, allow_upscale: false }
+        strip: ~
+        auto_rotate: ~
+
+    event_small_thumb:
+      quality: 75
+      filters:
+        thumbnail: { size: [ 80, 80 ], mode: outbound, allow_upscale: true }
+        strip: ~
+        auto_rotate: ~
+
+    event_thumb:
+      quality: 75
+      filters:
+        thumbnail: { size: [ 350, 210 ], mode: outbound, allow_upscale: true }
+        strip: ~
+        auto_rotate: ~
+
+    event_fixed:
+      quality: 75
+      filters:
+        thumbnail: { size: [ 368, 300], mode: inset }
+        strip: ~
+        auto_rotate: ~
+
+    event_fluid:
+      quality: 75
+      filters:
+        scale:
+          dim: [ 480, 600 ]
+        strip: ~
+        auto_rotate: ~
+
+    event_slider:
+      quality: 75
+      filters:
+        fixed: { width: 410, height: 410 }
+        strip: ~
+        auto_rotate: ~
+
+    event_full:
+      quality: 75
+      filters:
+        thumbnail: { size: [ 1600, 1200 ], mode: inset, allow_upscale: false }
+        strip: ~
+        auto_rotate: ~
+
+
+
+        # background: { size: [124, 94], position: center, color: '#000000' }
+
+
+
+        # background: { size: [124, 94], position: center, color: '#000000' }

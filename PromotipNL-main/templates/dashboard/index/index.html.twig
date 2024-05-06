@@ -1,0 +1,156 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block dashboard %}
+    <div class="row">
+        <div class="col-12">
+            {#  <blockquote>
+                <strong>Eindejaarsactie: </strong> tot en met 15 januari 2024 krijgt u <u>credits aan 0,50€</u>.<br/>
+                Uw credits blijven ook na de eindejaarsactie onbeperkt geldig!
+                <p><a href="https://www.promo-tip.nl/dashboard/credit/" style="color: white"><strong>Koop hier uw credits</strong></a></p>.
+            </blockquote>#}
+            <blockquote>
+                Activeer uw premium aan <strong>voordelige tarieven</strong> met credits!
+                <br>Nog geen credits? Koop ze <a href="https://www.promo-tip.nl/dashboard/credit/" style="color: white"><strong>hier!</strong></a>
+            </blockquote>
+        </div>
+        <div class="col-6">
+            <a class="btn btn-purple" href="{{ url('dashboard_event') }}">{% trans %}newEvent{% endtrans %}</a>
+        </div>
+        <div class="col-6 float-right">
+            <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                <a class="btn btn-purple" href="{{ url('dashboard_index') }}">{% trans %}allEvents{% endtrans %}</a>
+                <a class="btn btn-purple" href="{{ url('dashboard_event_active') }}">{% trans %}activeEvents{% endtrans %}</a>
+                {# <label class="btn active btn-purple">
+                    <input type="radio" name="options" id="option3" autocomplete="off"> {% trans %}allEvents{% endtrans %}
+                </label>
+                <label class="btn btn-purple">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked> {% trans %}activeEvents{% endtrans %}
+                </label> #}
+            </div>
+        </div>
+        <div class="col-12">
+            {% if ac == 'del-advert' %}
+                <div class="alert alert-success mt-2">
+                    Advertentie is verwijderd
+                </div>
+            {% endif %}
+            {% if events is defined and events is not empty %}
+                <div class="row mt-4">
+                    {% for event in events %}
+                        {% set eventChannel = '' %}
+                        {% set eventChannelTitle = '' %}
+                        {% for channel in channels %}
+                            {% if (channel.id == event.channel) %}
+                                {% set eventChannel = channel.getRoute|replace({'_category' : '_advert'}) %}
+                                {% set eventChannelTitle = channel.getName %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% set eventCategory = '' %}
+                        {% for category in categories %}
+                            {% if (category.id == event.category) %}
+                                {% set eventCategory = category.getTitleSlug %}
+                            {% endif %}
+                        {% endfor %}
+                        <div class="col-6 col-sm-6 col-lg-4 mb-4">
+                            <div class="card h-100 rounded-0">
+                                {% if event.photos|first.imageName is defined %}
+                                    <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}" class="a-block-fixed-height">
+                                        <img
+                                                class="img-fluid text-center img-contain-vertical-align"
+                                                src="{{ asset('/media/events/' ~ event.photos|first.imageName) | imagine_filter('event_fixed') }}"
+                                                alt="{{ event.photos|first.imageAlt }}" /> </a>
+                                {% else %}
+                                    <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}">
+                                        <img class="card-img-top" style="height: 100%; width: 100%; object-fit: contain" src="assets/images/no-image.png" alt=""/></a>
+                                {% endif %}
+
+                                <div class="card-body"
+                                     style="padding-top: 10px;padding-left: 10px;padding-right: 10px;padding-bottom: 10px;">
+                                    <small class="fw-300 text-blue">{{ eventChannelTitle }}</small>
+                                    <h5 class="card-title text-uppercase text-truncate text-gray fw-300 m-0 p-0">
+                                        <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}"
+                                           class="text-gray">{{ event.title }}</a>
+                                    </h5>
+                                    {% for geo in geoPlaces %}
+                                        {% if event.geoPlacesId > 0 and geo.id == event.geoPlacesId %}
+                                            <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                        {% elseif event.geoPlacesId == null and event.company.geoPlacesId > 0 and geo.id == event.company.geoPlacesId %}
+                                            <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    <div class="row mt-3">
+                                        <div class="col-12 col-sm-6">
+                                            <div class="row d-none">
+                                                <div class="col-1 p-0"><i class="fa fa-calendar-alt text-pink"></i></div>
+                                                <div class="col">
+                                                    {% if event.eventStartDate != null %}
+                                                        {{ event.eventStartDate|displayDate }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-left: 1em;">
+                                                <div class="col-1 p-0"><i class="fa fa-eye text-pink"></i></div>
+                                                <div class="col">{{ event.views*1 }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 d-none">
+                                            <div class="row">
+                                                <div class="col-1 p-0"><i class="fa fa-clock text-pink"></i></div>
+                                                <div class="col">
+                                                    {% if event.startHour != null %}
+                                                        {{ event.startHour|date('H:i') }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-1 p-0"></div>
+                                                <div class="col">
+                                                    {% if event.endHour != null %}
+                                                        {{ event.endHour|date('H:i') }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% if event.paymentStatus == 'paid' %}
+                                        <div class="row mt-3">
+                                            <div class="col">
+                                                <strong>Bezoekers tijdens Premium: <span style="color:#8C4968">{{ get_view_in_premium(event.id) }}</span></strong>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col">
+                                                <strong>Online tot <span style="color:#8C4968">{{ get_premium_ending_date(event) }}</span></strong>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="row mt-3 ml-1">
+                                    <div class="col-md-6 col-sm-12 p-0">
+                                        <a href="{{ url('dashboard_event', {'id' : event.id}) }}" style="color:#8C4968"><i
+                                                    class="fa fa-edit"></i>Wijzigen</a></div>
+                                    <div class="col-md-6 col-sm-12 p-0 text-"><a href="{{ url('dashboard_eventadvert_delete', {'id' : event.id}) }}" style="color:#8C4968;" onclick="return confirm('Bent u zeker dat u deze advertentie wenst te verwijderen?');"><i
+                                                    class="fa fa-trash"></i>Verwijder</a></div>
+                                    {% if event.getPaymentStatus == 'pending' %}
+                                        <div class="col-md-12 col-sm-12 p-0 mt-3">
+                                            <a class="btn btn-purple btn-make-payment" href="{{ url('dashboard_eventadvert_pay', {'id' : event.id}) }}">Activeer premium</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-warning mt-4">
+                    U heeft nog geen advertentie gepubliceerd. <br>Maak gratis uw advertentie aan en start meteen met promoten!
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+    {% extends 'dashboard.html.twig' %}
+
+{% block title %}{% trans %} My dashboard | Promotip {% endtrans %}{% endblock %}
+
+{% block dashboard %}
+    <table width="100%" class="styled-table">
+        {% if messageList|length != 0 %}
+            <thead>
+            <tr>
+                <th>{{ 'received'|trans }}</th>
+                <th>{{ 'from'|trans }}</th>
+                <th>{{ 'subject'|trans }}</th>
+            </tr>
+            </thead>
+        {% endif %}
+        <tbody>
+        {% for message in messageList %}
+            <tr>
+                <td style="width: 200px"><a href="{{ path('dashboard_view_message', {'messageId': message.id}) }}">{{ message.received }}</a></td>
+                <td style="width: 200px"><a href="{{ path('dashboard_view_message', {'messageId': message.id}) }}">{{ message.sender }}</a></td>
+                <td><a href="{{ path('dashboard_view_message', {'messageId': message.id}) }}">{{ message.subject }}</a></td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td colspan="3" class="text-center text-black-50 font-italic">{{ 'no message found'|trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

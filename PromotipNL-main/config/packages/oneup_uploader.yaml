@@ -1,0 +1,31 @@
+oneup_uploader:
+    mappings:
+        companies:
+            frontend: dropzone
+            allowed_mimetypes:
+                image/jpeg: ['jpg', 'jpeg']
+                image/gif: ['gif']
+                image/png: ['png']
+            enable_progress: true
+            storage:
+                directory: "%kernel.project_dir%/public/media/companies/"
+        events:
+            frontend: dropzone
+            allowed_mimetypes:
+                image/jpeg: ['jpg', 'jpeg']
+                image/gif: ['gif']
+                image/png: ['png']
+            enable_progress: true
+            storage:
+                directory: "%kernel.project_dir%/public/media/events/"
+        events_premium:
+            frontend: dropzone
+            allowed_mimetypes:
+                image/jpeg: ['jpg', 'jpeg']
+                image/gif: ['gif']
+                image/png: ['png']
+            enable_progress: true
+            storage:
+                directory: "%kernel.project_dir%/public/media/events_premium/"
+
+

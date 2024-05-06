@@ -1,0 +1,42 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}{% trans %} My dashboard | Promotip {% endtrans %}{% endblock %}
+
+{% block dashboard %}
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Beschrijving</th>
+            <th scope="col">Methode</th>
+            <th scope="col">Bedrag</th>
+            <th scope="col">Status</th>
+            <th scope="col">Datum</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for payment in payments %}
+        <tr>
+            <th scope="row">{{ payment.description }}</th>
+            <td>{{ payment.method }}</td>
+            <td>{{ payment.amount.value }}</td>
+            <td>{{ payment.status }}</td>
+            <td>{{ payment.createdAt|date("F jS Y \\a\\t g:ia") }}</td>
+        </tr>
+    {% endfor %}
+    {% set nextPayments = payments.next() %}
+    {% if nextPayments is not empty %}
+        {% for nextPayment in nextPayments %}
+            <tr>
+                <th scope="row">{{ nextPayment.description }}</th>
+                <td>{{ nextPayment.method }}</td>
+                <td>{{ nextPayment.amount.value }}</td>
+                <td>{{ nextPayment.status }}</td>
+                <td>{{ nextPayment.createdAt|date("F jS Y \\a\\t g:ia") }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+</table>
+
+{% endblock %}

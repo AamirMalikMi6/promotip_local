@@ -1,0 +1,135 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}{% trans %} My dashboard | Promotip {% endtrans %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard') }}
+    {{ encore_entry_link_tags('dropzone') }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dropzone') }}
+    {{ encore_entry_script_tags('dashboard_events') }}
+{% endblock %}
+
+{% block dashboard %}
+
+    {% set beforeMsgPay = 'Wilt u de advertentie "' %}
+    {% set endMsgPay = '" activeren als premium advertentie?' %}
+<div><blockquote>
+        Premium advertenties zijn advertenties die op de sliderbalken van de homepagina staan en in de subrubrieken waar u uw advertentie geplaatst heeft. <p>Op die manier heeft uw advertentie nog <strong>meer visibiliteit en bereik</strong>!
+
+    </blockquote>
+</div>
+
+<div class="bg-beige mt-4 pb-2 pt-2 pl-2">
+    {{ beforeMsgPay ~ eventAdvert.title ~ endMsgPay }} <br>(Betalen via Bancontact, Ideal of Paypal)</div>
+
+
+<form method="POST" id="paymentForm">
+    <input type="hidden" name="token" value="{{ csrf_token('event-pay') }}"/>
+    <input type="hidden" id="entity" name="entity" value="{{ eventAdvert.id }}">
+    <input type="hidden" id="entity_name" name="entity_name" value="{{ eventAdvert.title }}">
+
+    <div class="row">
+        <div class="col-12 ml-auto">
+            <div class="row mt-4">
+                <div class="col col-sm-6 col-lg-4 mb-4 b-left-right-1px">
+                    <div class="pop-option bg-transparent">&nbsp</div>
+                    <div class="box-upsale-item">
+                        <h3>Een dag</h3>
+                        <hr class="d-block d-xs-none" style="width: 50px; background-color: #bfbfbf;"/>
+                        <p class="mt-4 mb-2">24u in de kijker</p>
+                        <label class="btn btn-pink" for="btn-check1">1,65€ <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" name="payment_duration" value="ONE_DAY"</label>
+                    </div>
+                </div>
+
+                <div class="col col-sm-6 col-lg-4 mb-4 b-left-right-1px">
+                    <div class="pop-option">Meest gekozen</div>
+                    <div class="box-upsale-item">
+                        <h3>Vier dagen</h3>
+                        <hr class="d-block d-xs-none" style="width: 50px; background-color: #bfbfbf;"/>
+                        <p class="mt-4 mb-2">4 dagen in de kijker</p>
+                        <label class="btn btn-pink" for="btn-check2">3,30€ <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" name="payment_duration" value="FOUR_DAY"</label>
+                    </div>
+                </div>
+
+                <div class="col col-sm-6 col-lg-4 mb-4 b-left-right-1px">
+                    <div class="pop-option bg-transparent">&nbsp;</div>
+                    <div class="box-upsale-item">
+                        <h3>Zeven dagen</h3>
+                        <hr class="d-block d-xs-none" style="width: 50px; background-color: #bfbfbf;"/>
+                        <p class="mt-4 mb-2">7 dagen in de kijker</p>
+                        <label class="btn btn-pink" for="btn-check3">4,15€ <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" name="payment_duration" value="SEVEN_DAY"</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <form method="POST" id="paymentForm">
+        <input type="hidden" name="token" value="{{ csrf_token('event-pay') }}"/>
+        <input type="hidden" id="entity" name="entity" value="{{ eventAdvert.id }}">
+        <input type="hidden" id="entity_name" name="entity_name" value="{{ eventAdvert.title }}">
+
+        {% if userCredit is defined and userCredit is not null and userCredit >= minimumBalance %}
+        <div class="bg-beige mt-4 pb-2 pt-2 pl-2">
+            Wilt u uw premium advertentie met <strong>credits</strong> activeren?
+        </div>
+
+        {% if userCredit <= 1 %}
+            <div class="alert alert-warning mt-3" role="alert">
+                U heeft momenteel niet genoeg credits voor de activatie met credits. <br>Indien gewenst kunt u uw saldo opwaarderen via het tabblad "credits" in het menu.
+            </div>
+        {% endif %}
+
+        {% if userCredit >= minimumBalance * 2 %}
+
+        <div class="row">
+            <div class="col-12 ml-auto">
+                <div class="row mt-4">
+                    <div class="col col-sm-6 col-lg-4 mb-4 b-left-right-1px">
+                        <div class="pop-option bg-transparent">&nbsp</div>
+                        <div class="box-upsale-item">
+                            <h3>Een dag</h3>
+                            <hr class="d-block d-xs-none" style="width: 50px; background-color: #bfbfbf;"/>
+                            <p class="mt-4 mb-2">24u in de kijker</p>
+                            <label class="btn btn-pink" for="btn-check4">2 credits <span>(1,24€)</span> <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" name="payment_duration" value="CREDIT_ONE_DAY"</label>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if userCredit >= minimumBalance * 4 %}
+                        <div class="col col-sm-6 col-lg-4 mb-4 b-left-right-1px">
+                            <div class="pop-option bg-transparent">&nbsp</div>
+                            <div class="box-upsale-item">
+                                <h3>Vier dagen</h3>
+                                <hr class="d-block d-xs-none" style="width: 50px; background-color: #bfbfbf;"/>
+                                <p class="mt-4 mb-2">4 dagen in de kijker</p>
+                                <label class="btn btn-pink" for="btn-check5">4 credits (2,48€) <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" name="payment_duration" value="CREDIT_FOUR_DAY"</label>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if userCredit >= minimumBalance * 6 %}
+                        <div class="col col-sm-6 col-lg-4 mb-4 b-left-right-1px">
+                            <div class="pop-option">Meest gekozen</div>
+                            <div class="box-upsale-item">
+                                <h3>Zeven dagen</h3>
+                                <hr class="d-block d-xs-none" style="width: 50px; background-color: #bfbfbf;"/>
+                                <p class="mt-4 mb-2">7 dagen in de kijker</p>
+                                <label class="btn btn-pink" for="btn-check6">6 credits (3,72€) <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" name="payment_duration" value="CREDIT_SEVEN_DAY"</label>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% endif %}
+                    <button type="submit" class="btn btn-lg p-2 btn-pink btn-block mb-5">Doorgaan naar betalen</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    {% endblock %}

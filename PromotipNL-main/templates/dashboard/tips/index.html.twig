@@ -1,0 +1,83 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block title %}{% trans %} Tips and Tricks voor Succesvol Adverteren | Promotip {% endtrans %}{% endblock %}
+
+{% block dashboard %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="col bg-warning"><h6>Tips en Tricks voor succesvol adverteren</h6>
+                    Het toepassen van deze tips en tricks kan uw advertentiecampagnes op www.promotip.be helpen verbeteren en u helpen uw doelen te bereiken.
+                    Het belangrijkste is om flexibel te blijven en uw strategie aan te passen op basis van feedback en prestatiegegevens.
+                </div>
+                <div class="border-radius-20 xs-box-gradborder xs-legals-page md-box-gradborder mt-5" style="padding-left: 10px; margin-bottom: 80px;">
+                    <ul>
+                        <li><strong>Gebruik relevante zoekwoorden in je advertentietekst:</strong>
+                            <br>Zorg ervoor dat de zoekwoorden die u in uw advertentietekst gebruikt, nauw verwant zijn aan uw producten of diensten.
+                            Deze zoekwoorden helpen zoekmachines en gebruikers te begrijpen waar uw advertentie over gaat.
+                            Dit verhoogt de kans dat uw advertentie wordt weergegeven aan mensen die op zoek zijn naar wat u aanbiedt.
+                        </li>
+                        <br>
+                        <li><strong>Gebruik relevante afbeeldingen en zorg dat dit uw eigen copyrightvrije afbeeldingen
+                                zijn:</strong>
+                            <br> Het gebruik van aantrekkelijke en relevante afbeeldingen kan de aandacht van uw doelgroep trekken.
+                            Zorg ervoor dat u afbeeldingen gebruikt die gerelateerd zijn aan uw producten of diensten en die geen inbreuk maken op copyrights.
+                            U kunt gebruikmaken van stockfoto's of uw eigen beelden maken.
+                        </li>
+                        <br>
+                        <li><strong>Houd de advertenties van eventuele concurrenten in de gaten en onderscheid uzelf van uw
+                                concurrenten:</strong>
+                            <br>Blijf op de hoogte van wat uw concurrenten doen en zoek manieren om u te onderscheiden.
+                            Focus op uw unieke verkoopargumenten en benadruk deze in uw advertenties om potentiële klanten te overtuigen waarom ze voor u moeten kiezen.
+                        </li>
+                        <br>
+                        <li><strong>Vernieuw uw advertentie met regelmaat zodat deze vernieuwend blijft ogen voor
+                                bezoekers:</strong>
+                            <br>Het is belangrijk om uw advertenties regelmatig bij te werken en te verfrissen. Een verouderde advertentie kan de interesse van bezoekers verliezen.
+                            Pas visuals, tekst en aanbiedingen aan om ervoor te zorgen dat uw advertenties up-to-date en aantrekkelijk blijven.
+                        </li>
+                        <br>
+                        <li><strong>Plaats meerdere advertenties voor grotere zichtbaarheid:</strong>
+                            <br>Het plaatsen van meerdere advertenties kan uw zichtbaarheid vergroten.
+                            Experimenteer met verschillende advertenties om te zien welke het meest effectief zijn.
+                            Dit kan ook helpen om uw doelgroep op verschillende manieren aan te spreken.
+
+                        </li>
+                        <br>
+                        <li><strong>Gebruik geen te korte teksten maar schrijf zinvolle inhoud:</strong>
+                            <br>Zorg ervoor dat uw advertentieteksten voldoende informatie bieden om potentiële klanten aan te trekken.
+                            Vermijd te korte of vage teksten. Beschrijf duidelijk wat u te bieden heeft en welke voordelen uw producten of diensten bieden.
+                        </li>
+                        <br>
+                        <li><strong>Bied een waardevolle propositie:</strong>
+                            <br>Maak duidelijk wat uw aanbieding/product onderscheidt van anderen.
+                            Of het nu gaat om kwaliteit, prijs, service of unieke eigenschappen, benadruk wat klanten bij u kunnen verwachten en waarom dit waardevol voor hen is.
+                        </li>
+                        <br>
+                        <li><strong>Wees consistent en geduldig:</strong>
+                            <br> Adverteren vereist consistentie en geduld. Het kan even duren voordat uw advertenties de gewenste resultaten opleveren.
+                            Blijf consistent met uw inspanningen en pas uw strategie aan op basis van prestatiegegevens.
+                        </li>
+                        <br>
+                        <li><strong>Zorg dat uw bedrijfsgegevens op uw bedrijfsprofiel steeds up-to-date zijn:</strong>
+                            <br>Houd uw <a href="{{ url('dashboard_company') }}">bedrijfsprofiel</a> op Promotip altijd up-to-date. Zorg ervoor dat uw contactinformatie, openingstijden, locatie en andere relevante gegevens actueel zijn.
+                            Dit helpt potentiële klanten om gemakkelijk met u in contact te komen en bij u langs te komen.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-beige">
+                    Heeft u moeite om verder te komen? Heeft u vragen of heeft u behoefte aan advies? <br>Aarzel niet om contact met ons op te nemen.
+                    <br>We staan met plezier klaar om u te assisteren bij het succesvol plaatsen van uw advertentie op www.promo-tip.nl.
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

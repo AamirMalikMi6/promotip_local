@@ -1,0 +1,5 @@
+{% for keyword in keywords %}
+<li class="xs-half footer-links">
+    <a href="{{ path('search', {'q': keyword.name}) }}" class="text-white">{{ keyword.name|capitalize }}</a>
+</li>
+{% endfor %}

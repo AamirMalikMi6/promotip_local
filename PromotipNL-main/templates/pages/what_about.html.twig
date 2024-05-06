@@ -1,0 +1,199 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}About us{% endtrans %}{% endblock %}
+
+
+{% block body %}
+
+    <section class="container-fluid banner-bp d-block d-xs-none">
+        <div class="d-flex justify-content-center align-items-center text-white text-uppercase fw-800"
+             style="height:220px;">
+            {# <h1>Wat is Promotip</h1> #}
+        </div>
+        <div class="input-group"></div>
+    </section>
+
+    <div class="container d-block d-sm-none mt-5">
+        <div class="row">
+            <div class="col" style="top: 0px;margin-bottom: 100px;margin-top: 50px;">
+                {% if app.request.locale == "nl" %}
+                    <div class="d-block d-sm-none">
+                        <h2 class="h2-title xs-ml-half"><span>Wat is</span><br/>Promotip?</h2>
+                        <img src="{{ asset('assets/images/what-is.png') }}" alt="About Promotip" class="img-fluid">
+                    </div>
+
+                    <div class="d-none d--block d-md-block text-center">
+                        <img src="{{ asset('assets/images/what-is.png') }}" alt="About Promotip" class="img-fluid" style="margin-bottom:50px">
+                    </div>
+
+                    <br class="d-block d-sm-none"/><br class="d-block d-sm-none"/>
+                    <p>
+                        Ben je op zoek naar de meest aantrekkelijke deals van het jaar? Wil je graag zo min mogelijk uitgeven aan <a href="../handelaars/winkelen"><strong>huishoudartikelen, kleding, renovaties</strong></a>? Houd dan zeker de koopjes op <strong>Promotip</strong> in de gaten. Dagelijks plaatsen handelaars, winkeliers, ondernemers en lokale dienstverleners hun <a href="../promoties/dagactie"><strong>dagacties</strong></a><a href="../promoties/weekactie"><strong>, spaaracties</strong></a><a href="../promoties"><strong>, promoties</strong></a> op de website, zodat jij je slag kunt slaan!
+                    </p>
+                    <p>
+                        Heb je behoefte aan meer quality time voor jezelf, of wil je graag met je partner, vrienden of familie uit eten gaan?  Ook horecabedrijven zoals <a href="../handelaars/horeca"><strong>restaurants, brasserie, bed & breakfasts en cafés,</strong></a>delen hun acties of happy hours via onze <a href="../handelaars/horeca"><strong>horecarubriek</strong></a> met bezoekers!
+                    </p>
+                    <p>
+                        Wat dacht je van een leuke dagtrip? Lekker ouderwets wandelen over een <a href="../evenementen/markten-en-beurzen"><strong>openbare markt</strong></a>? Of wil je graag een <a href="../evenementen/markten-en-beurzen"><strong>jaarlijkse braderie</strong></a> bezoeken, maar weet je niet precies waar deze wordt georganiseerd? Bekijk dan zeker onze <a href="../evenementen"><strong> Evenementen pagina </strong></a>om samen met je gezin een leuke uitstap te maken!
+                    </p>
+
+                    <div class="card bg-light p-2 border-radius-20 xs-box-gradborder card-mp">
+                        <p><strong class="h2-title"><span>Waarom elders kijken</span> <br class="d-block d-sm-none"/>als je jouw lokale handelaar kunt steunen?</strong>
+                            <br class="d-block d-sm-none"/><br class="d-block d-sm-none"/>
+                        <p>Veel mensen zijn voortdurend op zoek naar voordelige deals en gaan daarom vaak direct online naar grote ketens om koopjes te scoren.
+                            <br>Hoewel hier op zichzelf niets mis mee is, realiseren velen zich niet dat de lokale handelaar om de hoek misschien hetzelfde product met een vergelijkbare korting aanbiedt.</p>
+
+                        <p>Gelukkig kunt u daarom op Promotip veel koopjes in de buurt vinden, waaronder kortingen, promoties en leuke <a href="../evenementen"><strong>evenementen zoals kermissen, jaarmarkten en andere speciale evenementen.</strong></a></p>
+
+                        <p>Hier vind je tal van <a href="../promoties"><strong>kortingsacties, koopjes, kortingen, promoties en deals</strong></a> van lokale handelaren en ondernemers.
+                            <br>Je kunt gemakkelijk zien welke koopjes gepubliceerd zijn door lokale handelaren en ondernemers bij jou in de buurt. Hierdoor bespaar je niet alleen geld, maar steun je ook de lokale economie.</p>
+
+                        <p>Bovendien kunt u op Promotip ook <a href="../handelaars/diensten-en-services"><strong>vakmensen</strong></a> vinden die momenteel speciale acties aanbieden wanneer u hun diensten afneemt of met hen samenwerkt.</p>
+
+                        <p>Wil je een avondje uit eten plannen? De kans is groot dat je een leuk <a href="../handelaars/horeca/"><strong>restaurant</strong></a> in de buurt kunt vinden dat momenteel een fantastisch menu aanbiedt.</p>
+
+                        <p>Hoewel de prijzen van hun producten misschien niet altijd zo voordelig zijn als die van grote ketens, zullen lokale handelaren ze met liefde en plezier aan jou leveren, iets wat grote ketens niet kunnen evenaren. Zo draag je bij aan het stimuleren van de lokale economie en ondersteun je de droom van een dorpsgenoot!</p>
+                    </div>
+
+                    <div class="xs-text-center">
+                        <div class="d-block d-sm-none">
+                            <div class="block-envelop xs-box-gradborder">
+                                <a href="mailto:info@promo-tip.nl?subject=Contactformulier"><i
+                                            class="fa fa-envelope" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <p class="xs-mb5">
+                            <br>
+                            <strong><span class="txt-email">Heeft u nog vragen en/of opmerkingen?</span> <br class="d-block d-sm-none"/><br class="d-block d-sm-none"/>Neem vrijblijvend contact met ons op via <a href="mailto:info@promotip.be?subject=Contactformulier" class="text-decoration-none text-pink">e-mail</a>.</strong></br>
+                        </p>
+                    </div>
+                {% elseif app.request.locale == "fr" %}
+                {% else %}
+
+
+                    <p class="lead"><strong>Promotip</strong> is the advertising platform for small businesses and local traders.<br>
+                        As a starting company or trader you naturally want to keep your costs as low as possible. However, marketing for your company can cost you a lot of your budget. </p>
+
+                    <p>
+                        As a starting business, small business, local trader or event organizer stumbling often with the fact that one can only reach new customers via social media. <br>The disadvantage of publishing your company on social media is that you will only reach a small target audience.
+                    </p>
+                    <p>
+                        <strong>Promotip offers you the opportunity to solve these limitations for you, in order to reach a larger target audience!</strong>
+                    </p>
+                    </p>You can add your company to our website free of charge. You can also place an advert for free to make your promotions, discounts or special promotions known to our visitors. <br> Have you organized a one-off event and don't have a company? No problem, you can also create an event for free!
+
+                    <p><br> You can register without obligation below. After registration you can publish your company and event for free.<br>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container d-block d-xs-none">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <h2 class="mb-4 mb-4 fw-800 text-uppercase text-purple">Wat is Promotip</h2>
+                <p>
+                    Ben je op zoek naar de meest aantrekkelijke deals van het jaar? Wil je graag zo min mogelijk uitgeven aan <a href="../handelaars/winkelen"><strong>huishoudartikelen, kleding, renovaties</strong></a>? Houd dan zeker de koopjes op <strong>Promotip</strong> in de gaten. Dagelijks plaatsen handelaars, winkeliers, ondernemers en lokale dienstverleners hun <a href="../promoties/dagactie"><strong>dagacties</strong></a><a href="../promoties/weekactie"><strong>, spaaracties</strong></a><a href="../promoties"><strong>, promoties</strong></a> op de website, zodat jij je slag kunt slaan!
+                </p>
+                <p>
+                    Heb je behoefte aan meer quality time voor jezelf, of wil je graag met je partner, vrienden of familie uit eten gaan?  Ook horecabedrijven zoals <a href="../handelaars/horeca"><strong>restaurants, brasserie, bed & breakfasts en cafés,</strong></a>delen hun acties of happy hours via onze <a href="../handelaars/horeca"><strong>horecarubriek</strong></a> met bezoekers!
+                </p>
+                <p>
+                    Wat dacht je van een leuke dagtrip? Lekker ouderwets wandelen over een <a href="../evenementen/markten-en-beurzen"><strong>openbare markt</strong></a>? Of wil je graag een <a href="../evenementen/markten-en-beurzen"><strong>jaarlijkse braderie</strong></a> bezoeken, maar weet je niet precies waar deze wordt georganiseerd? Bekijk dan zeker onze <a href="../evenementen"><strong> Evenementen pagina </strong></a>om samen met je gezin een leuke uitstap te maken!
+                </p>
+                <form action="{{ url('search') }}" method="get">
+                    <div class="row">
+                        <div class="col-8 mt-4">
+                            <div class="input-group xs-direction-column">
+                                <input type="text" name="q" class="col form-control-lg rounded-left border-0 p-4 helper-search"
+                                       placeholder="{% trans %}What are you looking for...{% endtrans %}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-purple rounded-right px-4 xs-top-bottom xs-button-padding xs-box-border-radius" type="submit"><i
+                                                class="fa fa-search"></i> {% trans %}Search{% endtrans %}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="d-md-block text-center">
+                    <img src="{{ asset('assets/images/logo-colored.png') }}" alt="About Promotip" class="img-fluid mheight-400" style="margin-bottom:50px">
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+
+    <div class="container-fluid bg-event4 d-block d-xs-none d-md-none d-xl-block">
+        <div class="row">
+            <div class="col-12 col-md-6 offset-md-6 mb-5 mt-lg-5">
+                <h3 class="fw-800 display-5 display-sm-4 text-uppercase">Waarom zou u verder zoeken als u uw lokale handelaar kunt steunen?</h3>
+                <div class="row mt-5 pt-2">
+                    <div class="col-12 col-sm-6 col-md-8">
+                        <p>Veel mensen zijn voortdurend op zoek naar voordelige deals en gaan daarom vaak direct online naar grote ketens om koopjes te scoren.
+                            <br>Hoewel hier op zichzelf niets mis mee is, realiseren velen zich niet dat de lokale handelaar om de hoek misschien hetzelfde product met een vergelijkbare korting aanbiedt.</p>
+
+                        <p>Gelukkig kunt u daarom op Promotip veel koopjes in de buurt vinden, waaronder kortingen, promoties en leuke <a href="../evenementen"><strong>evenementen zoals kermissen, jaarmarkten en andere speciale evenementen.</strong></a></p>
+
+                        <p>Hier vind je tal van <a href="../promoties"><strong>kortingsacties, koopjes, kortingen, promoties en deals</strong></a> van lokale handelaren en ondernemers.
+                            <br>Je kunt gemakkelijk zien welke koopjes gepubliceerd zijn door lokale handelaren en ondernemers bij jou in de buurt. Hierdoor bespaar je niet alleen geld, maar steun je ook de lokale economie.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light">
+        <div class="container d-none d-md-block d-xl-none">
+            <div class="row justify-content-center">
+                <h4 class="text-center text-purple mt-5">Waarom zou je elders kijken als je jouw lokale handelaar kunt steunen?</h4>
+                <div class="col-sm-5 col-md-6 mt-3">
+                    <p>Veel mensen zijn voortdurend op zoek naar voordelige deals en gaan daarom vaak direct online naar grote ketens om koopjes te scoren.
+                        <br>Hoewel hier op zichzelf niets mis mee is, realiseren velen zich niet dat de lokale handelaar om de hoek misschien hetzelfde product met een vergelijkbare korting aanbiedt.</p>
+
+                    <p>Gelukkig kunt u daarom op Promotip veel koopjes in de buurt vinden, waaronder kortingen, promoties en leuke <a href="../evenementen"><strong>evenementen zoals kermissen, jaarmarkten en andere speciale evenementen.</strong></a></p>
+
+                    <p>Hier vind je tal van <a href="../promoties"><strong>kortingsacties, koopjes, kortingen, promoties en deals</strong></a> van lokale handelaren en ondernemers.
+                        <br>Je kunt gemakkelijk zien welke koopjes gepubliceerd zijn door lokale handelaren en ondernemers bij jou in de buurt. Hierdoor bespaar je niet alleen geld, maar steun je ook de lokale economie.</p>
+                </div>
+                <div class="col-sm-5 col-md-6 mt-3">
+                    <p>Bovendien kunt u op Promotip ook <a href="../handelaars/diensten-en-services"><strong>vakmensen</strong></a> vinden die momenteel speciale acties aanbieden wanneer u hun diensten afneemt of met hen samenwerkt.</p>
+
+                    <p>Wil je een avondje uit eten plannen? De kans is groot dat je een leuk <a href="../handelaars/horeca/"><strong>restaurant</strong></a> in de buurt kunt vinden dat momenteel een fantastisch menu aanbiedt.</p>
+
+                    <p><br>Hoewel de prijzen van hun producten misschien niet altijd zo voordelig zijn als die van grote ketens, zullen lokale handelaren ze met liefde en plezier aan jou leveren, iets wat grote ketens niet kunnen evenaren. Zo draag je bij aan het stimuleren van de lokale economie en ondersteun je de droom van een dorpsgenoot!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-12 text-center" style="margin-top: 30px;">
+                <h3 class="fw-800 display-5 display-sm-4 text-uppercase text-sand">Adverteren op Promotip</h3>
+                <p>
+                    Bent u zelf ondernemer en wenst u ook extra reclame?
+                    <br>Maak dan nu gratis uw account aan op Promotip en plaats binnen enkele minuten uw gratis advertentie!</p>
+            </div>
+        </div>
+        <div class="row xs-row-margin">
+            <div class="col text-center">
+                {% if app.user %}
+                    <a href="{{ url ('dashboard_event') }}"
+                       class="btn btn-lg px-5 btn-pink" style="margin-bottom: 125px">Plaats uw gratis advertentie</a>
+                {% else %}
+                    <a href="{{ url ('home_register') }}"
+                       class="btn btn-lg px-5 btn-pink" style="margin-bottom: 125px">Plaats uw gratis advertentie</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

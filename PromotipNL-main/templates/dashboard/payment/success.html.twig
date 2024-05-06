@@ -1,0 +1,37 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}{% trans %} My dashboard | Promotip {% endtrans %}{% endblock %}
+
+{% block dashboard %}
+
+    <div class="bg-warning mt-4">
+        <strong>Betaling succesvol uitgevoerd.</strong>
+    </div>
+    <div class="bg-light mt-4">
+    <p>Hier zijn de details van uw transactie:</p>  
+    <p>
+        <strong>Naam van het evenement:</strong> {{ eventAdvert.title }}<br/>
+        <strong>Duur van de publicatie:</strong> {{ plan.duration|trans }}<br/>
+        {% if isCredit is defined %}
+            <strong>Credit:</strong> {{ plan.fee }}<br/>
+        {% else %}
+            <strong>Bedrag:</strong> {{ plan.fee }} €<br/>
+        {% endif %}
+        
+        <strong>Status:</strong> Betaald
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <a class="btn btn-purple" href="{{ url('dashboard_event') }}">{% trans %}newEvent{% endtrans %}</a>
+    </div>
+    <div class="col-6 float-right">
+        <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+            <a class="btn btn-purple" href="{{ url('dashboard_index') }}">{% trans %}allEvents{% endtrans %}</a>
+            <a class="btn btn-purple" href="{{ url('dashboard_event_active') }}">{% trans %}activeEvents{% endtrans %}</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

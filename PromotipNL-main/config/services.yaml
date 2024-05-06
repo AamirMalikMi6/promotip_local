@@ -1,0 +1,68 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    image_directory: "%kernel.project_dir%/public/images"
+    avatar_directory: "%kernel.project_dir%/public/images/avatar"
+    country: "%env(COUNTRY)%"
+    mollie_key: "%env(MOLLIE_KEY)%"
+    credit_amount: "%env(CREDIT_FEE)%"
+    vat_percent: "%env(resolve:VAT_PERCENT)%"
+    plans:
+      {
+          ONE_DAY: { duration: "One day", fee: "%env(ONE_DAY_FEE)%" },
+          FOUR_DAY: { duration: "Four days", fee: "%env(FOUR_DAY_FEE)%" },
+          SEVEN_DAY: { duration: "Seven day", fee: "%env(SEVEN_DAY_FEE)%" },
+          CREDIT_ONE_DAY: { duration: "One day", fee: 2 },
+          CREDIT_FOUR_DAY: { duration: "Four days", fee: 4 },
+          CREDIT_SEVEN_DAY: { duration: "Seven day", fee: 6 },
+          ONE_WEEK: { duration: "One week", fee: "%env(ONE_WEEK_FEE)%" },
+          TWO_WEEKS: { duration: "Two weeks", fee: "%env(TWO_WEEKS_FEE)%" },
+          ONE_MONTH: { duration: "One month", fee: "%env(ONE_MONTH_FEE)%" },
+      }
+    invoice_prefix: "%env(INVOICE_PREFIX)%"
+    env(INVOICE_PREFIX): ""
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $finderWork: "@fos_elastica.finder.work"
+            $finderParagraph: "@fos_elastica.finder.paragraph"
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: "../src/*"
+        exclude: "../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}"
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: "../src/Controller"
+        tags: ["controller.service_arguments"]
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    App\Controller\SearchController:
+        tags: ["controller.service_arguments"]
+        public: true
+        arguments:
+            - "@fos_elastica.manager"
+
+    App\EventSubscriber\LocaleSubscriber:
+        arguments: ["%kernel.default_locale%"]
+
+    app.upload_listener:
+        class: App\EventListener\UploadListener
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - {
+                name: kernel.event_listener,
+                event: oneup_uploader.post_persist,
+                method: onUpload,
+            }

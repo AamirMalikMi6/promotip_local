@@ -1,0 +1,493 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('sliders') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('sliders') }}
+    <script>
+        $(function () {
+            initDatepickerFilters()
+        })
+    </script>
+{% endblock %}
+
+    {% block meta %}
+        <meta name="description"
+              content="Bent u ondernemer en wilt u een event promoten? Wenst u uw klantenbestand uit te breiden door extra reclame? Op Promotip kunt u gratis uw actie / promoties / evenementen plaatsen.
+                   Vind alle aanbiedingen, exclusieve kortingsacties, de leukste acties, kortingscodes, solden en koopjes op Promotip."> {% endblock %}
+
+{% block title %}Promotip hét lokaal advertentieplatform voor leuke deals en kortingen! Gratis adverteren voor handelaren en ondernemers.{% endblock %}
+
+{% block body %}
+<section class="container-fluid hp-header {% if hasSearchQuery %}d-block d-xs-none{% endif %}">
+        <form action="{{ url('search') }}" method="get" class="text-center">
+            <div class="row">
+                <div class="col-12 col-sm-10 offset-sm-1 col-lg-6 offset-lg-3">
+                    <div class="d-block d-sm-none top_logo">
+                        <img src="{{ asset('assets/images/logo-colored.png') }}" alt="Promotip" class="img-fluid">
+                    </div>
+                    <h2 class="text-white text-uppercase fw-500 pt-4 pt-sm-5 pt-sm-10 h2-big xs-top-margin-tb">{% trans %}Searching for happenings?{% endtrans %}</h2>
+                    <div class="input-group xs-direction-column">
+                        <input type="text" name="q" class="col form-control-lg rounded-left border-0 p-4 xs-search xs-box-border-radius"
+                               placeholder="{% trans %}What are you looking for...{% endtrans %}">
+                        <div class="input-group-append">
+                            <button class="btn btn-purple rounded-right px-4 xs-top-bottom xs-button-padding xs-box-border-radius" type="submit"><i
+                                        class="fa fa-search"></i> {% trans %}Search{% endtrans %}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <div style="position: relative; top: -100px; margin-bottom: -100px;" {% if hasSearchQuery %}class="d-block d-xs-none"{% endif %}>
+        <div class="container">
+            <div class="row mt-4">
+                <div class="col-sm-12 bg-white p-3 shadow xs-show-none">
+                    <div class="row">
+                        {% for channel in channels %}
+                            <div class="col-12 col-sm-4">
+                                <div class="row xs-category-box">
+                                    <div class="xs-full-width col-4 col-md-12 col-lg-4 border-right text-center text-md-left text-lg-center">
+                                        <a href="{{ url(channel.getRoute|replace({'_category' : ''})) }}"
+                                           class="xs-category-title text-purple"><strong>{{ channel.getName }}</strong></a>
+                                    </div>
+                                    <div class="xs-full-width col-8">
+                                        <ul class="list-unstyled xs-row xs-margin-top-35">
+                                            {% for category in categories %}
+                                                {% if (category.getChannel == channel.getId and category.getParent is null) %}
+                                                    {% set route = "sales_category" %}
+                                                    <li class="xs-half xs-category-item">
+                                                        <a href="{{ url(channel.getRoute, {category : category.getTitleSlug}) }}"
+                                                           class="text-dark">{{ category.getTitle }}</a></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="d-sm-none xs-category-icon-link">
+                                    <a href="{{ url(channel.getRoute|replace({'_category' : ''})) }}">
+                                        <img src="{{ asset('assets/images/arrow-down.png') }}">
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#  <div class="container">
+        <div class="row xs-row-margin">
+            <div class="col-12 mt-5">
+                <div class="form-order-selects">
+                    <form method="post">
+                        <div class="filters-field row">
+                            <div class="col-12 col-lg-3 mb-3 filter-item">
+                                <strong>Postcode:</strong>
+                                <input type="text" class="form-control" name="postcode" placeholder="Postcode" value="{{ postcode }}">
+                            </div>
+                            <div class="col-12 col-lg-3 mb-3 filter-item">
+                                <strong>Filter op afstand:</strong>
+                                <select name="radius" class="form-control">
+                                    {% for radius in radius_options_in_KM %}
+                                        <option value="{{ radius }}" {% if radius_sel == radius %} selected {% endif %}>{{radius}} {{ 'KM'|trans }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-12 col-lg-3 mb-3 filter-item">
+                                <strong>Begin datum:</strong>
+                                <input type="text" class="form-control" name="start_date" placeholder="Begin datum" value="{{ start_date }}">
+                            </div>
+                            <div class="col-12 col-lg-3 mb-3 filter-item">
+                                <strong>Einddatum:</strong>
+                                <input type="text" class="form-control" name="end_date" placeholder="Einddatum" value="{{ end_date }}">
+                            </div>
+                        </div>
+                        <div class="filter-item lg-center-button">
+                            <button type="submit" class="btn btn-purple rounded-right px-4">Filter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    #}
+
+    {% if bigPremiumAdverts is defined and bigPremiumAdverts is not empty %}
+        <div class="container mt-5">
+            <div id="big_premium_carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    {% for item in bigPremiumAdverts %}
+                        {% if item.getRedirectionType() == 1 %}
+                            {% set p_advert = get_advert_by_id(item.getRedirectionLink()) %}
+                            {% set eventChannel = '' %}
+                            {% set eventChannelTitle = '' %}
+                            {% for channel in channels %}
+                                {% if (channel.id == p_advert.channel) %}
+                                    {% set eventChannel = channel.getRoute|replace({'_category' : '_advert'}) %}
+                                    {% set eventChannelTitle = channel.getName %}
+                                {% endif %}
+                            {% endfor %}
+                            {% set eventCategory = '' %}
+                            {% for category in categories %}
+                                {% if (category.id == p_advert.category) %}
+                                    {% set eventCategory = category.getTitleSlug %}
+                                {% endif %}
+                            {% endfor %}
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <a href="{{ url(eventChannel, {category : eventCategory, slug : p_advert.titleSlug }) }}">
+                                    {% if item.photos|first.imageName is defined %}
+                                        {% for photo in item.photos %}
+                                            <img src="{{ asset('media/events_premium/' ~ photo.imageName) }}"
+                                                    alt="{{ photo.imageAlt }}" class="d-block w-100 img-cover-vertical-align">
+                                        {% endfor %}
+                                    {% else %}
+                                        <img src="assets/images/no-image.png" alt="" class="d-block w-100 img-cover-vertical-align"></a>
+                                    {% endif %}
+                                </a>
+                                <div class="carousel-caption">
+                                    <a href="{{ url(eventChannel, {category : eventCategory, slug : p_advert.titleSlug }) }}">
+                                        <h6>{{ item.title|u.truncate(30, '...') }}</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <a href="{{ link_absolute_path(item.getRedirectionLink()) }}" target="_blank" rel="noopener nofollow">
+                                    {% if item.photos|first.imageName is defined %}
+                                        {% for photo in item.photos %}
+                                            <img src="{{ asset('/media/events_premium/' ~ photo.imageName) }}"
+                                                    alt="{{ photo.imageAlt }}" class="d-block w-100 img-cover-vertical-align">
+                                        {% endfor %}
+                                    {% else %}
+                                        <img src="assets/images/no-image.png" alt="" class="d-block w-100 img-cover-vertical-align"></a>
+                                    {% endif %}
+                                </a>
+                                <div class="carousel-caption">
+                                    <a href="{{ link_absolute_path(item.getRedirectionLink()) }}" target="_blank" rel="noopener nofollow">
+                                        <h6>{{ item.title|u.truncate(30, '...') }}</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                            
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#big_premium_carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#big_premium_carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if channels is defined and channels is not empty %}
+        {% if channels[0].events|length == 0 and channels[1].events|length == 0 and channels[2].events|length == 0  %}
+            <div class="container">
+                <div class="row mt-5 xs-row-margin">
+                    <div class="col-12">
+                        {% if start_date is empty and end_date is empty and postcode is empty and radius_sel is empty %}
+                            Er zijn geen advertenties gevonden
+                        {% else %}
+                            Helaas, geen advertenties gevonden met deze filters. Probeer een andere zoekopdracht.
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="splide my-5">
+                    <div class="text-center splide__track">
+                        <ul class="splide__list">
+                            {% for item in sliderItems %}
+                                {% if item.type == 'event' %}
+                                    {% set eventChannel = '' %}
+                                    {% set eventChannelTitle = '' %}
+                                    {% for channel in channels %}
+                                        {% if (channel.id == item.data.channel) %}
+                                            {% set eventChannel = channel.getRoute|replace({'_category' : '_advert'}) %}
+                                            {% set eventChannelTitle = channel.getName %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% set eventCategory = '' %}
+                                    {% for category in categories %}
+                                        {% if (category.id == item.data.category) %}
+                                            {% set eventCategory = category.getTitleSlug %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <li class="splide__slide">
+                                        <span class="badge badge-featured m-0">AANBEVOLEN{#{{ eventChannelTitle }}#}</span>
+                                        <a href="{{ url(eventChannel, {category : eventCategory, slug : item.data.titleSlug }) }}" class="splide_txt">
+                                            <div class="splide__slide_txt">
+                                                <small class="text-sand">{{ item.data.company.companyname }}</small>
+                                                <h6>{{ item.data.title|u.truncate(30, '...') }}</h6>
+                                            </div>
+                                        </a>
+                                        <a href="{{ url(eventChannel, {category : eventCategory, slug : item.data.titleSlug }) }}">
+                                            {% if item.data.photos|first.imageName is defined %}
+                                            {% for photo in item.data.photos %}
+                                                <img src="{{ asset('/media/events/' ~ photo.imageName) | imagine_filter('event_slider') }}"
+                                                    alt="{{ photo.imageAlt }}" class="img-fluid {% if loop.first %} d-block {% else %} d-none {% endif %}">
+                                            {% endfor %}
+                                            {# <img src="{{ asset('/media/events/' ~ item.data.photos|first.imageName) | imagine_filter('event_slider') }}"
+                                                    alt="" class="img-fluid"> #}
+                                            {% else %}
+                                            <img src="assets/images/no-image.png" alt="" class="img-fluid"></a>
+                                        {% endif %}
+                                        </a>
+                                    </li>
+
+                                {% elseif item.type == 'company' %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {% for channel in channels %}
+                {% if channel.events|length %}
+                    {% set eventChannel = channel.getRoute|replace({'_category' : '_advert'}) %}
+                    <div class="mt-5 container">
+                        <div class="row xs-row-margin">
+                            <h4 class="text-uppercase" style="color: #d8b29b;">{{ channel.getName }}</h4>
+                        </div>
+                    </div>
+                    <div class="container mt-1">
+                        <div class="row xs-row-margin">
+                            {% set counter = 1 %}
+                            {% for event in channel.events %}
+                                {% set eventCategory = event.category_entity.getTitleSlug %}
+                                <div class="col-12 col-sm-6 col-lg-4 mb-4" style="padding-left: 5px;padding-right: 5px;">
+                                    {% if event.paymentStatus == 'paid' %}
+                                        <div class="premium-badge">
+                                            <img src="{{ asset('assets/images/badge-premium.png') }}" alt="Premium advert" class="img-fluid">
+                                        </div>
+                                    {% endif %}
+                                    <div class="card h-100 border-radius-20 xs-wrapper-item xs-advert-item xs-box-gradborder xs-custom-{{ channel.getName|lower }} md-wrapper-item md-advert-item md-box-gradborder md-custom-{{ channel.getName|lower }}">
+                                        <span class="badge badge-active xs-badge xs-box-border-radius">{{ channel.getName }}</span>
+                                        {% if event.photos|first.imageName is defined %}
+                                            <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}"  class="a-block-fixed-height xs-item-link xs-box-border-radius">
+                                                <img
+                                                        class="img-fluid text-center img-contain-vertical-align xs-box-border-radius"
+                                                        src="{{ asset('/media/events/' ~ event.photos|first.imageName) | imagine_filter('event_fixed') }}"
+                                                        alt="{{ event.photos|first.imageAlt }}"> </a>
+                                        {% else %}
+                                            <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}" class="a-block-fixed-height xs-item-link xs-box-border-radius">
+                                                <img class="img-fluid img-contain-vertical-align xs-box-border-radius" src="/assets/images/no-image.png" alt=""></a>
+                                        {% endif %}
+
+                                        <div class="card-body xs-card-info">
+                                            <small class="fw-300 text-blue xs-fw-400">{{ event.company.companyname }}</small>
+                                            <h5 class="card-title text-uppercase text-gray fw-300 m-0 p-0 xs-fw-600">
+                                                <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}"
+                                                class="text-gray">{{ event.title|u.truncate(25, '...')  }}</a>
+                                            </h5>
+                                            {% for geo in geoPlaces %}
+                                                {% if event.geoPlacesId > 0 and geo.id == event.geoPlacesId %}
+                                                    <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                                {% elseif event.geoPlacesId == null and event.company.geoPlacesId > 0 and geo.id == event.company.geoPlacesId %}
+                                                    <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            <div class="row mt-3 d-none d-sm-block">
+                                                <div class="col-12 col-sm-6">
+                                                    <i class="fa fa-calendar-alt text-pink"></i> Geldig tot {{ event.eventEndDate|displayDate|trans }}
+                                                </div>
+                                                {#
+                                                <div class="col-12 col-sm-6">
+                                                    tot <i class="fa fa-calendar-alt text-pink"></i> {{ event.eventEndDate|displayDate|trans }}
+                                                </div>
+                                                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                                                        <i class="fa fa-clock text-pink"></i>{{ event.startHour|date('H:i') }}
+                                                        - {{ event.endHour|date('H:i') }}
+                                                    </div>#}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% if counter == channel.events|length %}
+                                    </div> <!-- row -->
+                                    </div> <!-- container -->
+                                    <div class="container-fluid premium-bg">
+                                        <div class="splide my-5">
+                                            <div class="text-center splide__track">
+                                                <ul class="splide__list">
+                                                    {% for item in channel.sliderItems %}
+                                                        {% if item.type == 'event' %}
+                                                            {% set eventCategory = item.data.category_entity.getTitleSlug %}
+                                                            <li class="splide__slide xs-box-gradborder xs-box-border-radius md-box-gradborder md-box-border-radius">
+                                                                <span class="badge badge-featured m-0 xs-badge xs-box-border-radius">AANBEVOLEN{#{{ channel.getName }}#}</span>
+                                                                <a href="{{ url(eventChannel, {category : eventCategory, slug : item.data.titleSlug }) }}" class="splide_txt">
+                                                                    <div class="splide__slide_txt">
+                                                                        <small class="text-sand">{{ item.data.company.companyname }}</small>
+                                                                        <h6>{{ item.data.title|u.truncate(30, '...') }}</h6>
+                                                                    </div>
+                                                                </a>
+                                                                <a href="{{ url(eventChannel, {category : eventCategory, slug : item.data.titleSlug }) }}">
+                                                                    {% if item.data.photos|first.imageName is defined %}
+                                                                    {% for photo in item.data.photos %}
+                                                                        <img src="{{ asset('/media/events/' ~ photo.imageName) | imagine_filter('event_slider') }}"
+                                                                            alt="{{ photo.imageAlt }}" class="img-fluid {% if loop.first %} d-block {% else %} d-none {% endif %}">
+                                                                    {% endfor %}
+                                                                    {# <img src="{{ asset('/media/events/' ~ item.data.photos|first.imageName) | imagine_filter('event_slider') }}"
+                                                                            alt="" class="img-fluid"> #}
+                                                                    {% else %}
+                                                                    <img src="assets/images/no-image.png" alt="" class="img-fluid"></a>
+                                                                {% endif %}
+                                                                </a>
+                                                            </li>
+
+                                                        {% elseif item.type == 'company' %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                    <div class="row mt-5">
+
+                                {% endif %}
+                                {% set counter = counter + 1 %}
+                            {% endfor %}
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <a href="/{{ channel.getName|lower }}"
+                                class="btn btn-pink btn-lg text-uppercase px-5"><small>{% trans %}View all{% endtrans %}</small></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        
+    {% else %}
+        <div class="container">
+            <div class="row mt-5 xs-row-margin">
+                <div class="col-12">
+                    {% if start_date is empty and end_date is empty and postcode is empty and radius_sel is empty %}
+                        Er zijn geen advertenties gevonden
+                    {% else %}
+                        Helaas, geen advertenties gevonden met deze filters. Probeer een andere zoekopdracht.
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="splide my-5">
+                <div class="text-center splide__track">
+                    <ul class="splide__list">
+                        {% for item in sliderItems %}
+                            {% if item.type == 'event' %}
+                                {% set eventChannel = '' %}
+                                {% set eventChannelTitle = '' %}
+                                {% for channel in channels %}
+                                    {% if (channel.id == item.data.channel) %}
+                                        {% set eventChannel = channel.getRoute|replace({'_category' : '_advert'}) %}
+                                        {% set eventChannelTitle = channel.getName %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% set eventCategory = '' %}
+                                {% for category in categories %}
+                                    {% if (category.id == item.data.category) %}
+                                        {% set eventCategory = category.getTitleSlug %}
+                                    {% endif %}
+                                {% endfor %}
+                                <li class="splide__slide">
+                                    <span class="badge badge-featured m-0">AANBEVOLEN{#{{ eventChannelTitle }}#}</span>
+                                    <a href="{{ url(eventChannel, {category : eventCategory, slug : item.data.titleSlug }) }}" class="splide_txt">
+                                        <div class="splide__slide_txt">
+                                            <small class="text-sand">{{ item.data.company.companyname }}</small>
+                                            <h6>{{ item.data.title|u.truncate(30, '...') }}</h6>
+                                        </div>
+                                    </a>
+                                    <a href="{{ url(eventChannel, {category : eventCategory, slug : item.data.titleSlug }) }}">
+                                        {% if item.data.photos|first.imageName is defined %}
+                                        {% for photo in item.data.photos %}
+                                            <img src="{{ asset('/media/events/' ~ photo.imageName) | imagine_filter('event_slider') }}"
+                                                 alt="{{ photo.imageAlt }}" class="img-fluid {% if loop.first %} d-block {% else %} d-none {% endif %}">
+                                        {% endfor %}
+                                        {# <img src="{{ asset('/media/events/' ~ item.data.photos|first.imageName) | imagine_filter('event_slider') }}"
+                                                alt="" class="img-fluid"> #}
+                                        {% else %}
+                                        <img src="assets/images/no-image.png" alt="" class="img-fluid"></a>
+                                    {% endif %}
+                                    </a>
+                                </li>
+
+                            {% elseif item.type == 'company' %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {#  <div class="container">
+        <div class="row hp-bg mt-3 xs-row-margin">
+            <div class="col-12 col-md-7 offset-md-5 mb-5 mt-lg-5 xs-box-gradborder xs-box-border-radius xs-box-padding homepage-bottom">
+                <h3 class="fw-800 display-5 display-sm-4 xs-mb-1-half">
+                    {# {% trans %}Need help promoting your<span class="text-pink"> upcoming event?</span>{% endtrans %}
+                    <span class="title-in">Hulp nodig bij de promotie</span> <br/><span class="text-uppercase"> van uw </span> <span class="text-uppercase text-pink"> komend event?</span>
+                </h3>
+                {% trans %}
+                    <strong>Promotip</strong> is the advertising platform for small businesses and local traders.
+                    <br>Bring your company, sales action or event to the attention of new potential customers!<br>
+                    <br>Would you like to put your company, event or special promotion in the spotlight?<br>
+
+                    <p><strong>Sign up for free and start promoting right away!</strong></p>{% endtrans %}
+                <div class=style="margin-bottom: 50px
+                ">
+            </div>
+            {% if app.user %}
+                <a href="{{ url ('dashboard_event') }}"
+                   class="btn btn-lg px-5 btn-pink">{% trans %}Publish an advert{% endtrans %}</a>
+            {% else %}
+                <a href="{{ url ('home_register') }}"
+                   class="btn btn-lg px-5 btn-pink">{% trans %}Publish an advert{% endtrans %}</a>
+            {% endif %}
+            </div>
+        </div>
+    </div> #}
+
+    <div class="container">
+        <div class="row hp-bg mt-3 xs-row-margin">
+            <div class="col-12 col-md-7 offset-md-5 mb-5 mt-lg-5 xs-box-gradborder xs-box-border-radius xs-box-padding homepage-bottom">
+            {% if app.user %}
+                <h3 class="fw-800 display-5 display-sm-4 xs-mb-1-half">
+                    {# {% trans %}Need help promoting your<span class="text-pink"> upcoming event?</span>{% endtrans %} #}
+                    <span class="title-in">Hulp nodig bij de promotie</span> <br/><span class="text-uppercase"> van uw </span> <span class="text-uppercase text-pink"> komend event?</span>
+                </h3>
+                <strong>Promotip</strong> is een gratis advertentieplatform voor lokale handelaren, organisatoren, vakmannen en dienstverleners.
+                <br>Breng uw bedrijf, evenement of kortingsactie gratis onder de aandacht van onze bezoekers en bereik zo nog méér potentiële klanten.<br>
+                <br>Bent u klaar om uw bedrijf, diensten of producten in de kijker te zetten?<br>
+                <p><strong>Publiceer dan vandaag nog uw evenement of kortingsactie!</strong></p>
+                <a href="{{ url ('dashboard_event') }}"
+                   class="btn btn-lg px-5 btn-pink">{% trans %}Publish an advert{% endtrans %}</a>
+
+            {% else %}
+
+            <h3 class="fw-800 display-5 display-sm-4 xs-mb-1-half text-pink">Evenementen en speciale aanbiedingen van lokale ambachtslieden, verkopers en dienstverleners!</h3>
+                <br>Bij <strong>Promotip</strong> vind je actieve advertenties met geweldige <a href="./promoties">kortingen, promo's en koopjes</a> in uw buurt.
+                <p><br>Wat dacht je van  een <strong>dagje uit</strong>? Lokale <a href="./evenementen">festivals en evenementen</a> zijn te vinden in de sectie <strong>evenementen</strong>.
+            </p>Bent u op zoek naar een lokale <strong>dienstverlener</strong> voor uw <a href="./handelaars">verbouwing of reparatie</a>? <br>Kijk dan zeker eens in onze handelaars gedeelte. Wellicht vindt u in deze rubriek een expert bij u in de buurt!
+            {% endif %}
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

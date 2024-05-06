@@ -1,0 +1,21 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}{% trans %} My dashboard | Promotip {% endtrans %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('notification') }}
+{% endblock %}
+
+{% block dashboard %}
+    {% for notification in notificationList %}
+        <div class="notification notification-item p-3 rounded mb-3">{{ notification.msg }} <i class="fas fa-times float-right align-middle text-black-50 mt-1"
+                                                                                               onclick="markAsRead(this,{{ notification.id }})"></i></div>
+    {% else %}
+        <div class="text-center text-black-50 font-italic">{{ 'no notification found'|trans }}</div>
+    {% endfor %}
+
+    <script>
+        const markAsReadLocation = "{{ path('dashboard_notification_mark_as_read')|escape('js') }}";
+    </script>
+{% endblock %}

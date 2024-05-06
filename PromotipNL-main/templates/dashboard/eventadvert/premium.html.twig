@@ -1,0 +1,121 @@
+{% extends 'dashboard.html.twig' %}
+
+
+{% block title %} {% trans %} Maak uw Big Premium advertentie {% endtrans %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard') }}
+    {{ encore_entry_link_tags('dropzone') }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dropzone') }}
+    {{ encore_entry_script_tags('dashboard_events') }}
+{% endblock %}
+
+{% block dashboard %}
+
+    <div class="col-12">
+        <blockquote>
+            <strong>Creëer een aantrekkelijke premium advertentie om uw boodschap in het oog te laten springen.</strong>
+            <p>Deze advertentie bevindt zich op de homepagina en trekt meteen de aandacht van de bezoekers!
+                <br><br> U kunt kiezen uit de volgende publicatie-opties voor uw premium advertentie:<br>
+                <lu><li>1 week - 5,25€ </li>
+                    <li>2 weken - 10,50€ </li>
+                    <li>1 maand - 21,00€ </li>
+                </lu>
+            </p>
+        </blockquote>
+    </div>
+
+    <div class="row p-3 mb-2">
+        <div class="col-sm-6 col-md-5 col-lg-6">
+            <div class="row photo-container" style="margin-top: 20px;">
+                {% if premiumEventadvertPhotos is defined %}
+                    {% for photo in premiumEventadvertPhotos %}
+                        {% include 'dashboard/eventadvert/big-premium-photo.html.twig' %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <form action="{{ oneup_uploader_endpoint('events_premium') }}" class="dropzone bg-light border" id="dropzone"
+                  data-ph="{{ url('dashboard_premium_eventadvert_photo_template') }}">
+                <div class="dz-message" data-dz-message>
+                    <i class="fa fa-camera fa-3x"></i><br>
+                    <span class="mt-2">{% trans %}Drag & drop your photos here{% endtrans %}</span><br>
+                    <small>{% trans %}or{% endtrans %}</small><br>
+                    <span class="btn btn-outline-dark">{% trans %}Browse files{% endtrans %}</span>
+                    <input type="hidden" name="type" value="premium_eventadvert">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-6 col-md-5 col-lg-6" style="margin-bottom: 75px;">
+            <div class="col-12">
+                {{ form_start(form, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+
+
+                <div class="form-label-group row">
+                    <div class="col" style="margin-top: 20px;">
+                        {{ form_widget(form.title, { 'value':eventAdvertPremium.title, 'attr': {'placeholder': 'Title'|trans, 'class': 'form-control form-control-lg'} }) }}
+                        {{ form_label(form.title, 'Title'|trans) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+                </div>
+
+                <small class="form-text text-muted">Deze premium doorlinken naar...</small>
+                <div class="form-label-group row">
+                    <div class="col">
+                        {{ form_widget(form.redirection_type, { 'attr': {'placeholder': 'Redirection type'|trans, 'class': 'form-control form-control-lg'} }) }}
+                        {{ form_errors(form.redirection_type) }}
+                    </div>
+                </div>
+
+                <div class="form-label-group row d-none" id="eventadvert_field">
+                    <div class="col">
+                        <select id="premium_eventadvert" class="form-control form-control-lg form-control">
+                            {% for advert in adverts %}
+                                <option value="{{ advert.id }}">{{ advert.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-label-group row d-block" id="premium_website_link">
+                    <div class="col">
+                        {{ form_widget(form.redirection_link, { 'attr': {'placeholder': 'Redirection link'|trans, 'class': 'form-control form-control-lg'} }) }}
+                        {{ form_label(form.redirection_link, 'Begin uw website met "https://'|trans) }}
+                        {{ form_errors(form.redirection_link) }}
+                    </div>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-lg p-2 btn-pink btn-block mb-5">{% trans %}Save{% endtrans %}</button>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="container-fluid bg-event3 d-none d-lg-block">
+        <div class="row">
+            <div class="col-12 col-md-7 offset-md-5 mb-5 mt-lg-5">
+                <h3 class="fw-800 display-5 display-sm-4 text-uppercase">{% trans %}Tips to promote your <span class="text-pink"> upcoming event...</span>{% endtrans %}
+                </h3>
+                <div class="row mt-5 pt-2">
+                    <div class="col-12 col-sm-6 col-md-8">
+                        Zorg ervoor dat uw event fiche zo volledig mogelijk ingevuld is om meer visibiliteit te verkrijgen. <br>Heeft u de nodige gegevens ingevuld die de
+                        bezoekers dienen te weten?
+                        </br> Denk hierbij aan de locatie waar het event plaats vindt, en de exacte tijdsaanduiding.<br>
+
+                        <br> Tevens raden we ook aan om enkele sfeerfoto's aan uw advertentie toe te voegen. <br>Een event met uitnodigende foto's zal onze bezoekers hun
+                        aandacht naar uw advertentie trekken!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %} {% trans %} My dashboard | Promotip {% endtrans %} {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('fullcalendar') }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.eventUrl = '{{ url('dashboard_calendar_events') }}';
+    </script>
+
+    {{ parent() }}
+{% endblock %}
+
+
+{% block dashboard %}
+    <div id='calendar'></div>
+{% endblock %}

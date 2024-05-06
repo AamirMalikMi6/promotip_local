@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}FAQ{% endtrans %}{% endblock %}
+
+
+{% block body %}
+
+    <section class="container-fluid banner-bp xs-background-none">
+        <div class="d-flex justify-content-center align-items-center text-white text-uppercase fw-600 xs-page-main-title"
+             style="height:220px;"><h1>Veelgestelde vragen</h1></div>
+        <div class="input-group"></div>
+    </section>
+
+    <div class="container xs-mb-130" style="margin-bottom:75px">
+        <div class="border-radius-20 xs-box-gradborder xs-legals-page md-box-gradborder" style="padding-left: 10px;">
+            <p><h6 class="xs-txt-purple xs-mb-1 md-txt-purple text-purple">Wie kan een advertentie plaatsen op Promotip?</h6>
+            Iedere lokale handelaar, dienstverlener, kleine of grote ondernemer, alsook een organisator van een evenement of festival kan een advertentie plaatsen.</p>
+            <br>
+        </div>
+        <div class="border-radius-20 xs-box-gradborder xs-legals-page md-box-gradborder mt-5" style="padding-left: 10px;">
+            <p><h6 class="xs-txt-purple xs-mb-1 text-purple">Is het plaatsen van een advertentie gratis?</h6>
+            Ja, zeker is het gratis! U kan geheel vrijblijvend en kosteloos een gratis advertentie plaatsen op Promotip.<br> Er zijn geen maandelijkse abonnementskosten of verbruikskosten verbonden aan ons platform.</p>
+            <br>
+        </div>
+        {#  <div class="border-radius-20 xs-box-gradborder xs-legals-page md-box-gradborder mt-5" style="padding-left: 10px;">
+            <p><h6 class="xs-txt-purple xs-mb-1 text-purple">Hoe kan ik een advertentie plaatsen?</h6>
+            Voor het plaatsen van een advertentie heeft u een account nodig. Dit is volledig gratis! <br>Na de aanmaak van uw account, kan u meteen beginnen met het aanmaken van uw advertentie. Klik hiervoor op uw dashboard op het tabblad <a href="{{ url('dashboard_event') }}" class="xs-txt-purple"><strong>"nieuw event"</strong></a>.</p>
+            <br>
+        </div>
+        <div class="border-radius-20 xs-box-gradborder xs-legals-page md-box-gradborder mt-5" style="padding-left: 10px;">
+            <p><h6 class="xs-txt-purple xs-mb-1 text-purple">Hoe kan ik mijn advertentie extra laten opvallen?</h6>
+            U kan nog meer in de kijker staan door een <strong>premium</strong> advertentie te nemen. Dit is een betalende advertentie dat ervoor zorgt dat uw advertentie meer onder de aandacht van onze bezoekers komt.
+            <br>Deze is te zien op de homepagina maar ook in de categoriepagina van uw keuze. <strong>Zo staat u op 2 posities extra in de kijker!</strong>
+            <br>
+            <br>
+            <p><strong>Voordelen van een premiumadvertentie:</strong>
+            <lu>
+            <li>Een premium advertentie bevindt zich op onze opvallende sliderbalk tussen de gewone advertenties.
+            </li>
+                <li>Een premium advertentie zal een <strong>"aanbevolen"</strong> badge verkrijgen waardoor deze méér zal opvallen dan een reguliere advertentie. </li>
+                <li>De premium advertentie Wordt opgenomen bij het uitsturen van onze wekelijkse nieuwsbrief naar onze websitegebruikers</li>
+                <li>Wordt op onze sociale mediakanalen gepubliceerd.</li>
+            </lu>
+            </p>
+            <strong>Er zijn verschillende formules beschikbaar uw advertentie als premium te activeren en dus om in de kijker te staan.</strong>
+            <br>
+            <lu>
+                <li><strong><span class="xs-txt-purple">Dag formule</span> </strong> Hiermee staat uw advertentie 24u lang in de kijker - 2 euro (betaling via credits 1,50€)</li>
+                <li><strong><span class="xs-txt-purple">4 dagen</span> </strong> Hiermee staat uw advertentie 4 dagen lang in de kijker - 4 euro (betaling via credits 3,00€)</li>
+                <li><strong><span class="xs-txt-purple">7 dagen</span> </strong> Hiermee staat uw advertentie 7 dagen lang in de kijker - 5 euro (betaling via credits 4,50€)</li>
+            </lu>
+            <br>
+            <br>
+            <h6 class="xs-txt-purple xs-mb-1 text-purple">Hoe kan ik betalend adverteren?</h6>
+            Hiervoor heeft u <u>minstens 1 gratis advertentie</u> nodig. Via de "mijn evenementen" pagina op uw dashboard kan u vervolgens de gewenste formule aankopen door op de knop "maak premium" te klikken.
+            <br>Na uw betaling wordt uw advertentie meteen op de <strong>sliderbalken</strong> gepubliceerd. Deze bevinden zich op de <strong>homepagina en de subpagina's</strong>.
+            <br>
+            <br>
+        </div> #}
+
+        <div class="border-radius-20 xs-box-gradborder xs-legals-page md-box-gradborder mt-5" style="padding-left: 10px;">
+            <p><h6 class="xs-txt-purple xs-mb-1 text-purple">Hoe verwijder ik mijn advertentie?</h6>
+            U kan uw advertentie(s) verwijderen via uw dashboard. Hiervoor gaat u naar "mijn evenementen" in het menu, en vervolgens klikt u onder de advertentie op het verwijder icoontje.</p>
+            <br>
+        </div>
+
+        {#  <div class="border-radius-20 xs-box-gradborder xs-legals-page md-box-gradborder mt-5" style="padding-left: 10px;">
+            <p><h6 class="xs-txt-purple xs-mb-1 text-purple">Hoe beheer ik mijn advertentie of hoe pas ik deze aan?</h6>
+            U kan uw advertentie(s) beheren/aanpassen via uw dashboard. Hiervoor gaat u naar "mijn evenementen" in het menu, en vervolgens klikt u onder de advertentie op het "pen" icoontje.</p>
+            <br>
+        </div>
+
+        <div class="border-radius-20 xs-box-gradborder xs-legals-page md-box-gradborder mt-5" style="padding-left: 10px;">
+            <p><h6 class="xs-txt-purple xs-mb-1 text-purple">In welke categorie hoort mijn advertentie?</h6>
+            Kies de juiste rubriek door de categorie te kiezen dat gerelateerd is tot uw niche en uw potentiële klanten. <br>Het heeft geen zin om uw advertentie in alle rubrieken te plaatsen. Dit kan storend overkomen naar onze bezoekers toe. Kies daarom juist en gericht.
+            <br>Weet u niet in welke categorie u thuishoort? Geen probleem, wij helpen u met plezier de correcte categorie voor u te vinden!</p>
+            <br>
+        </div>
+
+        <div class="border-radius-20 xs-box-gradborder xs-legals-page md-box-gradborder mt-5" style="padding-left: 10px;">
+            <p><h6 class="xs-txt-purple xs-mb-1 text-purple">Hoeveel advertenties mag ik plaatsen?</h6>
+            U mag een onbeperkt aantal advertenties plaatsen.
+            <br> Het is toegelaten om enkele producten of services die u aanbiedt extra in de kijker te plaatsen met een gratis advertentie. Zolang dit niet storend overkomt bij onze websitegebruikers en bezoekers.</p>
+            <br>
+        </div>#}
+
+
+        <div class="border-radius-20 xs-box-gradborder xs-legals-page md-box-gradborder mt-5" style="padding-left: 10px;">
+            <p><h6 class="xs-txt-purple xs-mb-1 text-purple">Wat is er toegelaten op mijn advertentie?</h6>
+            Het is verboden om een advertentie aan te maken voor illegale producten zoals drugs of andere verboden middelen. Evenmin kunnen wij geen advertenties toelaten met de inhoud van seksuele adultcontent.</p>
+            <br>
+        </div>
+
+        <div class="border-radius-20 xs-box-gradborder xs-legals-page md-box-gradborder mt-5" style="padding-left: 10px;">
+            <p><h6 class="xs-txt-purple xs-mb-1 text-purple">Mijn vraag staat hier niet tussen!</h6>
+            Heeft u geen antwoord kunnen vinden op uw vraag? <br>Stel ons uw vraag per e-mail via <a href="mailto:info@promo-tip.nl?subject=Veelgestelde vragen" class="xs-txt-purple">info@promo-tip.nl</a> en we helpen u zo snel mogelijk verder.
+            <br><strong>Elke aanvraag wordt binnen de 24u behandeld!</strong></p>
+            <br>
+        </div>
+    </div>
+
+{% endblock %}

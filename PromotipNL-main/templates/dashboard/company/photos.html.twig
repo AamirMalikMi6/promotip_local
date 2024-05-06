@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block title %}Promotip: Photos{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dropzone') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dropzone') }}
+    {{ encore_entry_script_tags('dashboard') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col mb-5">
+                <div class="row photo-container">
+                    {% for photo in companyPhotos %}
+                        {% include 'dashboard/company/photo.html.twig' %}
+                    {% endfor %}
+                </div>
+
+                <div class="row">
+                    <div class="col mb-4">
+                        <form action="{{ oneup_uploader_endpoint('companies') }}" class="dropzone bg-light border" id="dropzone"
+                              data-ph="{{ url('dashboard_company_photo_template') }}" style="height: 100%;">
+                            <div class="dz-message" data-dz-message>
+                                <i class="fa fa-camera fa-3x"></i><br>
+                                <span class="mt-2">{% trans %}Drag & drop your photos here{% endtrans %}</span><br>
+                                <small>{% trans %}or{% endtrans %}</small><br>
+                                <span class="btn btn-outline-dark">{% trans %}Browse files{% endtrans %}</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

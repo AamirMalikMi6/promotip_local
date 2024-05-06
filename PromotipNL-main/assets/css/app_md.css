@@ -1,0 +1,33 @@
+@media (min-width: 768px) {
+    .hp-bg {
+        background: url("../images/hp-bg.jpg");
+        background-position: left bottom;
+        background-size: 350px;
+        background-repeat: no-repeat;
+    }
+
+    .bg-event {
+        height: 220px;
+        margin-bottom: 50px;
+    }
+
+    .pt-sm-10 {
+        margin-top: 100px;
+    }
+
+    .bg-web2 {
+        background-color: #d9b29c;
+    }
+
+    .splide__track {
+        background: #d8b29b !important;
+        padding: 15px;
+    }
+
+    .h2-title {
+        font-weight: 900;
+        font-size: 3em;
+        color: #854062;
+        line-height: 0.9;
+    }
+}

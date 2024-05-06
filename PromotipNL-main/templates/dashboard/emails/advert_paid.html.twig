@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: #3498db;
+        }
+
+        .signature {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <p>
+        Beste,
+    </p>
+
+    <p>
+        Wij willen u graag informeren dat wij de betaling van <strong>{{ plan.fee }} EUR</strong> hebben ontvangen voor de premie van <strong>"{{ eventAdvert.title }}"</strong> met een duur van <strong>"{{ plan.duration }}"</strong>.
+    </p>
+
+    <p>
+        Dank u wel voor uw tijdige betaling en vertrouwen in onze diensten.
+    </p>
+
+    <p>
+        Met vriendelijke groet,
+        <br>
+        Het team van Promotip
+    </p>
+</div>
+</body>
+</html>

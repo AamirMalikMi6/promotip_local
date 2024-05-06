@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Promotip: {% trans %}Company guide{% endtrans %}{% endblock %}
+
+{% block body %}
+
+    <section class="container-fluid banner-bp">
+    </section>
+
+    <div class="container">
+        <h1>{% trans %}Company guide{% endtrans %} {{ province.name }}</h1>
+
+        {% if cities is empty %}
+            <div class="alert alert-light text-center" style="margin-bottom: 75px">
+                <img src="{{ asset('assets/images/no-results.jpg') }}" style="width:25%" class="img-fluid" alt="" height=""><br>{% trans %}No companies found in{% endtrans %} {{ province.name }}</div>
+        {% else %}
+            <div class="row" style="margin-bottom: 100px;margin-top: 50px;">
+                {% for city in cities %}
+                    <div class="col-6 col-sm-4 mb-2">
+                        <div class="btn-pink text-white  p-3">
+                            <a href="{{ url('company_city', {'province' : province.nameDirify, 'city' : city.localityDirify }) }}" style="color:white">{{ city.region3 }}</a></div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+
+    <div class="container">
+        <div class="row hp-bg mt-3">
+            <div class="col-12 col-md-7 offset-md-5 mb-5 mt-lg-5">
+                <p>Bent u zelf handelaar en wenst u ook uw bedrijf hier gratis te publiceren?
+                    <br><strong>Meld u gratis aan en begin meteen met promoten!</strong> <br></p>
+                <div class=style="margin-bottom: 50px"></div>
+            {% if app.user %}
+                <a href="{{ url ('dashboard_event') }}"
+                   class="btn btn-sm px-5 btn-pink" style="margin-bottom: 75px;">{% trans %}Publish my company{% endtrans %}</a>
+            {% else %}
+                <a href="{{ url ('home_register') }}"
+                   class="btn btn-sm px-5 btn-pink" style="margin-bottom: 75px;">{% trans %}Publish my company{% endtrans %}</a>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

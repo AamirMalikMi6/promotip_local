@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col">
+                <a href="{{ url('admin_invoices') }}">Invoices</a>
+            </div>
+            <div class="col">
+                <a href="{{ url('admin_category') }}">Categories</a>
+            </div>
+            <div class="col">
+                <a href="{{ url('admin_tag') }}">Tags</a>
+            </div>
+            <div class="col">
+                <a href="{{ url('admin_panel_users') }}">Admin Panel</a>
+            </div>
+            <div class="col">
+                <a href="{{ url('admin_panel_reviews') }}">Reviews</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

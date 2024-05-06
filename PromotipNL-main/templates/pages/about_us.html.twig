@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}About us{% endtrans %}{% endblock %}
+
+
+{% block body %}
+
+    <section class="container-fluid banner-bp">
+        <div class="d-flex justify-content-center align-items-center text-white text-uppercase fw-800"
+             style="height:220px;"><p><h1>Promotip</h1></p></div>
+        <div class="input-group"></div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col" style="top: 0px;margin-bottom: 100px;margin-top: 50px;">
+                {% if app.request.locale == "nl" %}
+                    <strong>Promotip</strong> is een advertentieplatform voor <strong>ondernemingen</strong>, <strong>organisatoren</strong> en <strong>lokale handelaars</strong>.<br>
+                    Een kleine onderneming, lokale handelaar of evenement organisator heeft vaak als struikelblok dat men enkel via sociale media nieuwe klanten/bekendheid kan bereiken of via ongeziene kostelijke marketingcampagnes.
+                    <p>
+                        Promotip biedt u de mogelijkheid om deze beperkingen voor u op te lossen om zo uw doelpubliek groter te maken!</p>
+                    <p>Door het toevoegen van uw <strong>promoties, kortingen of speciale acties </strong>op onze website verkrijgt u naast een advertentie eveneens een eigen bedrijfsfiche.</p>
+                    <p> Heeft u een eenmalig evenement georganiseerd en heeft u geen bedrijf? Geen probleem, ook hiervoor kunt u kosteloos een event aanmaken!
+                    </p>
+                    <div class="card bg-light p-2">
+                        <p><strong>Wat maakt Promotip anders dan andere platformen?</strong>
+                            <br>Promotip denkt en handelt vanuit de gedachtegang van een handelaar of kleine onderneming!</br></p>
+                        <p>Als handelaar wil je je bedrijf, en de daarbij horende events/acties, zoveel mogelijk visibiliteit geven voor een zo laag mogelijke kost.
+                            <br>We bieden daarom ons platform gratis aan. Tevens zullen de prijzen voor de betalende posities steeds op een betaalbaar en laag tarief gehouden worden om de lokale handelaars te helpen groeien. Dit voorkomt dat de lokale handelaar of onderneming een financiële valkuil creëert. </p>
+                    </div>
+                    <p><br><strong>Heeft u nog vragen en/of opmerkingen? Neem vrijblijvend contact met ons op via <a href="mailto:info@promotip.be?subject=Contactformulier" class="text-decoration-none text-pink"">e-mail</a>.</strong></br></p>
+                {% elseif app.request.locale == "fr" %}
+                {% else %}
+
+
+                    <p class="lead"><strong>Promotip</strong> is the advertising platform for small businesses and local traders.<br>
+                        As a starting company or trader you naturally want to keep your costs as low as possible. However, marketing for your company can cost you a lot of your budget. </p>
+
+                    <p>
+                        As a starting business, small business, local trader or event organizer stumbling often with the fact that one can only reach new customers via social media. <br>The disadvantage of publishing your company on social media is that you will only reach a small target audience.
+                    </p>
+                    <p>
+                        <strong>Promotip offers you the opportunity to solve these limitations for you, in order to reach a larger target audience!</strong>
+                    </p>
+                    </p>You can add your company to our website free of charge. You can also place an advert for free to make your promotions, discounts or special promotions known to our visitors. <br> Have you organized a one-off event and don't have a company? No problem, you can also create an event for free!
+
+                    <p><br> You can register without obligation below. After registration you can publish your company and event for free.<br>
+                    </p>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

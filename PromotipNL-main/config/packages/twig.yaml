@@ -1,0 +1,10 @@
+twig:
+  default_path: '%kernel.project_dir%/templates'
+  paths:
+    '%kernel.project_dir%/src/Xenco/FormBundle/Resources/templates': Xenco
+  form_themes: ['@Xenco/form.html.twig', '@FOSCKEditor/Form/ckeditor_widget.html.twig']
+  globals:
+    provinces: '@App\Service\ProvinceService'
+    helper: '@App\Service\HelperService'
+
+

@@ -1,0 +1,12 @@
+fos_ck_editor:
+  # ...
+  base_path: "assets/ckeditor"
+  js_path:   "assets/ckeditor/ckeditor.js"
+  configs:
+    my_config:
+      toolbar: "verybasic"
+      removePlugins: "elementspath"
+      resize_enabled: false
+  toolbars:
+    configs:
+      verybasic: [ [ "Bold", "Italic", "Underline", "-", "NumberedList", "BulletedList", "-", "Link"],  ]

@@ -1,0 +1,84 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Credits | Promotip {% endblock %}
+
+{% block dashboard %}
+
+    <div class="row">
+        <div class="col-6">
+            <h3>Credits</h3>
+        </div>
+        <div class="col-6 text-right">
+            <h3>Uw huidige saldo: <span>{{ balance }}</span></h3>
+        </div>
+        
+        <div class="col-12">     
+            <hr>
+            <p>
+                Met credits kunt u snel en eenvoudig uw advertenties als <strong>PREMIUM</strong> activeren.<br/><p>
+                Premium advertenties zijn advertenties die op de sliderbalken van de homepagina staan en in de door u gekozen subrubrieken.<br/></p>
+
+            <p>
+                <lu>
+                    <li><strong><span class="xs-txt-purple">Dag formule</span> </strong> Hiermee staat uw advertentie 24u lang in de kijker - 2 credits</li>
+                    <li><strong><span class="xs-txt-purple">4 dagen</span> </strong> Hiermee staat uw advertentie 4 dagen lang in de kijker - 4 credits</li>
+                    <li><strong><span class="xs-txt-purple">7 dagen</span> </strong> Hiermee staat uw advertentie 7 dagen lang in de kijker - 6 credits</li>
+                </lu>
+            </p>
+            Credits kunt u online kopen met Bancontact, Paypal, Sofortbanking of iDeal.
+            </p>
+            {#  <blockquote>
+                <strong>Eindejaarsactie: </strong> tot en met 15 januari 2024 krijgt u <u>credits aan 0,50€</u>.<br/>
+                Uw credits blijven ook na de eindejaarsactie onbeperkt geldig!
+            </blockquote>#}
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <form action="{{ url('dashboard_store_credit') }}" method="post">
+                <input type="hidden" name="token" value="{{ csrf_token('credit_pay') }}"/>
+                <div class="row mb-5">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <select name="credit_package" class="form-control" id="credit_package" required>
+                            <option value="">Kies aantal credits</option>
+                            {% for credit in credits %}
+                                <option value="{{ credit }}">{{credit}} credits</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="total-credit">
+                            Totaal: €<span id="credit_amount"></span>
+                        </label>
+                    </div>
+                    <div class="col-6 text-right">
+                        <button type="submit" class="btn btn-pink">Betaal online</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger mt-4">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <script>
+        const selectPackage = document.getElementById('credit_package');
+        const creditAmount = document.getElementById('credit_amount');
+
+        document.addEventListener("readystatechange", (event) => {
+            let totalVal = (selectPackage.value != '' ? selectPackage.value : 0 );
+            creditAmount.textContent = {{ creditUnit }} * totalVal;
+        });
+
+        selectPackage.addEventListener('change', (event) => {
+            creditAmount.textContent = {{ creditUnit }} * event.target.value;
+        });
+    </script>
+{% endblock %}

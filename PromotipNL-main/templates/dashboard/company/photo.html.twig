@@ -1,0 +1,22 @@
+<div class="row photo-container mt-1" id="photo-{{ photo.id }}" data-id="{{ photo.id }}">
+    <div class="col-12 photo">
+        <div class="card bg-light">
+            <img class="card-img-top" src="{{ asset('/media/companies/' ~ photo.imageName) | imagine_filter('company_fixed') }}" alt="Card image cap">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <a href="#" data-id="{{ photo.id }}" data-position="up" data-url="{{ url('dashboard_company_photos_move') }}"
+                           class="photo-move btn btn-dark btn-sm{% if loop is defined and (loop.first == true or loop.length == 1) %} d-none{% endif %}"><i
+                                    class="fa fa-arrow-up"></i></a>
+                        <a href="#" data-id="{{ photo.id }}" data-position="down" data-url="{{ url('dashboard_company_photos_move') }}"
+                           class="photo-move btn btn-dark btn-sm{% if loop is defined and loop.last == true %} d-none{% endif %}"><i class="fa fa-arrow-down"></i></a>
+                    </div>
+                    <div class="text-right col">
+                        <a href="#" data-id="{{ photo.id }}" data-url="{{ url('dashboard_company_photos_delete') }}" class="photo-del btn btn-danger btn-sm"><i
+                                    class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+{% for advert in adverts %}
+<li class="xs-half footer-links">
+    <a href="{{ path('local_stores_advert', {category: advert.categorytitleslug, slug: advert.titleslug}) }}" class="text-white">{{ advert.title }}</a>
+</li>
+{% endfor %}

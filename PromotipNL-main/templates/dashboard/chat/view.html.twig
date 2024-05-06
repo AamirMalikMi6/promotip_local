@@ -1,0 +1,57 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}{% trans %} My dashboard | Promotip {% endtrans %}{% endblock %}
+
+{% block dashboard %}
+    <script>
+
+    </script>
+
+    <div class="row border-top border-light">
+            {% for message in messageList %}
+                        {# <div class="col-6 nopadding">
+                            <div class="{{ message.isRead ?: 'font-weight-bold' }}">{{ message.sender }}</div>
+                            <div class="{{ message.isRead ? 'font-weight-light' : 'font-weight-bold' }}">{{ message.subject|u.truncate(20, '...') }}</div>
+                        </div>
+                        <div class="col-6 text-right nopadding {{ message.isRead ? 'font-weight-light' : 'font-weight-bold' }}">
+                            {% if(message.received|date('d/m/Y') == "now"|date("d/m/Y")) %}
+                                <div>&nbsp;</div>
+                                <div>{{ message.received|date('H:i') }}</div>
+                            {% else %}
+                                <div>&nbsp;</div>
+                                <div data-toggle="tooltip" title="{{ message.received|date('H:i') }}" data-placement="right">{{ message.received|date('d/m/Y') }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>#}
+            {% endfor %}
+        <div class="col-12 w-100">
+            <div class="row nopadding">
+                <div class="nopadding col-12 font-weight-bold p-2 bg-purple text-white">
+                    Ontvangen bericht "{{ subject }}"<a href="{{ path('dashboard_delete_message', {'messageId': messageId}) }}" style="color: #ffffff">
+                        <i class="far fa-trash-alt float-right mt-1"></i></a>
+                    <a href="mailto: {{ from }}?subject={{ subject }}" style="color: #ffffff">
+                        <i class="fa fa-reply float-right mt-1 mr-2"></i></a>
+
+                </div>
+                <div class="nopadding col-12 p-2 bg-light">
+                    <div class="row">
+                        <div class="col-9 ">{{ 'from'|trans }}: <span class="font-weight-bold">{{ from }}</span></div>
+                        <div class="col-3 text-right">{{ received|date('d/m/Y') }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">{{ 'mailSubject'|trans }}: {{ subject }}</div>
+                        <div class="col-3 text-right">{{ received|date('H:i:s') }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row nopadding">
+                <div class="col-12 pl-2 pt-3">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

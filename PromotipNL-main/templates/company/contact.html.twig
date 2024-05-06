@@ -1,0 +1,168 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ company.companyname }} {% trans %}in{% endtrans %} {{ city.region3 }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <section class="container-fluid banner-bp">
+    </section>
+
+    <div class="container">
+        <div class="row companytext">
+            <div class="col-12 col-sm-6">
+                <div class="text-pink text-uppercase fw-300"> {% trans %} Companies {% endtrans %}</div>
+                <h1 class="text-uppercase">{{ company.companyname }}</h1>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="row p-3">
+                    <div class="col">
+                        {{ form_start(form, {'attr': {'class': 'form','novalidate':'novalidate'}}) }}
+                        <div class="form-label-group row">
+                            <div class="col">
+                                {{ form_widget(form.sender, { 'attr': {'placeholder': 'email'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.sender, 'email'|trans) }}
+                                {{ form_errors(form.sender) }}
+                            </div>
+                        </div>
+                        <div class="form-label-group row">
+                            <div class="col">
+                                {{ form_widget(form.subject, { 'attr': {'placeholder': 'subject'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.subject, 'subject'|trans) }}
+                                {{ form_errors(form.subject) }}
+                            </div>
+                        </div>
+                        <div class="form-label-group row">
+                            <div class="col">
+                                {{ form_label(form.message, 'question'|trans, {'label_attr': {'style' : 'position: relative; left: 0;'}}) }}
+                                {{ form_widget(form.message, { 'attr': {'class': 'form-control form-control-lg'} }) }}
+                                {{ form_errors(form.message) }}
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                        {% for message in app.flashes('form-send') %}
+                            <div class="alert alert-success">
+                                {{ message|trans({ 'message_to': company.companyname }) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="container-fluid bg-openingshours xs-h-1000">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-4 py-4 bg-add xs-box-border-radius xs-mb-1-half xs-gradient-box-shadow advert-cc">
+                    
+                    <div class="row">
+                        <div class="col-6 col-sm-12">
+                            <i class="fa fa-map-marker mr-1"></i> <b>{% trans %}Address{% endtrans %}:</b>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            {{ company.address }} {{ company.housenumber }} {{ company.box }}<br>
+                            {{ city.postcode }} {{ city.region3 }}
+                        </div>
+                    </div>
+                </div>
+
+                {% if (company.phonenumber is defined and company.phonenumber is not null) %}
+                    <div class="col-12 col-lg-4 py-4 bg-pho xs-box-border-radius xs-mb-1-half xs-gradient-box-shadow advert-cc">
+                        <div class="row">
+                            <div class="col-6 col-sm-12">
+                                <i class="fa fa-phone mr-1"></i> <b>{{ 'Phone'|trans }}:</b>
+                            </div>
+                            <div class="col-6 col-sm-12">
+                                <a href="tel:{{ company.phonenumber|phone_number_format('E164') }}" class="text-dark">
+                                    {{ company.phonenumber|phone_number_format('NATIONAL') }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="col-12 col-lg-4 py-4 bg-web2 xs-box-border-radius xs-mb-1-half xs-gradient-box-shadow advert-cc">
+                    <div class="row">
+                        <div class="col-6 col-sm-12">
+                            <i class="fa fa-globe"></i> <b>{{ 'Website'|trans }}:</b>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            <a href="{{ company.website }}" target="_blank"
+                           rel="noopener nofollow">Bezoek onze website</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                {% if (company.getOnlyAppointment) or (company.getWebshopOnly)  %}
+                    <div class="col-12 align-items-center text-white text-uppercase fw-800" style="margin-top: 40px;">
+                        {% if (company.getOnlyAppointment) %}
+                            <p>{% trans %}Only appointment{% endtrans %}</p>
+                        {% endif %}
+                        {% if (company.getWebshopOnly) %}
+                            <p>{% trans %}Webshop only{% endtrans %}</p>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="col-12 col-sm-4 d-flex align-items-center text-white text-uppercase fw-800 opening-hours-title">
+                        <p class="opening-hours"><small>{% trans %}Opening hours{% endtrans %}</small> <br>{{ company.companyname }}</p>
+                    </div>
+                    <div class="col-12 col-sm-8">
+                        <div class="row hours-items-wrap">
+                            {% for i in range(1,7) %}
+                                <div class="col-4 align-items-center text-center text-white hours-item">
+                                    <div class="hours">
+                                        <h6 class="text-beige"
+                                            style="font-size: 85%; font-weight: normal; padding: 20px 0 0 0; margin: 0">
+                                            {% if ('now'|date('N') == i) %} {% endif %}
+                                            {% if (i == 1) %}
+                                                {% trans %}Monday{% endtrans %}
+                                            {% elseif (i == 2) %}
+                                                {% trans %}Tuesday{% endtrans %}
+                                            {% elseif (i == 3) %}
+                                                {% trans %}Wednesday{% endtrans %}
+                                            {% elseif (i == 4) %}
+                                                {% trans %}Thursday{% endtrans %}
+                                            {% elseif (i == 5) %}
+                                                {% trans %}Friday{% endtrans %}
+                                            {% elseif (i == 6) %}
+                                                {% trans %}Saturday{% endtrans %}
+                                            {% elseif (i == 7) %}
+                                                {% trans %}Sunday{% endtrans %}
+                                            {% endif %}
+                                        </h6>
+
+                                        <strong class="text-uppercase">
+                                            {% set currentDay = -1 %}
+                                            {% for o in openingHours %}
+                                                {% if (i == o.day) %}
+
+                                                    {{ o.openFrom|date('H:i') }}
+                                                    {{ o.openTill|date('H:i') }}<br>
+                                                    {% set currentDay = i %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if (currentDay != i) %}
+                                                {% trans %}closed{% endtrans %}
+                                            {% endif %}
+                                        </strong>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

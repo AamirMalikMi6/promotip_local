@@ -1,0 +1,225 @@
+{% extends 'dashboard.html.twig' %}
+
+
+{% block title %} {% trans %} Create your event! {% endtrans %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard') }}
+    {{ encore_entry_link_tags('dropzone') }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dropzone') }}
+    {{ encore_entry_script_tags('dashboard_events') }}
+{% endblock %}
+
+{% block dashboard %}
+
+    {% if companyprofile %}
+        <div class="container p-0 ">
+            <div class="alert alert-success">
+                Uw bedrijfsprofiel werd succesvol aangemaakt. <br>{{ helper.getFirstname }}, bent u klaar om uw eerste gratis advertentie te publiceren? Maak hieronder uw advertentie aan.
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="col-12">
+        <blockquote>
+            <strong><i class="fas fa-lightbulb"></i> Tip:</strong> Uw advertentie verkrijgt meer visibiliteit wanneer er een afbeelding en duidelijk beschrijvende tekst wordt gebruikt.
+        </blockquote>
+    </div>
+
+    <div class="row p-3 mb-2">
+        <div class="col-sm-6 col-md-5 col-lg-6">
+            <div class="row photo-container" style="margin-top: 20px;">
+                {% if eventadvertPhotos is defined %}
+                    {% for photo in eventadvertPhotos %}
+                        {% include 'dashboard/eventadvert/photo.html.twig' %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <form action="{{ oneup_uploader_endpoint('events') }}" class="dropzone bg-light border" id="dropzone"
+                  data-ph="{{ url('dashboard_eventadvert_photo_template') }}">
+                <div class="dz-message" data-dz-message>
+                    <i class="fa fa-camera fa-3x"></i><br>
+                    <span class="mt-2">{% trans %}Drag & drop your photos here{% endtrans %}</span><br>
+                    <small>{% trans %}or{% endtrans %}</small><br>
+                    <span class="btn btn-outline-dark">{% trans %}Browse files{% endtrans %}</span>
+                    <input type="hidden" name="type" value="eventadvert">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-6 col-md-5 col-lg-6" style="margin-bottom: 75px;">
+            <div class="col-12">
+                {{ form_start(form, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+
+
+                <div class="form-label-group row">
+                    <div class="col" style="margin-top: 20px;">
+                        {{ form_widget(form.channel, { 'attr': {'placeholder': 'Channel'|trans, 'class': 'form-control form-control-lg'} }) }}
+                        {{ form_errors(form.channel) }}
+                    </div>
+                </div>
+
+                <div class="form-label-group row">
+                    <div class="col">
+                        {{ form_widget(form.category, { 'attr': {'placeholder': 'Category'|trans, 'class': 'form-control form-control-lg'} }) }}
+                        {{ form_errors(form.category) }}
+                    </div>
+                </div>
+
+                <div class="form-label-group row">
+                    <div class="col">
+                        {{ form_widget(form.title, { 'attr': {'placeholder': 'Title'|trans, 'class': 'form-control form-control-lg'} }) }}
+                        {{ form_label(form.title, 'Title'|trans) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+                </div>
+
+                <div class="form-label-group row">
+                    <div class="col">
+                        {{ form_widget(form.price, { 'attr': {'placeholder': 'Price'|trans, 'class': 'form-control form-control-lg'} }) }}
+                    </div>
+                </div>
+
+                <div class="form-label-group row">
+                    <div class="col">
+                        {{ form_label(form.description, 'Description'|trans, {'label_attr': {'style' : 'position: relative; left: 0;'}}) }}
+                        {{ form_widget(form.description, { 'attr': {'placeholder': '', 'class': 'form-control form-control-lg'} }) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                </div>
+
+                <div class="form-label-group row">
+                    <div class="col">
+                        <small class="form-text text-muted">Voeg enkele beschrijvende tags over uw advertentie toe</small>
+                        <select name="tags[]" class="select2-tags form-control" multiple="multiple" style="margin-right: 85px;">
+                            {% for tag in tags %}
+                                <option value="{{ tag.tag.name }}" selected="selected">{{ tag.tag.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-label-group row">
+                    {#  <div class="checkbox mb-4">
+                            <label style="color: #000;">
+                                Hele dag evenement
+                                <input type="checkbox" name="all_day_event" {% if(eventAdvert.getAllDayEvent) %} checked="checked" {% endif %} id="all_day_event" >
+                            </label>
+                        </div>#}
+                </div>
+
+                <div id="date_hour_bloc">
+                    <div class="form-label-group row">
+                        <div class="col-6">
+                            {{ form_label(form.eventStartDate, 'Start date'|trans) }}
+                            {{ form_widget(form.eventStartDate, { 'attr': {'placeholder': 'Start date'|trans, 'class': 'form-control-xlg p-0'} }) }}
+                            {{ form_errors(form.eventStartDate) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_label(form.eventEndDate, 'End date'|trans) }}
+                            {{ form_widget(form.eventEndDate, { 'attr': {'placeholder': 'End date'|trans, 'class': 'form-control-xlg p-0'} }) }}
+                            {{ form_errors(form.eventEndDate) }}
+                        </div>
+                    </div>
+
+                    <div class="form-label-group row">
+                        <div class="col-6">
+                            {{ form_label(form.startHour, 'Start hour'|trans) }}
+                            {{ form_widget(form.startHour, { 'attr': {'placeholder': 'Start hour'|trans, 'class': 'form-control-xlg p-0'} }) }}
+                            {{ form_errors(form.startHour) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_label(form.endHour, 'End hour'|trans) }}
+                            {{ form_widget(form.endHour, { 'attr': {'placeholder': 'End hour'|trans, 'class': 'form-control-xlg p-0'} }) }}
+                            {{ form_errors(form.endHour) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-light p-3 mb-2">
+                    <small class="form-text text-muted mb-3">Vind uw event plaats op een andere locatie dan uw bedrijf? <br>Voeg hieronder het adres van het evenement toe</small>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input other_address" type="checkbox" name="other_address"
+                               id="other_address">
+                        <label class="form-check-label" for="other_address">
+                            {% if company.companyName is defined %}
+                                {% trans %}Other location than{% endtrans %} {{ company.companyName }}
+                            {% else %}
+                                {% trans %}Other location{% endtrans %}
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div class="d-none address mt-2">
+                        <div class="form-label-group row">
+                            <div class="col-12">
+                                {{ form_widget(form.address, { 'attr': {'placeholder': 'Address'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.address, 'Address'|trans) }}
+                                {{ form_errors(form.address) }}
+                            </div>
+                            <div class="col-6">
+                                {{ form_widget(form.housenumber, { 'attr': {'placeholder': 'Housenumber'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.housenumber, 'Number'|trans) }}
+                                {{ form_errors(form.housenumber) }}
+                            </div>
+                            <div class="col-6">
+                                {{ form_widget(form.box, { 'attr': {'placeholder': 'Box'|trans, 'class': 'form-control form-control-lg'} }) }}
+                                {{ form_label(form.box, 'Box'|trans) }}
+                                {{ form_errors(form.box) }}
+                            </div>
+                        </div>
+                        <div class="form-label-group row">
+                            <div class="col">
+                                <select name="location" class="select2-location form-control"></select>
+                                {{ form_errors(form.geoPlacesId) }}
+                                {{ form_widget(form.geoPlacesId, { 'attr': {'placeholder': 'Zipcode & City'|trans, 'class': 'form-control form-control-lg'} }) }}
+                            </div>
+                        </div>
+
+                        <div class="form-label-group row">
+                            <div class="col-6">
+                                {{ form_widget(form.latitude, {attr: {placeholder: 'Latitude'|trans, 'class': "form-control form-control-lg"}}) }}
+                                {{ form_label(form.latitude, 'Latitude'|trans) }}
+                                {{ form_errors(form.latitude) }}
+                            </div>
+                            <div class="col-6">
+                                {{ form_widget(form.longitude, {attr: {placeholder: 'Longitude'|trans, 'class': "form-control form-control-lg"}}) }}
+                                {{ form_label(form.longitude, 'Longitude'|trans) }}
+                                {{ form_errors(form.longitude) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit"
+                        class="btn btn-lg p-2 btn-pink btn-block mb-5">{% trans %}Save{% endtrans %}</button>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid bg-event3 d-none d-lg-block">
+        <div class="row">
+            <div class="col-12 col-md-7 offset-md-5 mb-5 mt-lg-5">
+                <h3 class="fw-800 display-5 display-sm-4 text-uppercase">{% trans %}Tips to promote your <span class="text-pink"> upcoming event...</span>{% endtrans %}
+                </h3>
+                <div class="row mt-5 pt-2">
+                    <div class="col-12 col-sm-6 col-md-8">
+                        Zorg ervoor dat uw event fiche zo volledig mogelijk ingevuld is om meer visibiliteit te verkrijgen. <br>Heeft u de nodige gegevens ingevuld die de
+                        bezoekers dienen te weten?
+                        </br> Denk hierbij aan de locatie waar het event plaats vindt, en de exacte tijdsaanduiding.<br>
+
+                        <br> Tevens raden we ook aan om enkele sfeerfoto's aan uw advertentie toe te voegen. <br>Een event met uitnodigende foto's zal onze bezoekers hun
+                        aandacht naar uw advertentie trekken!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

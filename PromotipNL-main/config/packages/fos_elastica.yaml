@@ -1,0 +1,86 @@
+# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/doc/setup.md
+fos_elastica:
+  clients:
+    default: { url: '%env(ELASTICSEARCH_URL)%' }
+  indexes:
+    app_events_nl:
+      settings:
+        analysis:
+          analyzer:
+            custom_analyzer:
+              type: custom
+              tokenizer: standard
+              filter: [ stemmer_nl, stopwords_nl, lowercase ]
+            custom_search_analyzer:
+              type: custom
+              tokenizer: standard
+              filter: [ stemmer_nl, stopwords_nl, lowercase ]
+          filter:
+            stemmer_nl:
+              type: stemmer
+              language: dutch
+            stopwords_nl:
+              type: stop
+              stopwords: [ _dutch_ ]
+              ignore_case: true
+            worddelimiter:
+              type: word_delimiter
+      types:
+        eventadvert:
+          properties:
+            title: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+            description: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+            address: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+            enrichment: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+            eventStartDate: { type: date }
+            eventEndDate: { type: date }
+            company:
+              type: object
+              properties:
+                companyname: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+                description: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+                address: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+                enrichment: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+                vatnumber: ~
+                website: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+          persistence:
+            driver: orm
+            model: App\Entity\Eventadvert
+            provider: ~
+            finder: ~
+            repository: App\SearchRepository\EventadvertRepository
+    app_company_nl:
+      settings:
+        analysis:
+          analyzer:
+            custom_analyzer:
+              type: custom
+              tokenizer: standard
+              filter: [ stemmer_nl, stopwords_nl, lowercase ]
+            custom_search_analyzer:
+              type: custom
+              tokenizer: standard
+              filter: [ stemmer_nl, stopwords_nl, lowercase ]
+          filter:
+            stemmer_nl:
+              type: stemmer
+              language: dutch
+            stopwords_nl:
+              type: stop
+              stopwords: [ _dutch_ ]
+              ignore_case: true
+            worddelimiter:
+              type: word_delimiter
+      types:
+        company_nl:
+          properties:
+            companyname: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+            description: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+            address: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+            enrichment: { analyzer: custom_analyzer, search_analyzer: custom_search_analyzer }
+          persistence:
+            driver: orm
+            model: App\Entity\Company
+            provider: ~
+            finder: ~
+            repository: App\SearchRepository\CompanyRepository

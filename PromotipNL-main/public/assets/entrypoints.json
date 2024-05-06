@@ -1,0 +1,133 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~admin~app~dashboard~dashboard_company~dashboard_events~dropzone~fullcalendar~notification~photoswipe.js",
+        "/assets/vendors~admin~app~dashboard_company~dashboard_events~photoswipe~sliders.js",
+        "/assets/vendors~admin~app~photoswipe.js",
+        "/assets/vendors~app~sliders.js",
+        "/assets/vendors~app.js",
+        "/assets/app.js"
+      ],
+      "css": [
+        "/assets/vendors~app.css",
+        "/assets/app.css"
+      ]
+    },
+    "sliders": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~admin~app~dashboard_company~dashboard_events~photoswipe~sliders.js",
+        "/assets/vendors~sliders~sliders_advert.js",
+        "/assets/vendors~app~sliders.js",
+        "/assets/sliders.js"
+      ],
+      "css": [
+        "/assets/vendors~sliders~sliders_advert.css"
+      ]
+    },
+    "sliders_advert": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~sliders~sliders_advert.js",
+        "/assets/sliders_advert.js"
+      ],
+      "css": [
+        "/assets/vendors~sliders~sliders_advert.css"
+      ]
+    },
+    "lightgallery": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~lightgallery.js",
+        "/assets/lightgallery.js"
+      ],
+      "css": [
+        "/assets/vendors~lightgallery.css"
+      ]
+    },
+    "dashboard": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~admin~app~dashboard~dashboard_company~dashboard_events~dropzone~fullcalendar~notification~photoswipe.js",
+        "/assets/vendors~dashboard~dashboard_company~dashboard_events.js",
+        "/assets/dashboard.js"
+      ],
+      "css": [
+        "/assets/vendors~dashboard~dashboard_company~dashboard_events.css"
+      ]
+    },
+    "dashboard_events": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~admin~app~dashboard~dashboard_company~dashboard_events~dropzone~fullcalendar~notification~photoswipe.js",
+        "/assets/vendors~admin~app~dashboard_company~dashboard_events~photoswipe~sliders.js",
+        "/assets/vendors~dashboard~dashboard_company~dashboard_events.js",
+        "/assets/dashboard_events.js"
+      ],
+      "css": [
+        "/assets/vendors~dashboard~dashboard_company~dashboard_events.css"
+      ]
+    },
+    "dashboard_company": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~admin~app~dashboard~dashboard_company~dashboard_events~dropzone~fullcalendar~notification~photoswipe.js",
+        "/assets/vendors~admin~app~dashboard_company~dashboard_events~photoswipe~sliders.js",
+        "/assets/vendors~dashboard~dashboard_company~dashboard_events.js",
+        "/assets/dashboard_company.js"
+      ],
+      "css": [
+        "/assets/vendors~dashboard~dashboard_company~dashboard_events.css"
+      ]
+    },
+    "dropzone": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~admin~app~dashboard~dashboard_company~dashboard_events~dropzone~fullcalendar~notification~photoswipe.js",
+        "/assets/vendors~dropzone.js",
+        "/assets/dropzone.js"
+      ],
+      "css": [
+        "/assets/vendors~dropzone.css"
+      ]
+    },
+    "photoswipe": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~admin~app~dashboard~dashboard_company~dashboard_events~dropzone~fullcalendar~notification~photoswipe.js",
+        "/assets/vendors~admin~app~dashboard_company~dashboard_events~photoswipe~sliders.js",
+        "/assets/vendors~admin~app~photoswipe.js",
+        "/assets/photoswipe.js"
+      ]
+    },
+    "admin": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~admin~app~dashboard~dashboard_company~dashboard_events~dropzone~fullcalendar~notification~photoswipe.js",
+        "/assets/vendors~admin~app~dashboard_company~dashboard_events~photoswipe~sliders.js",
+        "/assets/vendors~admin~app~photoswipe.js",
+        "/assets/admin.js"
+      ]
+    },
+    "fullcalendar": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~admin~app~dashboard~dashboard_company~dashboard_events~dropzone~fullcalendar~notification~photoswipe.js",
+        "/assets/vendors~fullcalendar.js",
+        "/assets/fullcalendar.js"
+      ],
+      "css": [
+        "/assets/vendors~fullcalendar.css"
+      ]
+    },
+    "notification": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/vendors~admin~app~dashboard~dashboard_company~dashboard_events~dropzone~fullcalendar~notification~photoswipe.js",
+        "/assets/notification.js"
+      ]
+    }
+  }
+}

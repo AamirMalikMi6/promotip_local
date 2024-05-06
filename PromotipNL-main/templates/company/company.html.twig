@@ -1,0 +1,612 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ company.companyname }} {% trans %}in{% endtrans %} {{ city.region3 }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('photoswipe') }}
+    {{ encore_entry_link_tags('sliders') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('photoswipe') }}
+    {{ encore_entry_script_tags('sliders') }}
+{% endblock %}
+
+{% block body %}
+    <section class="container-fluid banner-bp xs-background-none">
+        <div class="d-flex justify-content-center align-items-center text-white text-uppercase fw-800 xs-page-main-title"
+             style="height:220px;"><h1>Bedrijven</h1></div>
+        <div class="input-group"></div>
+    </section>
+
+    <div class="container">
+    <div class="row companytext" style="margin-top: 50px;">
+            <div class="col-12 col-sm-6">
+                <div class="left-border-2 border-pink pl-20">
+                    <div class="text-pink text-uppercase fw-500"> {% trans %} Companies {% endtrans %}</div>
+                    <h1 class="text-uppercase">{{ company.companyname }}</h1>
+                </div>
+                <div class="row mb-5 pb-5">
+                    <div class="col-12 col-sm-5 d-block d-xs-none" id="gallery">
+                        <div class="card border-0">
+                            {% if company.photos|first.imageName is defined %}
+                                <a href="{{ asset('/media/companies/' ~ company.photos|first.imageName) | imagine_filter('event_full') }}"
+                                   class="photo">
+                                    <img class="img-fluid"
+                                         src="{{ asset('/media/companies/' ~ company.photos|first.imageName) | imagine_filter('event_fluid') }}"
+                                         alt="{{ company.photos|first.imageAlt }}">
+                                </a>
+                            {% else %}
+                                <img class="img-fluid" src="/assets/images/no-image.png" alt=""/>
+                            {% endif %}
+                        </div>
+                        <div class="thumbs mt-2">
+                            {% for photo in company.photos[1:] %}
+                                <a href="{{ asset('/media/companies/' ~ photo.imageName) | imagine_filter('event_full') }}"
+                                   class="photo">
+                                    <img class="img-fluid"
+                                         src="{{ asset('/media/companies/' ~ photo.imageName) | imagine_filter('event_small_thumb') }}"
+                                         alt="{{ photo.imageAlt }}">
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6" style="margin-top: 20px;">
+                {{ company.description|raw }}
+
+                <div class="mt-5 mb-5">
+                    <a href="{{ path('contact_company',{province:province.nameDirify,city:company.geoPlacesId,company:company.companynameSlug}) }}"
+                            class="btn-pink">{% trans %}contact_company {% endtrans %}</a></div>
+            </div>
+            </div>
+
+    </div>
+    </div>
+
+    <section class="container-fluid bg-openingshours">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-4 py-4 bg-add xs-box-border-radius xs-mb-1-half xs-gradient-box-shadow advert-cc">
+                    <div class="row">
+                        <div class="col-6 col-sm-12">
+                            <i class="fa fa-map-marker mr-1"></i> <b>{% trans %}Address{% endtrans %}:</b>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            {{ company.address }} {{ company.housenumber }} {{ company.box }}<br>
+                            {{ city.postcode }} {{ city.region3 }}
+                        </div>
+                    </div>
+
+                    {# <i class="fa fa-map-marker"></i><br>
+                    <small class="text-pink"> {% trans %}Address{% endtrans %}:</small>
+                    <p>
+                        <strong class="text-dark">
+                            {{ company.address }} {{ company.housenumber }} {{ company.box }}<br>
+                            {{ city.postcode }} {{ city.locality }}</strong>
+                    </p> #}
+                </div>
+
+                {% if (company.phonenumber is defined and company.phonenumber is not null) %}
+                    <div class="col-12 col-lg-4 py-4 bg-pho xs-box-border-radius xs-mb-1-half xs-gradient-box-shadow advert-cc">
+                        <div class="row">
+                            <div class="col-6 col-sm-12">
+                                <i class="fa fa-phone black mr-1"></i> <b>{{ 'Phone'|trans }}:</b>
+                            </div>
+                            <div class="col-6 col-sm-12">
+                                <a href="tel:{{ company.phonenumber|phone_number_format('E164') }}" class="text-dark">
+                                    {{ company.phonenumber|phone_number_format('NATIONAL') }}
+                                </a>
+                            </div>
+                        </div>
+
+                        {# <i class="fa fa-phone black"></i>
+                        
+                            <br>
+                            <small class="text-pink">{{ 'Phone'|trans }}:</small>
+                            <br><strong><a href="tel:{{ company.phonenumber|phone_number_format('E164') }}"
+                                class="text-dark">{{ company.phonenumber|phone_number_format('NATIONAL') }}</a></strong> #}
+
+                    </div>
+                {% endif %}
+
+                <div class="col-12 col-lg-4 py-4 bg-web2 xs-box-border-radius xs-mb-1-half xs-gradient-box-shadow advert-cc">
+                    <div class="row">
+                        <div class="col-6 col-sm-12">
+                            <i class="fa fa-globe"></i> <b>{{ 'Website'|trans }}:</b>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            <a href="{{ company.website }}" target="_blank"
+                               rel="noopener nofollow" class="text-dark word-break-all">Bezoek onze website
+                            </a>
+                        </div>
+                    </div>
+
+                    {# <i class="fa fa-globe"></i> <br><small
+                            class="text-pink">{{ 'Website'|trans }}:</small>
+                    <br><strong>
+                        <a href="{{ company.website }}" target="_blank"
+                           rel="noopener nofollow" class="text-dark">Bezoek onze website
+                        </a> 
+                        <a href="{{ company.website }}" target="_blank"
+                           rel="noopener nofollow" class="text-dark">{{ company.website }}
+                        </a>
+                    </strong> #}
+                </div>
+            </div>
+
+            <div class="row">
+                {% if (company.getOnlyAppointment) or (company.getWebshopOnly) %}
+                    <div class="col-12 align-items-center text-white text-uppercase fw-800" style="margin-top: 40px;">
+                        {% if (company.getOnlyAppointment) %}
+                            <p>{% trans %}Only appointment{% endtrans %}</p>
+                        {% endif %}
+                        {% if (company.getWebshopOnly) %}
+                            <p>{% trans %}Webshop only{% endtrans %}</p>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="col-12 col-sm-4 d-flex align-items-center text-white text-uppercase fw-800 opening-hours-title">
+                        <p class="opening-hours"><small>{% trans %}Opening hours{% endtrans %}</small>
+                            <br>{{ company.companyname }}</p>
+                    </div>
+                    <div class="col-12 col-sm-8">
+                        <div class="row hours-items-wrap">
+                            {% for i in range(1,7) %}
+                                <div class="col-4 align-items-center text-center text-white hours-item">
+                                    <div class="hours">
+                                        <h6 class="text-beige"
+                                            style="font-size: 85%; font-weight: normal; padding: 20px 0 0 0; margin: 0">
+                                            {% if ('now'|date('N') == i) %} {% endif %}
+                                            {% if (i == 1) %}
+                                                {% trans %}Monday{% endtrans %}
+                                            {% elseif (i == 2) %}
+                                                {% trans %}Tuesday{% endtrans %}
+                                            {% elseif (i == 3) %}
+                                                {% trans %}Wednesday{% endtrans %}
+                                            {% elseif (i == 4) %}
+                                                {% trans %}Thursday{% endtrans %}
+                                            {% elseif (i == 5) %}
+                                                {% trans %}Friday{% endtrans %}
+                                            {% elseif (i == 6) %}
+                                                {% trans %}Saturday{% endtrans %}
+                                            {% elseif (i == 7) %}
+                                                {% trans %}Sunday{% endtrans %}
+                                            {% endif %}
+                                        </h6>
+
+                                        <strong class="text-uppercase">
+                                            {% set currentDay = -1 %}
+                                            {% for o in openingHours %}
+                                                {% if (i == o.day) %}
+
+                                                    {{ o.openFrom|date('H:i') }}
+                                                    {{ o.openTill|date('H:i') }}<br>
+                                                    {% set currentDay = i %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if (currentDay != i) %}
+                                                {% trans %}closed{% endtrans %}
+                                            {% endif %}
+                                        </strong>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% if adverts is defined and adverts is not empty %}
+        <section class="container mb-5 xs-mb10">
+            <h2 class="mb-5 mt-5 company-advert-title">Bekijk hier onze actieve events</h2>
+
+            {% if adverts|length > 3 %}
+                <div class="splide splide_active_advert my-5">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            {% for event in adverts %}
+                                {% set eventChannel = '' %}
+                                {% set eventChannelTitle = '' %}
+                                {% for channel in channels %}
+                                    {% if (channel.id == event.channel) %}
+                                        {% set eventChannel = channel.getRoute|replace({'_category' : '_advert'}) %}
+                                        {% set eventChannelTitle = channel.getName %}
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% set eventCategory = '' %}
+                                {% for category in categories %}
+                                    {% if (category.id == event.category) %}
+                                        {% set eventCategory = category.getTitleSlug %}
+                                    {% endif %}
+                                {% endfor %}
+                                <li class="splide__slide">
+
+                                    <div class="card h-100 rounded-0">
+                                        {% if event.photos|first.imageName is defined %}
+                                            <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}"
+                                               class="a-block-fixed-height">
+                                                <img
+                                                        class="img-fluid text-center img-contain-vertical-align"
+                                                        src="{{ asset('/media/events/' ~ event.photos|first.imageName) | imagine_filter('event_slider') }}"
+                                                        alt="{{ event.photos|first.imageAlt }}"/> </a>
+                                        {% else %}
+                                            <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}">
+                                                <img class="card-img-top"
+                                                     style="height: 100%; width: 100%; object-fit: contain"
+                                                     src="/assets/images/no-image.png" alt=""/></a>
+                                        {% endif %}
+
+                                        <div class="card-body"
+                                             style="padding-top: 10px;padding-left: 10px;padding-right: 10px;padding-bottom: 10px; margin-top: 50px;">
+                                            <small class="fw-300 text-blue">{{ eventChannelTitle }}</small>
+                                            <h5 class="card-title text-uppercase text-truncate text-gray fw-300 m-0 p-0 xs-ws-normal">
+                                                <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}"
+                                                   class="text-gray">{{ event.title }}</a>
+                                            </h5>
+                                            {% for geo in geoPlaces %}
+                                                {% if event.geoPlacesId > 0 and geo.id == event.geoPlacesId %}
+                                                    <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                                {% elseif event.geoPlacesId == null and event.company.geoPlacesId > 0 and geo.id == event.company.geoPlacesId %}
+                                                    <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            <div class="row mt-3">
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="row">
+                                                        {#  <div class="col-1 p-0" style="margin-left: 17px;"><i class="fa fa-calendar-alt text-pink"></i></div>
+                                                         <div class="col fw-500">
+                                                            {% if event.eventStartDate != null %}
+                                                                {{ event.eventStartDate|date("F j, Y") }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6 xs-margin-tl15">
+                                                    <div class="row">
+                                                        <div class="col-1 p-0"><i class="fa fa-clock text-pink"></i></div>
+                                                        <div class="col fw-500">
+                                                            {% if event.startHour != null %}
+                                                                {{ event.startHour|date('H:i') }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-1 p-0"></div>
+                                                        <div class="col">
+                                                            {% if event.endHour != null %}
+                                                                {{ event.endHour|date('H:i') }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div> #}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row mt-4">
+                            {% for event in adverts %}
+                                {% set eventChannel = '' %}
+                                {% set eventChannelTitle = '' %}
+                                {% for channel in channels %}
+                                    {% if (channel.id == event.channel) %}
+                                        {% set eventChannel = channel.getRoute|replace({'_category' : '_advert'}) %}
+                                        {% set eventChannelTitle = channel.getName %}
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% set eventCategory = '' %}
+                                {% for category in categories %}
+                                    {% if (category.id == event.category) %}
+                                        {% set eventCategory = category.getTitleSlug %}
+                                    {% endif %}
+                                {% endfor %}
+                                <div class="col-6 col-sm-6 col-lg-4 mb-4">
+                                    <div class="card h-100 rounded-0">
+                                        {% if event.photos|first.imageName is defined %}
+                                            <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}"
+                                               class="a-block-fixed-height">
+                                                <img
+                                                        class="img-fluid text-center img-contain-vertical-align"
+                                                        src="{{ asset('/media/events/' ~ event.photos|first.imageName) | imagine_filter('event_fixed') }}"
+                                                        alt="{{ event.photos|first.imageAlt }}"/> </a>
+                                        {% else %}
+                                            <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}">
+                                                <img class="card-img-top"
+                                                     style="height: 100%; width: 100%; object-fit: contain"
+                                                     src="/assets/images/no-image.png" alt=""/></a>
+                                        {% endif %}
+
+                                        <div class="card-body"
+                                             style="padding-top: 10px;padding-left: 10px;padding-right: 10px;padding-bottom: 10px;">
+                                            <small class="fw-300 text-blue">{{ eventChannelTitle }}</small>
+                                            <h5 class="card-title text-uppercase text-truncate text-gray fw-300 m-0 p-0 xs-ws-normal">
+                                                <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}"
+                                                   class="text-gray">{{ event.title }}</a>
+                                            </h5>
+                                            {% for geo in geoPlaces %}
+                                                {% if event.geoPlacesId > 0 and geo.id == event.geoPlacesId %}
+                                                    <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                                {% elseif event.geoPlacesId == null and event.company.geoPlacesId > 0 and geo.id == event.company.geoPlacesId %}
+                                                    <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            <div class="row mt-3">
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="row">
+                                                        <div class="col-1 p-0" style="margin-left: 17px;"><i
+                                                                    class="fa fa-calendar-alt text-pink"></i></div>
+                                                        <div class="col fw-500">
+                                                            {% if event.eventStartDate != null %}
+                                                                {{ event.eventStartDate|date("F j, Y") }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6 xs-margin-tl15">
+                                                    <div class="row">
+                                                        <div class="col-1 p-0"><i class="fa fa-clock text-pink"></i>
+                                                        </div>
+                                                        <div class="col fw-500">
+                                                            {% if event.startHour != null %}
+                                                                {{ event.startHour|date('H:i') }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-1 p-0"></div>
+                                                        <div class="col">
+                                                            {% if event.endHour != null %}
+                                                                {{ event.endHour|date('H:i') }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+    {% endif %}
+    <section class="container mb-5">
+        <h2>Reviews</h2>
+        <div class="d-flex align-items-center" style="gap:1rem">
+            <span style="font-size: 72px">{{ rating|round(1) }}</span>
+            <div>
+                <div class="mb-2">
+                    {% set loopStars = rating|round(0, 'ceil') %}
+                    {% for i in 1..loopStars %}
+                        {% set remaining = rating - i %}
+                        {% if remaining == -0.5 %}
+                            <i class="far fa-star text-warning fa-2x"></i>
+                        {% else %}
+                            <i class="fas fa-star text-warning fa-2x"></i>
+                        {% endif %}
+
+                    {% endfor %}
+                </div>
+                <div>
+                    Gemiddelde van {{ reviews|length }} reviews
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column" style="gap: 5px; width: 50%">
+            {% for s,t in starsCount %}
+                <div class="d-flex align-items-center" style="gap: 1rem">
+                    <div class="d-flex justify-content-end" style="width: 120px;gap:3px;">
+                        {% for i in 1..s %}
+                            <i class="fas fa-star text-warning"></i>
+                        {% endfor %}
+                    </div>
+                    <div class="progress flex-grow-1" style="height: 10px;">
+                        <div style="width: {{ reviews|length > 0 ? t / reviews|length * 100 : 0 }}%" role="progressbar" aria-valuenow="{{ t }}" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-warning"></div>                    </div>
+                    <span class="text-right">
+                        {{ t }}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                {# Display existing reviews #}
+                {% if reviews is not empty %}
+                    {% for review in reviews %}
+                        <div class="card border">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-pink text-uppercase fw-500">{{ review.visitor.name }}</h6>
+                                    </div>
+                                    <div class="col-md-6 text-center">
+                                        {# Display star ratings #}
+                                        {% for i in 1..5 %}
+                                            {% if i <= review.stars %}
+                                                <i class="fas fa-star text-warning"></i>
+                                            {% else %}
+                                                <i class="far fa-star text-warning"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-body">
+                                <p>{{ review.message }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h6><p>Nog geen recensies. <br>Wees de eerste om een recensie achter te laten!</p></h6>                {% endif %}
+            </div>
+            <div class="col-md-6" style="margin-bottom: 80px;">
+                {% if app.session.get('visitor') %}
+                    {# Form for submitting new reviews (assuming you have a Review entity) #}
+                    {# <form method="post" action="{{ path('submit_review', {'eventId': event.id}) }}"> #}
+                    <form method="post" action="{{ path('submit_vReview') }}">
+                        {# Star rating input (you might need to adjust the input name based on your entity) #}
+                        <div class="form-group form-row">
+                            <div class="col-auto">
+                                <select id="rating" name="rating" class="form-control">
+                                    <option value="1">1 Ster</option>
+                                    <option value="2">2 Sterren</option>
+                                    <option value="3">3 Sterren</option>
+                                    <option value="4">4 Sterren</option>
+                                    <option value="5">5 Sterren</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <div class="col">
+                                <textarea class="form-control" id="comment" name="message" rows="4"
+                                          cols="50"></textarea>
+                            </div>
+                        </div>
+                        <input type="hidden" name="company" value="{{ company.id }}" />
+
+                        <button type="submit" id="message_form_Verstuur" name="message_form[Verstuur]"
+                                class="btn btn-lg p-2 btn-pink btn-block btn" formnovalidate="formnovalidate">Verstuur
+                        </button>
+                    </form>
+                {% else %}
+                    <div class="p-4">
+                        <a href="javascript:void(0)">
+                            <h5 class="text-pink" data-toggle="modal" data-target="#exampleModal">
+                                Schrijf een review <br>Meld u aan of registreer u om uw ervaring te delen.
+                            </h5>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body xs-box-border-radius">
+                    <div class="text-right">
+                        <a class="closeButton xs-btn-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </a>
+                    </div>
+                    <div class="row vLogin">
+                        <div class="col-12 ml-auto">
+                            <form method="post" class="form-card xs-box-border-radius" id="visitorLoginFrom">
+                                <h1 class="h3 mb-3 fw-300 xs-text-center">{% trans %}LOGIN TO YOUR ACCOUNT{% endtrans %}</h1>
+                                <hr class="d-block d-xs-none"/>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text icon-input-field">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                    </div>
+                                    <input type="email" name="email" id="inputEmail"
+                                           class="form-control form-control-lg input-field"
+                                           placeholder="Email address" required autofocus>
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text icon-input-field">
+                                            <i class="fas fa-lock"></i>
+                                        </div>
+                                    </div>
+                                    <input type="password" name="password" id="inputPassword"
+                                           class="form-control form-control-lg input-field"
+                                           placeholder="Password" required>
+                                </div>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                                <div class="row small">
+                                    <div class="col-6">
+                                        <span class="ajax-errors"></span>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-lg p-2 btn-block btn-purple xs-p-5 xs-box-border-radius mt-5"
+                                        type="submit">{% trans %}Sign in {% endtrans %}</button>
+
+                                <hr>
+                                <div class="text-center">
+                                    <a href="javascript:void(0)" class="text-pink" onclick="visitorAuthModal(1)">{% trans %}Sign Up {% endtrans %}</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row vRegister d-none">
+                        <div class="col-12 ml-auto">
+                            <form method="post" class="form-card xs-box-border-radius" id="visitorRegisterFrom">
+                                <h1 class="h3 mb-3 fw-300 xs-text-center">{% trans %}Registreer{% endtrans %}</h1>
+                                <hr class="d-block d-xs-none"/>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text icon-input-field">
+                                            <i class="fas fa-user-alt"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" name="name" id="inputName"
+                                           class="form-control form-control-lg input-field"
+                                           placeholder="Name" required autofocus>
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text icon-input-field">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                    </div>
+                                    <input type="email" name="email" id="inputEmail"
+                                           class="form-control form-control-lg input-field"
+                                           placeholder="Email address" required autofocus>
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text icon-input-field">
+                                            <i class="fas fa-lock"></i>
+                                        </div>
+                                    </div>
+                                    <input type="password" name="password" id="inputPassword"
+                                           class="form-control form-control-lg input-field"
+                                           placeholder="Password" required>
+                                </div>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                                <div class="row small">
+                                    <div class="col-6">
+                                        <span class="ajax-errors"></span>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-lg p-2 btn-block btn-purple xs-p-5 xs-box-border-radius mt-5"
+                                        type="submit">{% trans %}Sign in {% endtrans %}</button>
+                                <hr>
+                                <div class="text-center">
+                                    <a href="javascript:void(0)" class="text-pink" onclick="visitorAuthModal(0)"> {% trans %}LOGIN TO YOUR ACCOUNT{% endtrans %}</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

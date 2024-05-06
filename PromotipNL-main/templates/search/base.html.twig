@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+          content="Vind op Promotip alle lokale promo's, solden, kortingsacties, kortingscodes, koopjes en vakmannen. Bent u een echte promojager? Scoor hier uw deal!">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=6478d79440353a0019caf1a0&product=inline-share-buttons' async='async'></script>
+
+    <title>{% block title %}Promotip hét lokaal advertentieplatform voor leuke kortingen en deals! Gratis adverteren voor handelaren en ondernemers{% endblock %}</title>
+    {% block stylesheets %}
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,800;1,300;1,400;1,500;1,700;1,800&display=swap"
+              rel="stylesheet">
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+
+
+<nav class="navbar navbar-light navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand d-none d-sm-block" href="{{ url('home') }}"><img
+                    src="{{ asset('assets/images/logo.png') }}" alt="Promotip" class="img-fluid" width="50%"></a>
+        <div class="d-block d-sm-none" style="width: 100%;">
+            <div class="top-mobile">
+                <a href="{{ url ('home_register') }}">
+                    <img src="{{ asset('assets/images/register.png') }}" alt="Register an account" class="img-fluid">
+                </a>
+
+                <a class="mobile-navbar-logo d-block d-sm-none" href="{{ url('home') }}">
+                    <img src="{{ asset('assets/images/logo_promotip_mobile.png') }}" alt="Promotip" class="img-fluid">
+                </a>
+                <a href="#mobile_menu" data-toggle="modal" data-target="#mobile_menu">
+                    <img src="{{ asset('assets/images/hamburger-menu.png') }}" alt="Mobile hamburger menu" class="img-fluid">
+                </a>
+            </div>
+        </div>
+
+        <button class="navbar-toggler d-none d-sm-block d-lg-none navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+
+            <ul class="navbar-nav ml-auto d-flex">
+                <li class="nav-item">
+                    <a href="{{ url('deelnemer') }}" class="nav-link align-middle"><i
+                                class="fa fa-trophy text-pink"></i> Verjaardag Winactie
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('advertise') }}" class="nav-link align-middle"><i
+                                class="fa fa-bullhorn text-pink"></i> Adverteren
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('what_about') }}" class="nav-link align-middle"><i
+                                class="fa fa-question text-pink"></i> {% trans %}What is Promotip?{% endtrans %}
+                    </a>
+                </li>
+                {% if app.user %}
+                    {#<li class="nav-item">
+                        {% set route = app.request.attributes.get('_route') %}
+                        <a href="{{ url('dashboard_index') }}" class="nav-link align-middle"><i
+                                    class="fa fa-user text-pink"></i> Mijn dashboard
+                        </a>
+                    </li>#}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% trans %}Mijn dashboard{% endtrans %}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                            {% set route = app.request.attributes.get('_route') %}
+                            <a class="dropdown-item {% if route == 'dashboard_event' %}active{% endif %}" href="{{ url('dashboard_event') }}">
+                                {% trans %}Create event{% endtrans %}
+                            </a>
+                            <a class="dropdown-item {% if route == 'dashboard_company_preview' %}active{% endif %}" href="{{ url('dashboard_company_preview') }}">
+                                {% trans %}Page Preview{% endtrans %}
+                            </a>
+                            <a class="dropdown-item{% if route == 'dashboard_index' %}active{% endif %}" href="{{ url('dashboard_index') }}">
+                                {% trans %}My events{% endtrans %}
+                            </a>
+                            <a class="dropdown-item {% if route == 'dashboard_calendar' %}active{% endif %}" href="{{ url('dashboard_calendar') }}">
+                                {% trans %}Calendar{% endtrans %}
+                            </a>
+                            <a class="dropdown-item {% if route == 'dashboard_map' %}active{% endif %}" href="{{ url('dashboard_map') }}">
+                                {% trans %}Map{% endtrans %}
+                            </a>
+
+                            {% set unreadMessagesCount = helper.getUnreadMessages %}
+
+                            <a class="dropdown-item {% if route == 'dashboard_chat' %}active{% endif %}" href="{{ url('dashboard_chat') }}">
+                                {% trans %}Berichten{% endtrans %} {% if unreadMessagesCount >0 %} <span class="badge rounded-pill bg-warning">{{ unreadMessagesCount }}</span>{% endif %}
+                            </a>
+                            <a class="dropdown-item {% if route == 'dashboard_notification' %}active{% endif %}" href="{{ url('dashboard_notification') }}">
+                                {% trans %}Notifications{% endtrans %}
+                            </a>
+                            <a class="dropdown-item {% if route == 'dashboard_company' %}active{% endif %}" href="{{ url('dashboard_company') }}">
+                                {% trans %}My company{% endtrans %}
+                            </a>
+                            <a class="dropdown-item {% if route == 'dashboard_credit' %}active{% endif %}" href="{{ url('dashboard_credit') }}">
+                                Credits
+                            </a>
+                            <a class="dropdown-item {% if route == 'dashboard_profile' %}active{% endif %}" href="{{ url('dashboard_profile') }}">
+                                {% trans %}Account{% endtrans %}
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ url('logout') }}">{% trans %}Logout{% endtrans %}</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="#login" class="nav-link" data-toggle="modal" data-target="#login"><i
+                                    class="fa fa-lock text-pink"></i> {% trans %}Login{% endtrans %}</a>
+                    </li>
+                {% endif %}
+                {#
+                <li class="nav-item dropdown m-auto">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ app.request.locale|upper }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownLanguage">
+                        {% if app.request.locale != 'en' %}<a class="dropdown-item" href="{{ path('home', { _locale: 'en' }) }}">{% trans %}English{% endtrans %}</a>{% endif %}
+                        {% if app.request.locale != 'nl' %}<a class="dropdown-item" href="{{ path('home', { _locale: 'nl' }) }}">{% trans %}Nederlands{% endtrans %}</a>{% endif %}
+                        {% if app.request.locale != 'fr' %}<a class="dropdown-item" href="{{ path('home', { _locale: 'fr' }) }}">{% trans %}Français{% endtrans %}</a>{% endif %}
+                    </div>
+                </li>
+                #}
+            </ul>
+            {% if app.user %}
+                <a href="{{ url ('dashboard_event') }}"
+                   class="btn btn-pink">{% trans %}Publish your advert{% endtrans %}</a>
+            {% else %}
+                <a href="{{ url ('home_register') }}" class="btn btn-pink">Registreer uw bedrijf</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container-fluid">
+    {# read and display just one flash message type #}
+    {% for message in app.flashes('notice') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {# read and display several types of flash messages #}
+    {% for label, messages in app.flashes(['success', 'warning']) %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {# read and display all flash messages #}
+    {#    {% for label, messages in app.flashes %} #}
+    {#        {% for message in messages %} #}
+    {#            <div class="flash-{{ label }}"> #}
+    {#                {{ message }} #}
+    {#            </div> #}
+    {#        {% endfor %} #}
+    {#    {% endfor %} #}
+</div>
+
+<div class="modal fade auth-modal" id="login" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body xs-box-border-radius">
+                <div class="closeWrapper">
+                    <a class="closeButton xs-btn-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7 ml-auto">
+                        <form method="post" class="form-card xs-box-border-radius" id="loginFrom">
+                            <h3 class="h3 mb-3 fw-300 xs-text-center">{% trans %}Welcome!{% endtrans %}</h3>
+                            <h1 class="h3 mb-3 fw-300 xs-text-center">{% trans %}LOGIN TO YOUR ACCOUNT{% endtrans %}</h1>
+                            <hr class="d-block d-xs-none"/>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text icon-input-field">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                </div>
+                                <input type="email" name="email" id="inputEmail" class="form-control form-control-lg input-field"
+                                       placeholder="Email address" required autofocus>
+                            </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text icon-input-field">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                </div>
+                                <input type="password" name="password" id="inputPassword"
+                                       class="form-control form-control-lg input-field"
+                                       placeholder="Password" required>
+                            </div>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                            <div class="row small">
+                                <div class="col-6">
+                                    <span class="ajax-errors"></span>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <div class="checkbox mb-3 text-right xs-mb-half">
+                                        <label>
+                                            <input type="checkbox"
+                                                   value="_remember-me"> {% trans %}Remember me{% endtrans %}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-lg p-2 btn-block btn-purple xs-p-5 xs-box-border-radius"
+                                    type="submit">{% trans %}Sign in {% endtrans %}</button>
+
+                            <div class="row small">
+                                <div class="col-6">
+
+                                </div>
+                                <div class="col-6 text-right xs-mb-half">
+                                    <a id="btn_password_forgotten"
+                                       href="{{ url('password_forgotten') }}">{% trans %}Forgot your password?{% endtrans %}</a><br/>
+                                    <a id="btn_register"
+                                       href="{{ url('home_register') }}">{% trans %}No account yet?{% endtrans %}</a>
+                                </div>
+                            </div>
+                            <hr class="d-block d-xs-none">
+                            <a href="{{ path('connect_facebook_start') }}" class="btn btn-lg btn-facebook btn-block xs-p-5 xs-box-border-radius">
+                                <i class="fab fa-facebook-square marginright10"></i> Login Facebook
+                            </a>
+                            <a href="{{ path('connect_google_start') }}" class="btn btn-lg btn-google btn-block xs-p-5 xs-box-border-radius">
+                                <img src="{{ asset('assets/images/google.png') }}" width="20" class="marginright10">
+                                Login Google
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal auth-modal fade" id="register" tabindex="-1" aria-labelledby="registerLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body xs-box-border-radius">
+                <div class="closeWrapper">
+                    <a class="closeButton xs-btn-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7 ml-auto">
+                        <form method="post" class="form-card xs-box-border-radius" id="registerForm">
+                            <h3 class="h3 mb-3 fw-300 xs-text-center">{% trans %}Welcome!{% endtrans %}</h3>
+                            <h1 class="h3 mb-3 fw-300 xs-text-center">{% trans %}CREATE YOUR PROMOTIP ACCOUNT{% endtrans %}</h1>
+                            <hr class="d-block d-xs-none"/>
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text icon-input-field">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="registration_form[firstName]"
+                                               id="registration_form_firstName" class="form-control form-control input-field"
+                                               placeholder="Voornaam" required autofocus>
+                                        <span class="ajax-errors" id="error_firstName"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text icon-input-field">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="registration_form[surname]"
+                                               id="registration_form_surname" class="form-control form-control input-field"
+                                               placeholder="Achternaam" required autofocus>
+                                        <span class="ajax-errors" id="error_surname"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text icon-input-field">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                </div>
+                                <input type="email" name="registration_form[email]" id="registration_form_email"
+                                       class="form-control form-control input-field"
+                                       placeholder="Email address" required autofocus>
+                                <span class="ajax-errors" id="error_email"></span>
+                            </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text icon-input-field">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                </div>
+                                <input type="password" name="registration_form[plainPassword]"
+                                       id="registration_form_plainPassword" class="form-control form-control input-field"
+                                       placeholder="Password" required>
+                                <span class="ajax-errors" id="error_plainPassword"></span>
+                            </div>
+                            <input type="hidden" name="registration_form[_token]" id="_token"
+                                   value="{{ csrf_token('registration_form') }}">
+                            <div class="checkbox mb-3 xs-fs-85 xs-mb-0">
+                                <label>
+                                    <input type="checkbox" value="1"
+                                           name="registration_form[agreeTerms]"> {% trans %}By continuing, you agree to our Terms of Service {% endtrans %}
+                                </label>
+                                <span class="ajax-errors" id="error_agreeTerms"></span>
+                            </div>
+
+                            <button class="btn btn-lg p-2 btn-purple btn-block xs-p-10"
+                                    type="submit">{% trans %}Sign Up {% endtrans %}</button>
+
+                            <div class="row small">
+                                <div class="col-6">
+
+                                </div>
+                                <div class="col-6 text-right">
+                                    Heeft u al een account, <a href="{{ url('password_forgotten') }}"
+                                                               id="btn_login">{% trans %}Login?{% endtrans %}</a><br/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal auth-modal fade" id="mobile_menu" tabindex="-1" aria-labelledby="mobile_menuLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body xs-box-border-radius">
+                <div class="closeWrapper">
+                    <a class="closeButton xs-btn-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7 ml-auto menu-modal">
+                        <ul class="navbar-nav ml-auto d-flex">
+                            <li class="nav-item">
+                                <a href="{{ url('advertise') }}" class="nav-link align-middle"><i
+                                            class="fa fa-bullhorn text-pink"></i>Adverteren
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('what_about') }}" class="nav-link align-middle"><i
+                                            class="fa fa-question text-pink"></i> {% trans %}What is Promotip?{% endtrans %}
+                                </a>
+                            </li>
+                            {% if app.user %}
+                                {#<li class="nav-item">
+                                    {% set route = app.request.attributes.get('_route') %}
+                                    <a href="{{ url('dashboard_index') }}" class="nav-link align-middle"><i
+                                                class="fa fa-user text-pink"></i> Mijn dashboard
+                                    </a>
+                                </li>#}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {% trans %}Mijn dashboard{% endtrans %}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                        {% set route = app.request.attributes.get('_route') %}
+                                        <a class="dropdown-item {% if route == 'dashboard_event' %}active{% endif %}" href="{{ url('dashboard_event') }}">
+                                            {% trans %}Create event{% endtrans %}
+                                        </a>
+                                        <a class="dropdown-item {% if route == 'dashboard_company_preview' %}active{% endif %}" href="{{ url('dashboard_company_preview') }}">
+                                            {% trans %}Page Preview{% endtrans %}
+                                        </a>
+                                        <a class="dropdown-item{% if route == 'dashboard_index' %}active{% endif %}" href="{{ url('dashboard_index') }}">
+                                            {% trans %}My events{% endtrans %}
+                                        </a>
+                                        <a class="dropdown-item {% if route == 'dashboard_calendar' %}active{% endif %}" href="{{ url('dashboard_calendar') }}">
+                                            {% trans %}Calendar{% endtrans %}
+                                        </a>
+                                        <a class="dropdown-item {% if route == 'dashboard_map' %}active{% endif %}" href="{{ url('dashboard_map') }}">
+                                            {% trans %}Map{% endtrans %}
+                                        </a>
+
+                                        {% set unreadMessagesCount = helper.getUnreadMessages %}
+
+                                        <a class="dropdown-item {% if route == 'dashboard_chat' %}active{% endif %}" href="{{ url('dashboard_chat') }}">
+                                            {% trans %}Berichten{% endtrans %} {% if unreadMessagesCount >0 %} <span class="badge rounded-pill bg-warning">{{ unreadMessagesCount }}</span>{% endif %}
+                                        </a>
+                                        <a class="dropdown-item {% if route == 'dashboard_notification' %}active{% endif %}" href="{{ url('dashboard_notification') }}">
+                                            {% trans %}Notifications{% endtrans %}
+                                        </a>
+                                        <a class="dropdown-item {% if route == 'dashboard_company' %}active{% endif %}" href="{{ url('dashboard_company') }}">
+                                            {% trans %}My company{% endtrans %}
+                                        </a>
+                                        <a class="dropdown-item {% if route == 'dashboard_credit' %}active{% endif %}" href="{{ url('dashboard_credit') }}">
+                                            Credits
+                                        </a>
+                                        <a class="dropdown-item {% if route == 'dashboard_profile' %}active{% endif %}" href="{{ url('dashboard_profile') }}">
+                                            {% trans %}Account{% endtrans %}
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ url('logout') }}">{% trans %}Logout{% endtrans %}</a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a href="#login" class="nav-link" data-toggle="modal" data-target="#login" data-dismiss="modal"><i
+                                                class="fa fa-lock text-pink"></i> {% trans %}Login{% endtrans %}</a>
+                                </li>
+                            {% endif %}
+                            {#
+                            <li class="nav-item dropdown m-auto">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ app.request.locale|upper }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownLanguage">
+                                    {% if app.request.locale != 'en' %}<a class="dropdown-item" href="{{ path('home', { _locale: 'en' }) }}">{% trans %}English{% endtrans %}</a>{% endif %}
+                                    {% if app.request.locale != 'nl' %}<a class="dropdown-item" href="{{ path('home', { _locale: 'nl' }) }}">{% trans %}Nederlands{% endtrans %}</a>{% endif %}
+                                    {% if app.request.locale != 'fr' %}<a class="dropdown-item" href="{{ path('home', { _locale: 'fr' }) }}">{% trans %}Français{% endtrans %}</a>{% endif %}
+                                </div>
+                            </li>
+                            #}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% block body %}{% endblock %}
+
+
+<footer class="py-5 bg-footer xs-mt-m10">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-3 d-sm-block xs-mb5 wrap-footer-logo">
+                <a href="{{ url('home') }}" class="link-footer-logo">
+                    <img src="{{ asset('assets/images/logo_footer.png') }}" alt="Promotip" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-12 col-sm-7 offset-sm-2 pt-sm-2 fw-300">
+                <div class="row">
+                    <div class="col-12 col-sm-4 xs-mb-half">
+                        <h6 class="text-white xs-text-center xs-mb-1">Populaire zoektermen</h6>
+                        <ul class="list-unstyled xs-row">
+                            {{ render(url('getMostUsedKeywordsFooter')) }}
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <h6 class="text-white xs-text-center xs-mb-1"><a href="{{ url('company_index') }}"
+                                                                         class="text-white">{% trans %}Company guide{% endtrans %}</a></h6>
+                        <ul class="list-unstyled xs-row">
+                            {% set provinces = provinces.get %}
+                            {% for province in provinces %}
+                                {% if province.regionLanguage == app.request.locale|upper %}
+                                    <li class="xs-half footer-links"><a href="{{ url("company_province", {'province' : province.nameDirify}) }}"
+                                                                        class="text-white">{{ province.name }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-4 xs-mt-moins40">
+                        <br>
+                        <ul class="list-unstyled xs-row">
+                            {% for province in provinces %}
+                                {% if province.regionLanguage != app.request.locale|upper %}
+                                    <li class="xs-half footer-links"><a href="{{ url("company_province", {'province' : province.nameDirify}) }}"
+                                                                        class="text-white">{{ province.name }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row mt-5 text-white fw-300">
+            <div class="col-12 col-sm-4 text-center text-sm-left mb-2 mb-sm-0 footer-bottom-links xs-order-1">
+                <a href="{{ url('terms') }}" class="text-white">{% trans %}Terms{% endtrans %}</a>
+                |
+                <a href="{{ url('cookies') }}" class="text-white">{% trans %}Cookies{% endtrans %}</a>
+                |
+                <a href="{{ url('privacy') }}" class="text-white">Privacybeleid</a>
+                |
+                <a href="{{ url('faq') }}" class="text-white">{% trans %}FAQ{% endtrans %}</a>
+                |
+                <a href="{{ url('advertise') }}" class="text-white">Adverteren</a>
+                |
+                <a href="https://www.promo-tip.nl" class="text-white">{% trans %}Promotip Nederland{% endtrans %}</a>
+            </div>
+            <div class="col-12 col-sm-5 text-center xs-order-3">
+                <a href="https://www.facebook.com/lokaaladverteren/" target="_blank" rel="noopener nofollow"
+                   class="text-white"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/LAdverteren" target="_blank" rel="noopener nofollow"
+                   class="text-white mx-3"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/lokaaladverteren/" target="_blank" rel="noopener nofollow"
+                   class="text-white"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="col-12 col-sm-3 p-3 p-sm-0 text-center text-sm-right xs-order-2 xs-mb-1-half">
+                &copy; {{ "now"|date("Y") }} - <strong class="text-uppercase">Promotip</strong>
+            </div>
+        </div>
+    </div>
+</footer>
+
+{% block javascripts %}
+    <script>
+        window.cookiePolicyButtonUrl = '{{ url('cookies') }}';
+    </script>
+    {{ encore_entry_script_tags('fullcalendar') }}
+    {{ encore_entry_script_tags('app') }}
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEV3T65WWR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NEV3T65WWR');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4589234506239744"
+            crossorigin="anonymous"></script>
+
+    <script type="text/javascript"><!-- // --><![CDATA[
+        var _viewTagOptions = {
+            type: 'a',
+            site: 422452,
+            version: 1
+        };
+
+        (function() {var tt = document.createElement('script'), s = document.getElementsByTagName('script')[0]; tt.setAttribute('type', 'text/javascript'); tt.setAttribute('src', 'https://tm.tradetracker.net/public/viewTag.js'); s.parentNode.insertBefore(tt, s);})();
+        // ]]></script>
+    <noscript><img src="https://tm.tradetracker.net/pageview?t=a&amp;s=422452&amp;v=1" alt="" /></noscript>
+
+    <!-- AddToAny BEGIN -->
+    <script async src="https://static.addtoany.com/menu/page.js"></script>
+    <!-- AddToAny END -->
+
+    <script async src="https://embed.email-provider.eu/e/npxglsqgz4-cbciavsjwx.js"></script>
+{% endblock %}
+</body>
+</html>

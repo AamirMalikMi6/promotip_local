@@ -1,0 +1,12 @@
+/.idea/
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/public/media/*
+/var/
+/vendor/
+/node_modules/
+/___WEBSITE___/
+.env
+.htaccess

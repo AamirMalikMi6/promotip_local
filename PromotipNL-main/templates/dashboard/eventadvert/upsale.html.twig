@@ -1,0 +1,89 @@
+{% extends 'dashboard.html.twig' %}
+
+
+{% block title %} {% trans %} Create your event! {% endtrans %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard') }}
+    {{ encore_entry_link_tags('dropzone') }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dropzone') }}
+    {{ encore_entry_script_tags('dashboard_events') }}
+{% endblock %}
+
+{% block dashboard %}
+
+    <h3 class="upsale-title">Extra opvallen? Kies dan een premium advertentie!</h3>
+
+    <form method="POST" id="paymentForm">
+        <input type="hidden" name="token" value="{{ csrf_token('event-pay') }}"/>
+        <input type="hidden" id="entity" name="entity" value="{{ eventAdvert.id }}">
+        <input type="hidden" id="entity_name" name="entity_name" value="{{ eventAdvert.title }}">
+
+        <div class="row">
+            <div class="col-12 ml-auto">
+                <div class="row mt-4">
+                    <div class="col col-sm-6 col-lg-4 mb-4 b-left-box-1px">
+                        <div class="pop-option bg-transparent">&nbsp;</div>
+                        <div class="text-center">
+                            <input type="radio" class="upsale_radio_button" name="payment_duration" value="ONE_DAY" id="payment_during_one_day">
+                            <label for="payment_during_one_day">
+                                <div class="box-upsale-item">
+                                    <h3>Een dag</h3>
+                                    <hr class="d-block d-xs-none" style="width: 50px; background-color: #bfbfbf;"/>
+                                    <p class="mt-4 mb-2">24u in de kijker</p>
+                                    <strong>1,65€</strong>
+                                    <p class="text-white text-uppercase mt-3 p-3" style="background-color: #d77f7b">Kies optie</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6 col-lg-4 mb-4 b-left-right-1px">
+                        <div class="pop-option">Meest gekozen</div>
+                        <div class="text-center">
+                            <input type="radio" class="upsale_radio_button" name="payment_duration" value="FOUR_DAY" id="payment_during_four_days">
+                            <label for="payment_during_four_days">
+                                <div class="box-upsale-item">
+                                    <h3>Vier dagen</h3>
+                                    <hr class="d-block d-xs-none" style="width: 50px; background-color: #bfbfbf;"/>
+                                    <p class="mt-4 mb-2">4 dagen in de kijker</p>
+                                    <strong>3,30€</strong>
+                                    <p class="text-white text-uppercase mt-3 p-3" style="background-color: #d77f7b">Kies optie</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6 col-lg-4 mb-4 b-right-box-1px">
+                        <div class="pop-option bg-transparent">&nbsp;</div>
+                        <div class="text-center">
+                            <input type="radio" class="upsale_radio_button" name="payment_duration" value="SEVEN_DAY" id="payment_during_seven_days">
+                            <label for="payment_during_seven_days">
+                                <div class="box-upsale-item">
+                                    <h3>Zeven dagen</h3>
+                                    <hr class="d-block d-xs-none" style="width: 50px; background-color: #bfbfbf;"/>
+                                    <p class="mt-4 mb-2">7 dagen in de kijker</p>
+                                    <strong>4,15€</strong>
+                                    <p class="text-white text-uppercase mt-3 p-3" style="background-color: #d77f7b">Kies optie</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-6">
+                        <a href="{{ url('dashboard_index') }}" class="skip-button">Stap overslaan</a>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-lg p-2 btn-pink btn-block mb-5">Betalen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block dashboard %}
+
+    <h2>Wordt een partner en verdien gratis credits!</h2>
+    <p>Ontdek hoe je credits kunt verdienen door nieuwe leden aan te brengen op ons platform! </p>
+
+    <p>Verdien 10 credits wanneer een nieuw lid zich aanmeldt en een actief profiel met een advertentie plaatst.
+        <br>Bovendien ontvang je credits wanneer het aangebrachte lid een premium advertentie aanschaft, met een duur van 6 maanden na hun registratiedatum, variërend van 1 tot 3 credits.
+    </p>
+    <p>Voor de aankoop van een big premium advertentie ontvang je zelfs nog meer credits, variërend van 5 tot 15 credits gedurende dezelfde periode na registratiedatum.
+
+        Doe mee en verdien credits terwijl je anderen helpt om te profiteren van onze diensten!</p>
+
+    <p><strong>Deel onderstaande persoonlijke URL met andere ondernemers om gratis credits te ontvangen wanneer ze zich aanmelden! </strong></p>
+    <div class="mb-3">
+        <form action="{{ path('dashboard_referral_regeneratelink') }}" method="post">
+            <div class="d-flex gap-1">
+                <input type="text" class="form-control link" disabled value="{{ link ? url('signup_referral', {token: link.link})  }}" placeholder="" aria-label="referral code">
+                {% if link != null %}
+                <button class="btn btn-outline-secondary copy-link" type="button" data-toggle="tooltip" data-original-title="{{ 'Copy'|trans }}">
+                    <i class="fas fa-copy"></i>
+                </button>
+                {% endif %}
+                {% if link == null %}
+                <button class="btn btn-outline-secondary" type="submit" data-toggle="tooltip" title="{{ 'Update token'|trans }}">
+                    <i class="fa fa-sync"></i>
+                </button>
+                {% endif %}
+            </div>
+            <p class="small">
+                {% if link != null %}
+                    {{ 'Created at'|trans }} {{ link.createdAt|date }}
+                {% endif %}
+            </p>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token('regenerate_token') }}">
+        </form>
+    </div>
+
+    <h3 style="margin-top: 60px">{{ 'Statistics'|trans }}</h3>
+    <div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="referred-tab" data-toggle="tab" data-target="#referred-tab-pane" type="button" role="tab" aria-controls="referred-tab-pane" aria-selected="true">
+                    {{ 'Referred Users'|trans }}
+                    <span class="badge badge-pink">{{ referred|length }}</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="rewards-tab" data-toggle="tab" data-target="#rewards-tab-pane" type="button" role="tab" aria-controls="rewards-tab-pane" aria-selected="false">
+                    {{ 'Rewards Earned'|trans }}
+                    <span class="badge badge-pink">{{ rewards|length }}</span>
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="referred-tab-pane" role="tabpanel" aria-labelledby="referred-tab" tabindex="0">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Gebruikers</th>
+                        <th>Actief</th>
+                        <th>Datum</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for refer in referred %}
+                        <tr>
+                            <td>{{ refer.childUser.id }}</td>
+                            <td>{{ refer.childUser.enabled ? 'Ja' : 'Niet geactiveerd' }}</td>
+                            <td>{{ refer.createdAt|date ( 'Y-m-d' ) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="rewards-tab-pane" role="tabpanel" aria-labelledby="rewards-tab" tabindex="0">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Datum</th>
+                        <th>Bonus</th>
+                        <th>Omschrijving</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for reward in rewards %}
+                        <tr>
+                            <td>{{ reward.createdAt|date('Y-m-d') }}</td>
+                            <td>{{ reward.credits }}</td>
+                            <td>{{ reward.description }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        const copyLink = document.querySelector('.copy-link');
+        copyLink.addEventListener('click', async () => {
+            const link = document.querySelector('.link');
+            await navigator.clipboard.writeText(link.value);
+
+            copyLink.querySelector('.fas').classList.remove('fa-copy');
+            copyLink.querySelector('.fas').classList.add('fa-check');
+
+            setTimeout(function (){
+                copyLink.querySelector('.fas').classList.remove('fa-check');
+                copyLink.querySelector('.fas').classList.add('fa-copy');
+            }, 1000);
+        });
+    </script>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .gap-1{
+            gap: 0.5rem;
+        }
+    </style>
+{% endblock %}

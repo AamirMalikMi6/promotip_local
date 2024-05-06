@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        {% block stylesheets %}
+{#            {{ encore_entry_link_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+        <table class="table table-borderless" >
+            <tbody>
+                <tr>
+                    <td style="width: 50%; padding:0;">
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-sm" >
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <img src="{{ asset('assets/images/logo.png') }}" width="80%">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </td>
+                    <td style="width: 50%; padding:0;">
+                        <div class="table-responsive" >
+                            <table class="table table-borderless table-sm" >
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" style="width: 20%">
+                                            <strong style="color: #924e67; font-size: 2rem; padding-right: 10px;">Factuur</strong>
+                                        </th>
+                                        <td style="border-left: 3px solid #d77f7b; padding-left: 15px; vertical-align: middle; padding-top: 10px;">
+                                            Datum: <span style="margin-left: 30px;">{{ invoice.invoiceDate|date('d/m/Y') }}</span><br>
+                                            Nummer: <span style="margin-left: 15px;">{{ invoiceNumber }}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-borderless" style="margin-top: 50px; width: 100%;">
+            <tbody>
+                <tr>
+                    <td style="width: 50%; padding:0;vertical-align: top;">
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-sm" style="width: 100%" >
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong style="color: #924e67; display: block; border-bottom: 2px solid #d77f7b; width: 80%; padding-bottom: 5px; font-size: 1.3rem;">G.J.V Media - Promotip</strong>
+                                            <address style="margin-top: 10px;">
+                                                Pampa 3<br>
+                                                2330 Merksplas<br>
+                                                Belgie
+                                            </address>
+                                            <p>BTW nummer: 0833895835</p>
+                                            <p>
+                                                info@promotip.be<br>
+                                                Tel: 0494319256
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </td>
+                    <td style="width: 50%; padding:0; vertical-align: top">
+                        <div class="table-responsive" >
+                            <table class="table table-borderless table-sm" style="width: 100%" >
+                                <tbody>
+                                {% if company is not null %}
+                                    <tr>
+                                        <td>
+                                            <strong style="color: #924e67; display: block; border-bottom: 2px solid #d77f7b; width: 80%; padding-bottom: 5px; font-size: 1.3rem;">{{ company.companyname }}</strong>
+                                            <address style="margin-top: 10px;">
+                                                {{ company.address }} {{ company.housenumber }} {{ company.box }}<br>
+                                                {{ city ? city.postcode }} {{ city ? city.region3 }}
+                                            </address>
+                                            {# <p>BTW nummer: BE0791.835.942</p> #}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td style="width: 100%; padding:0%;">
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-sm" >
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong style="color: #000; font-style: italic;">“BTW verlegd - Verlegging van heffing"</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" style="border-top: none; border-bottom: 3px solid #d77f7b; color: #924e67; font-size: 1.1rem;">Omschrijving</th>
+                    <th scope="col" style="border-top: none; border-bottom: 3px solid #d77f7b; color: #924e67; font-size: 1.1rem;">Aantal</th>
+                    <th scope="col" style="border-top: none; border-bottom: 3px solid #d77f7b; color: #924e67; font-size: 1.1rem;">Prijs</th>
+                    <th scope="col" style="border-top: none; border-bottom: 3px solid #d77f7b; color: #924e67; font-size: 1.1rem;">Subtotaal</th>
+                    <th scope="col" style="border-top: none; border-bottom: 3px solid #d77f7b; color: #924e67; font-size: 1.1rem;">BTW</th>
+                    <th scope="col" style="border-top: none; border-bottom: 3px solid #d77f7b; color: #924e67; font-size: 1.1rem;">Totaal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for invoiceDetail in invoice.invoiceDetails %}
+                    <tr>
+                        <td style="border-bottom: 1.5px solid #d77f7b; font-size: 0.9rem;">
+                            Online marketing - Betaling voor
+                            "{{ invoiceDetail.eventadvertTitle }}"<br/>
+                            Betalings ID: {{ invoiceDetail.transactionId }}<br/>
+                            Publicatiedatum: {{ invoiceDetail.publicationDate|date('d/m/Y') }}
+
+                        </td>
+                        <td style="border-bottom: 1.5px solid #d77f7b; font-size: 0.9rem;">{{ invoiceDetail.quantity }}</td>
+                        <td style="border-bottom: 1.5px solid #d77f7b; font-size: 0.9rem; width: 80px;">€ {{ invoiceDetail.totalAmount }}</td>
+                        <td style="border-bottom: 1.5px solid #d77f7b; font-size: 0.9rem; width: 80px;">€ {{ invoiceDetail.totalAmount - invoiceDetail.eventadvertFeeAmount }}</td>
+                        <td style="border-bottom: 1.5px solid #d77f7b; font-size: 0.9rem; width: 50px;">{{ vat }}%</td>
+                        <td style="border-bottom: 1.5px solid #d77f7b; font-size: 0.9rem; width: 50px;">€ {{ invoiceDetail.totalAmount }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="float: right; margin-right: 10px; width: 40%;">
+            <table class="table table-borderless" style="margin-bottom: 0;">
+                <tbody>
+                    <tr>
+                        <td style="width: 40%; padding:0;">
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-sm" style="margin-bottom: 0;">
+                                    <tbody>
+                                        <tr>
+                                            &nbsp;
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </td>
+                        <td style="width: 40%; padding:5px; background: #d77f7b; color: #fff;">
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-sm" style="margin-bottom: 0;">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <strong style="color: #fff;">Totaal</strong>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </td>
+                        <td style="width: 20%; padding:5px 0; background: #d77f7b;">
+                            <div class="table-responsive" >
+                                <table class="table table-borderless table-sm" style="margin-bottom: 0;">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <strong style="color: #fff;">€ {{ invoice.totalTTC }}</strong>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-borderless" style="margin-top: 30px;">
+                <tbody>
+                    <tr>
+                        <td style="width: 40%;">
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-sm" style="margin-bottom: 0;">
+                                    <tbody>
+                                        <tr>
+                                            <p style="
+                                                border: 4px solid #d77f7b;
+                                                width: 150px;
+                                                color: #d77f7b;
+                                                text-transform: uppercase;
+                                                font-weight: 600;
+                                                text-align: center;
+                                                padding: 5px 0;
+                                                font-size: 1.4rem;
+                                                float: right;
+                                            ">
+                                                betaald
+                                            </p>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <table class="table table-borderless" style="margin-top: 50px;">
+            <tbody>
+                <tr>
+                    <td style="width: 50%; padding:0%;">
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-sm" >
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                        <strong style="color: #924e67; display: block; border-bottom: 2px solid #d77f7b; width: 80%; padding-bottom: 5px; font-size: 1.3rem;">Betalingsinformatie</strong>                          
+                                        Mededeling: <span style="margin-left: 30px;">Factuur {{ invoiceNumber }}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </td>
+                    <td style="width: 50%; padding:0%;">
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-sm" >
+                                <tbody>
+                                    <tr>
+                                        &nbsp;
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-borderless" style="margin-top: 50px;">
+                <tbody>
+                    <tr>
+                        <td style="width: 100%; padding:0%;">
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-sm" >
+                                    <tbody>
+                                        <tr style="text-align:center; color:#000;">
+                                            <td>
+                                                Btw verlegd, intracommunautaire dienst, art. 21 § 2 W.BTW
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        
+    </body>
+</html>
+
+
+

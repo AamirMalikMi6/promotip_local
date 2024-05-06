@@ -1,0 +1,63 @@
+{% set route = app.request.attributes.get('_route') %}
+<nav class="nav flex-column dashboard-menu">
+    <a class="nav-link {% if route == 'dashboard_index' %}active{% endif %}" href="{{ url('dashboard_index') }}">
+        <span><i class="fas fa-bullhorn"></i></span> <span>{% trans %}My events{% endtrans %}</span>
+    </a>
+    <a class="nav-link {% if route == 'create_big_premium' %}active{% endif %}" href="{{ url('create_big_premium') }}">
+        <span><i class="fas fa-plus-circle"></i></span> <span>Maak Big Premium</span>
+    </a>
+    <a class="nav-link {% if route == 'dashboard_index_big_premium' %}active{% endif %}" href="{{ url('dashboard_index_big_premium') }}">
+        <span><i class="fas fa-gem"></i></span> <span>Mijn Big Premiums</span>
+    </a>
+    <a class="nav-link {% if route == 'dashboard_credit' %}active{% endif %}" href="{{ url('dashboard_credit') }}">
+        <span><i class="fas fa-money-bill"></i></span> <span>Credits <span class="badge badge-warning"> {{ balance }} </span>
+    </a>
+    {% set unreadMessagesCount = helper.getUnreadMessages %}
+
+    <a class="nav-link {% if route == 'dashboard_chat' %}active{% endif %}" href="{{ url('dashboard_chat') }}">
+        <span><i class="fas fa-envelope"></i></span> <span>{% trans %}Berichten{% endtrans %}
+            {% if unreadMessagesCount >0 %} <span
+                    class="badge rounded-pill bg-warning">{{ unreadMessagesCount }}</span>{% endif %}
+        </span>
+    </a>
+    <a class="nav-link {% if route == 'dashboard_calendar' %}active{% endif %}" href="{{ url('dashboard_calendar') }}">
+        <span><i class="fas fa-calendar-alt"></i></span> <span>{% trans %}Calendar{% endtrans %}</span>
+    </a>
+    <a class="nav-link {% if route == 'dashboard_map' %}active{% endif %}" href="{{ url('dashboard_map') }}">
+        <span><i class="fas fa-map-marker-alt"></i></span> <span>{% trans %}Map{% endtrans %}</span>
+    </a>
+    <a class="nav-link {% if route == 'dashboard_company' %}active{% endif %}" href="{{ url('dashboard_company') }}">
+        <span><i class="fas fa-cog"></i></span> <span>{% trans %}My company{% endtrans %}</span>
+    </a>
+    <a class="nav-link {% if route == 'dashboard_company_preview' %}active{% endif %}"
+       href="{{ url('dashboard_company_preview') }}">
+        <span><i class="fas fa-eye"></i></span> <span>Bedrijfsprofiel preview</span>
+    </a>
+
+    {% set unreadNotificationCount = helper.getUnreadNotifications %}
+    <a class="nav-link {% if route == 'dashboard_notification' %}active{% endif %}"
+       href="{{ url('dashboard_notification') }}">
+        <span><i class="fas fa-bell"></i></span> <span>{% trans %}Notifications{% endtrans %}
+            {% if unreadNotificationCount >0 %} <span
+                    class="badge rounded-pill bg-warning">{{ unreadNotificationCount }}</span>{% endif %}
+        </span>
+    </a>
+    <a class="nav-link {% if route == 'dashboard_tips' %}active{% endif %}" href="{{ url('dashboard_tips') }}">
+        <span><i class="fas fa-lightbulb"></i></span> <span>Tips and tricks</span>
+    </a>
+    <a class="nav-link {% if route == 'dashboard_help' %}active{% endif %}" href="{{ url('dashboard_help') }}">
+        <span><i class="fas fa-question-circle"></i></span> <span>Hulp nodig?</span>
+    </a>
+    <a class="nav-link {% if route == 'dashboard_profile' %}active{% endif %}" href="{{ url('dashboard_profile') }}">
+        <span><i class="fas fa-user"></i></span> <span>{% trans %}Account{% endtrans %}</span>
+    </a>
+    <a class="nav-link {% if route == 'dashboard_facturen' %}active{% endif %}" href="{{ url('dashboard_facturen') }}">
+        <span><i class="fas fa-file-pdf"></i></span> <span>Facturen</span>
+    </a>
+    <a class="nav-link {% if route == 'dashboard_referral' %}active{% endif %}" href="{{ url('dashboard_referral') }}">
+        <span><i class="fas fa-link"></i></span> <span>Referrals</span>
+    </a>
+    <a class="nav-link" href="{{ url('logout') }}">
+        <span><i class="fas fa-lock"></i></span> <span>{% trans %}Logout{% endtrans %}</span>
+    </a>
+</nav>

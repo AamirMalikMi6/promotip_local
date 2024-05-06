@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Password forgotten{% endtrans %}{% endblock %}
+
+{% block body %}
+
+    <section class="container-fluid banner-bp">
+    </section>
+
+    {{ form_start(form, {'attr': {'class': 'form-card'}}) }}
+        <div class="text-center mb-4">
+            <h1 class="h3 mb-3 fw-300">Voer uw e-mail adres in om uw wachtwoord opnieuw in te stellen</h1>
+        </div>
+
+
+    {# read and display several types of flash messages #}
+        {% for label, messages in app.flashes(['success', 'warning', 'error']) %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="form-label-group row">
+            <div class="col">
+            {{ form_widget(form.email, { 'attr': {'placeholder': 'E-mail'|trans, 'class': 'form-control form-control-lg', 'autofocus': 'autofocus'} }) }}
+            {{ form_label(form.email) }}
+            </div>
+        </div>
+
+        {{ form_widget(form.save, {'label': 'Send Link'|trans, 'attr': {'class': 'btn btn-lg p-2 mb-3 btn-pink btn-block' }}) }}
+
+        <div class="    small">
+            <a href="{{ url('login') }}">{% trans %}Login{% endtrans %}</a>
+        </div>
+    {{ form_end(form) }}
+
+{% endblock %}

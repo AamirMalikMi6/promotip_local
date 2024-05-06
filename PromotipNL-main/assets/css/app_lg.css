@@ -1,0 +1,62 @@
+@media (min-width: 992px) {
+    .hp-header {
+        height: 420px;
+    }
+
+    .hp-bg {
+        background-size: 440px;
+        min-height: 470px;
+    }
+
+    .pt-sm-10 {
+        margin-top: 150px;
+    }
+
+    .banner-bp {
+        height: 260px;
+    }
+
+    .banner-bp-preview {
+        height: 130px;
+    }
+
+    .bg-add {
+        height: 161px !important;
+    }
+
+    .bg-openingshours-preview {
+        height: 620px;
+    }
+
+    .bg-category {
+        height: 255px;
+    }
+
+    .bg-event {
+        height: 255px;
+        margin-bottom: 50px;
+    }
+
+    .bg-event {
+        height: 375px;
+    }
+
+    .bg-event3 {
+        min-height: 900px;
+    }
+
+    .bg-web2 {
+        background-color: #d9b29c;
+    }
+
+    .h2-title {
+        font-weight: 900;
+        font-size: 3em;
+        color: #854062;
+        line-height: 0.9;
+    }
+
+    .lg-minwidth-50 {
+        min-width: 50%;
+    }
+}

@@ -1,0 +1,213 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Promotip: Evenementen, kortingen, actie's en promo's!{% endtrans %}!{% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid bg-category ctr-fluid">
+        <div class="row centered">
+            <div class="text-white text-uppercase fw-800">
+                <a name="top"></a>
+                <h1>{{ category.title }}</h1></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light">
+                    <div class="navbar-header nav-headadvertlist text-uppercase" href="#"><h6
+                                class="pt-2 pt-4">{% trans %}Category{% endtrans %}</h6></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#collapsibleNavbar">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse dont-collapse-sm" id="collapsibleNavbar">
+
+                            <button class="dropdown-btn" href="/promoties/">{% trans %}Promotions{% endtrans %}
+                                <i class="fa fa-caret-down"></i></button>
+                            <ul class="dropdown-container nobull">
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/promoties/dagactie/"
+                                       class="text-lowercase">{% trans %}Day sale {% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/promoties/happy-hour/">{% trans %}Happy hour {% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/promoties/week-actie/">{% trans %}Week Sale {% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/promoties/kortingen-tot-40/">{% trans %}Discounts up to 40%{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/promoties/kortingen-vanaf-50/">{% trans %}Discounts from 50%{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/promoties/stock-verkoop/">{% trans %}Stock sale{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/promoties/kick-off-sales/">{% trans %}Kick-off sales{% endtrans %}</a>
+                                </li>
+                            </ul>
+                            </button>
+
+
+                            <button class="dropdown-btn" href="/evenementen/">{% trans %}Events{% endtrans %}
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <ul class="dropdown-container nobull">
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/evenementen/nieuwe-opening/">{% trans %}New opening{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/evenementen/opendeurdagen/">{% trans %}Open day{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/evenementen/jaarmarkt/">{% trans %}Annual fair{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/evenementen/kermis/">{% trans %}Carnivals{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/evenementen/dorpsfeesten/">{% trans %}Village festivals{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/evenementen/festivals/">{% trans %}Festivals{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/evenementen/speciale-evementen/">{% trans %}Special events{% endtrans %}</a>
+                                </li>
+                            </ul>
+
+
+                            <button class="dropdown-btn" href="/handelaars/">{% trans %}Traders{% endtrans %}
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <ul class="dropdown-container nobull">
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/handelaars/horeca/">{% trans %}Horeca{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/handelaars/restaurant/">{% trans %}Restaurant{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/handelaars/culinair/">{% trans %}Culinary{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/handelaars/ambulante-handel/">{% trans %}Itinerant trade{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/handelaars/landbouw/">{% trans %}Agriculture{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="/handelaars/winkelen/">{% trans %}Shopping{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href=="/handelaars/feestgelegenheden/">{% trans %}Party occasions{% endtrans %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href=="/handelaars/entertainment-animatie/">{% trans %}Entertainment & animation{% endtrans %}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="col-md-9">
+                <div class="row">
+                    {% for event in events %}
+                        {% set eventChannel = '' %}
+                        {% set eventChannelTitle = '' %}
+                        {% for channel in channels %}
+                            {% if (channel.id == event.channel) %}
+                                {% set eventChannel = channel.getRoute|replace({'_category' : '_advert'}) %}
+                                {% set eventChannelTitle = channel.getName %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% set eventCategory = '' %}
+                        {% for category in categories %}
+                            {% if (category.id == event.category) %}
+                                {% set eventCategory = category.getTitleSlug %}
+                            {% endif %}
+                        {% endfor %}
+                        <div class="col-xs-6 col-md-4">
+                            <div class="card h-100 rounded-0">
+                                <span class="badge badge-active">{{ eventChannelTitle }}</span>
+                                {% if event.photos|first.imageName is defined %}
+                                    <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}"><img
+                                                class="card-img-top"
+                                                src="{{ asset('/media/events/' ~ event.photos|first.imageName) | imagine_filter('event_fixed') }}"
+                                                alt="{{ event.photos|first.imageAlt }}"></a>
+                                {% else %}
+                                    <img class="card-img-top" src="/assets/images/no-image.png"/>
+                                {% endif %}
+                                <div class="card-body">
+                                    <small class="fw-300 text-blue">{{ event.company.companyname }}</small>
+                                    <h5 class="card-title text-uppercase text-gray fw-300 m-0 p-0">
+                                        <a href="{{ url(eventChannel, {category : eventCategory, slug : event.titleSlug }) }}"
+                                           class="text-gray">{{ event.title }}</a>
+                                    </h5>
+                                    {% for geo in geoPlaces %}
+                                        {% if event.geoPlacesId > 0 and geo.id == event.geoPlacesId %}
+                                            <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                        {% elseif event.geoPlacesId == null and event.company.geoPlacesId > 0 and geo.id == event.company.geoPlacesId %}
+                                            <small class="font-italic text-blue">{{ geo.locality }}</small>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    <div class="row mt-2">
+                                        <div class="col-4">
+                                            <i class="fa fa-calendar-alt text-pink"></i> {{ event.eventStartDate|displayDate }}
+                                        </div>
+                                        <div class="col-8">
+                                            <i class="fa fa-clock text-pink"></i> {{ event.startHour|date('H:i') }}
+                                            - {{ event.endHour|date('H:i') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                {{ knp_pagination_render(events) }}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4"><a href="#top">Back to top of page</a></div>
+        </div>
+    </div>
+{% endblock %}

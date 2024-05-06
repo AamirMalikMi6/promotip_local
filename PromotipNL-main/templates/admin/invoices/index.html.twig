@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %} My dashboard | Promotip {% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="container xs-mb10">
+        <div class="mb-3">
+            {{form_start(form)}}
+            <div class="row gap-1">
+                <div class="col">
+                    {{ form_row(form.startDate) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.endDate) }}
+                </div>
+                {% if form.user is defined %}
+                    <div class="col">
+                        {{ form_row(form.user) }}
+                    </div>
+                {% endif %}
+            </div>
+            {{form_widget(form)}}
+            <button class="btn btn-pink btn-sm">Filter invoices</button>
+            {{form_end(form)}}
+            <div class="w-100 mt-3"></div>
+            {% if 'ROLE_ROOT' in app.user.roles and invoices|length > 0 %}
+                <a href="{{ path('admin_invoices', app.request.query.all|merge({download: true})) }}">
+                    <i class="fas fa-file-pdf"></i> Download alle facturen
+                </a>
+            {% endif %}
+        </div>
+        {% if invoices|length > 0 %}
+            <table class="table styled-table">
+                <thead>
+                <tr>
+                    <th style="width: 38.717%;">Factuurnummer</th>
+                    <th style="width: 38.717%;">Datum</th>
+                    <th style="width: 38.717%;"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for invoice in invoices %}
+                    <tr>
+                        <td>{{ get_front_invoice_number(invoice) }}</td>
+                        <td>{{ invoice.invoiceDate|date("d/m/Y") }}</td>
+                        <td style="word-break: normal;"><a href="{{ path('admin_invoice', {'invoice' : invoice.id}) }}"><strong><span style="color:#8C4968">Factuur downloaden</span> <i class="fas fa-file-pdf"></i></a></strong></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="text-center text-black-50 font-italic">Geen factuur gevonden</div>
+        {% endif %}
+    </div>
+{% endblock %}

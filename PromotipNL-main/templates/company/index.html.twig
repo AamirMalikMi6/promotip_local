@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Promotip: Bedrijvengids{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid banner-bp ctr-fluid">
+    </div>
+
+    <div class="container">
+        <div class="row" style="margin-bottom:100px;margin-top: 50px;">
+            {% for province in provinces.get %}
+                <div class="col-6 col-sm-4 mb-2">
+                    <div class="btn-pink2 p-1">
+                        <a href="{{ url('company_province', {'province' : province.nameDirify}) }}" style="color: white">{{ province.name }} </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <div class="container mt-1">
+        <div class="row xs-row-margin">
+            {% for company in newCompanies %}
+                <div class="col-12 col-sm-6 col-lg-4 mb-4" style="padding-left: 5px;padding-right: 5px;">
+                    <div class="card h-100 border-radius-20 xs-wrapper-item xs-advert-item xs-box-gradborder md-wrapper-item md-advert-item md-box-gradborder">
+                        <span class="badge badge-active xs-badge xs-box-border-radius">bedrijven</span>
+                        {% if company.photos|first.imageName is defined %}
+                            <a href="{{ get_company_link_by_slug(company.companynameSlug, request, country, router) }}"  class="a-block-fixed-height xs-item-link xs-box-border-radius">
+                                <img
+                                        class="img-fluid text-center img-contain-vertical-align xs-box-border-radius"
+                                        src="{{ asset('/media/companies/' ~ company.photos|first.imageName) | imagine_filter('event_fixed') }}"
+                                        alt="{{ company.photos|first.imageAlt }}"> </a>
+                        {% else %}
+                            <a href="{{ get_company_link_by_slug(company.companynameSlug, request, country, router) }}" class="a-block-fixed-height xs-item-link xs-box-border-radius">
+                                <img class="img-fluid img-contain-vertical-align xs-box-border-radius" src="/assets/images/no-image.png" alt=""></a>
+                        {% endif %}
+
+                        <div class="card-body xs-card-info">
+                            <small class="fw-300 text-blue xs-fw-400">Bedrijven</small>
+                            <h5 class="card-title text-uppercase text-gray fw-300 m-0 p-0 xs-fw-600">
+                                <a href="{{ get_company_link_by_slug(company.companynameSlug, request, country, router) }}"
+                                class="text-gray">{{ company.companyname|u.truncate(25, '...')  }}</a>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row hp-bg mt-3">
+            <div class="col-12 col-md-7 offset-md-5 mb-5 mt-lg-5">
+                <h1 class="text-uppercase"><strong>Ontdek Lokale Bedrijven en Handelaars</strong></h1>
+                <p>Welkom in onze bedrijvengids! Hier kunt u moeiteloos lokale bedrijven en handelaars in uw omgeving ontdekken. Of u nu op zoek bent naar eetgelegenheden, winkels, gezondheidsdiensten of andere voorzieningen, wij hebben het allemaal voor u verzameld. Blader door onze lijst met bedrijven en verken wat uw buurt te bieden heeft.</p>
+                <p>Bent u zelf een handelaar en wilt u uw bedrijf kosteloos vermelden? Meld u dan nu aan en begin direct met promoten!</p>
+                {% if app.user %}
+                    <a href="{{ url ('dashboard_event') }}"
+                       class="btn btn-sm px-5 btn-pink" style="margin-bottom: 75px;">{% trans %}Registreer mijn bedrijf{% endtrans %}</a>
+                {% else %}
+                    <a href="{{ url ('home_register') }}"
+                       class="btn btn-sm px-5 btn-pink" style="margin-bottom: 75px;">{% trans %}Registreer mijn bedrijf{% endtrans %}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
